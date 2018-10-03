@@ -79,6 +79,9 @@
     <ClInclude Include="j1Scene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">
