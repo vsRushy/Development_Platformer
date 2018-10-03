@@ -26,7 +26,7 @@ bool j1FadeToBlack::Start()
 	App->win->GetWindowSize(width, height);  // Outputs the width and the height
 	scale = App->win->GetScale();
 
-	screen = { 0, 0, (width * scale), (height * scale) };
+	screen = { 0, 0, (int)(width * scale), (int)(height * scale) };
 
 	return true;
 }
