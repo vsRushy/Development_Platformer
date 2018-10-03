@@ -120,6 +120,8 @@
   <ItemGroup>
     <ClCompile Include="j1App.cpp" />
     <ClCompile Include="j1Audio.cpp" />
+    <ClCompile Include="j1Collision.cpp" />
+    <ClCompile Include="j1FadeToBlack.cpp" />
     <ClCompile Include="j1Input.cpp" />
     <ClCompile Include="j1Main.cpp" />
     <ClCompile Include="j1Map.cpp" />
@@ -134,6 +136,8 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="j1App.h" />
     <ClInclude Include="j1Audio.h" />
+    <ClInclude Include="j1Collision.h" />
+    <ClInclude Include="j1FadeToBlack.h" />
     <ClInclude Include="j1Input.h" />
     <ClInclude Include="j1Map.h" />
     <ClInclude Include="j1Module.h" />
