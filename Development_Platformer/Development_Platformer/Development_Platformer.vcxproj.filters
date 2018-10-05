@@ -36,6 +36,9 @@
     <ClCompile Include="j1FadeToBlack.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
+    <ClCompile Include="j1Player.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h" />
@@ -92,6 +95,9 @@
       <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="j1FadeToBlack.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Player.h">
       <Filter>Modules</Filter>
     </ClInclude>
   </ItemGroup>

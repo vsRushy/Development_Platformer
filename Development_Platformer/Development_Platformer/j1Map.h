@@ -86,6 +86,8 @@ public:
 
 	// Load new map
 	bool Load(const char* path);
+	// TODO: Maybe we want a function to unload the map in order to load another one.
+	// bool Unload();
 
     // Method that translates x,y coordinates from map positions to world positions
 	iPoint MapToWorld(int x, int y) const;
