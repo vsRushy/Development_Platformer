@@ -32,7 +32,12 @@ public:
 
 public:
 	SDL_Texture* graphics = nullptr;
-	fPoint position = { 0, 0 };
+
+	/* This pointer to SDL_Rect needs to be passed to the j1Scene.cpp in order
+	to render the player correctly. It stores the player's animation rect */
+	SDL_Rect* rect = nullptr; 
+
+	fPoint position;
 
 private:
 	Collider* col = nullptr;
