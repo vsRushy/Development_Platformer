@@ -55,6 +55,27 @@ bool j1Player::Update(float dt)
 	current_animation = &idle;
 	rect = &(current_animation->GetCurrentFrame());
 
+	// Player Input
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+	{
+		position.x--;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+	{
+		position.x++;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+	{
+		position.y--;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+	{
+		position.y++;
+	}
+
 	return true;
 }
 

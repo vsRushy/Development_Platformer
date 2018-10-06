@@ -51,23 +51,18 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 		App->SaveGame();
 
-	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 		App->render->camera.y -= 1;
 
-	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
 		App->render->camera.y += 1;
 
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 		App->render->camera.x -= 1;
 
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 		App->render->camera.x += 1;
 
-	// App->render->Blit(img, 0, 0);
-	App->map->Draw();
-
-	// Draw the player
-	App->render->Blit(App->player->graphics, App->player->position.x, App->player->position.y, App->player->rect);
 
 	// Set the window title like
 	// "Map:%dx%d Tiles:%dx%d Tilesets:%d"                            // Uncomment the following if you want to see tileset info as window title
@@ -77,6 +72,16 @@ bool j1Scene::Update(float dt)
 		App->map->data.tilesets.count());
 
 	App->win->SetTitle(title.GetString());*/
+
+
+	/* DRAW------------ */
+	// App->render->Blit(img, 0, 0);
+	App->map->Draw();
+
+	// Draw the player
+	App->render->Blit(App->player->graphics, App->player->position.x, App->player->position.y, 
+		App->player->rect);
+
 	return true;
 }
 
