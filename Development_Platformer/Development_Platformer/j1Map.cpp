@@ -60,6 +60,7 @@ void j1Map::Draw()
 			layerItem = layerItem->next;
 		}
 
+		layerItem = data.layers.start;
 		tilesetItem = tilesetItem->next;
 	}
 }

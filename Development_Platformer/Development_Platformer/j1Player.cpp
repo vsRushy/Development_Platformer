@@ -36,6 +36,10 @@ bool j1Player::Start()
 
 	position.x = position.y = 10;
 
+	// Starting animation
+	current_animation = &idle;
+	rect = &(current_animation->GetCurrentFrame());
+
 	return true;
 }
 
