@@ -43,6 +43,13 @@ private:
 	Collider* col = nullptr;
 	Animation*  current_animation = nullptr;
 	Animation idle;
+
+	// Player movement
+	float velocity_x;
+	float max_accel_x = 0.5f;
+
+	bool going_left = false;
+	bool going_right = false;
 };
 
 #endif // __PLAYER_H__

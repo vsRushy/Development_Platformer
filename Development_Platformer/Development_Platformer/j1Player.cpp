@@ -59,15 +59,15 @@ bool j1Player::Update(float dt)
 	current_animation = &idle;
 	rect = &(current_animation->GetCurrentFrame());
 
-	// Player Input
+	// Player Input (when pressing a key)
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 	{
-		position.x -= 0.5f;
+		going_left = true;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 	{
-		position.x += 0.5f;
+		going_right = true;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
@@ -79,6 +79,36 @@ bool j1Player::Update(float dt)
 	{
 		position.y += 0.5f;
 	}
+
+	// Player input (when releasing a key)
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP)
+	{
+		velocity_x = 0.0f;
+		going_left = false;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_UP)
+	{
+		velocity_x = 0.0f;
+		going_right = false;
+	}
+
+	// Movement logic
+	if (going_left)
+	{
+		velocity_x -= 0.1f;
+		if (velocity_x < -max_accel_x)
+			velocity_x = -max_accel_x;
+	}
+	else if (going_right)
+	{
+		velocity_x += 0.1f;
+		if (velocity_x > max_accel_x)
+			velocity_x = max_accel_x;
+	}
+
+	// Update player position
+	position.x += velocity_x;
 
 	return true;
 }
