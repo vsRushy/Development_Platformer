@@ -5,6 +5,9 @@
 #include "Animation.h"
 #include "p2Point.h"
 
+#define PLAYER_COLLIDER_SIZE_X 15
+#define PLAYER_COLLIDER_SIZE_Y 22
+
 struct Collider;
 struct SDL_Texture;
 
@@ -43,6 +46,9 @@ private:
 	Collider* col = nullptr;
 	Animation*  current_animation = nullptr;
 	Animation idle;
+
+	Collider* player_collider = nullptr;
+	iPoint collider_position;
 
 	// Player movement
 	float velocity_x;

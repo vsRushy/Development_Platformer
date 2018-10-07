@@ -36,6 +36,13 @@ bool j1Player::Start()
 
 	position.x = position.y = 10;
 
+	// Collider initial position
+	collider_position.x = position.x;
+	collider_position.y = position.y;
+
+	// Set up the player's collider
+	player_collider = App->collision->AddCollider({ collider_position.x, collider_position.y, PLAYER_COLLIDER_SIZE_X, PLAYER_COLLIDER_SIZE_Y }, COLLIDER_PLAYER, this);
+
 	// Starting animation
 	current_animation = &idle;
 	rect = &(current_animation->GetCurrentFrame());
@@ -46,8 +53,11 @@ bool j1Player::Start()
 bool j1Player::CleanUp()
 {
 	LOG("Unloading player");
+	App->tex->UnLoad(graphics);
 
 	// Delete collider
+	if (player_collider != nullptr)
+		player_collider->to_delete = true;
 
 	return true;
 }
@@ -58,6 +68,9 @@ bool j1Player::Update(float dt)
 {
 	current_animation = &idle;
 	rect = &(current_animation->GetCurrentFrame());
+
+	// Update collider position
+	player_collider->SetPos(position.x, position.y);
 
 	// Player Input (when pressing a key)
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
