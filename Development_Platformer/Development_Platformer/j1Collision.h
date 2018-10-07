@@ -55,10 +55,11 @@ public:
 	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback = nullptr);
 	bool EraseCollider(Collider* collider);
 	void DebugDraw();
+	bool IsDebug() { return debug; } // Public function to return private variable debug
 
 private:
 
-	Collider * colliders[MAX_COLLIDERS];
+	Collider* colliders[MAX_COLLIDERS];
 	bool matrix[COLLIDER_MAX][COLLIDER_MAX];
 	bool debug = false;
 };

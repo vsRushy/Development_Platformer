@@ -4,6 +4,7 @@
 #include "j1Render.h"
 #include "j1Textures.h"
 #include "j1Map.h"
+#include "j1Collision.h"
 #include <math.h>
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
@@ -52,7 +53,15 @@ void j1Map::Draw()
 						SDL_Rect printRect = tilesetItem->data->GetTileRect(tileid);
 						iPoint printCoords = MapToWorld(i, j);
 
-						App->render->Blit(tilesetItem->data->texture, printCoords.x, printCoords.y, &printRect);//, 1.0f, 45.0);
+						if (layerItem->data->name == "Colliders")
+						{
+							if (App->collision->IsDebug())  // If debug is true, we'll blit the collision layer
+								App->render->Blit(tilesetItem->data->texture, printCoords.x, printCoords.y, &printRect);
+						}
+						else
+						{
+							App->render->Blit(tilesetItem->data->texture, printCoords.x, printCoords.y, &printRect);
+						}
 					}
 				}
 			}

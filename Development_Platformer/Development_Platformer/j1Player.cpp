@@ -62,22 +62,22 @@ bool j1Player::Update(float dt)
 	// Player Input
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 	{
-		position.x--;
+		position.x -= 0.5f;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 	{
-		position.x++;
+		position.x += 0.5f;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 	{
-		position.y--;
+		position.y -= 0.5f;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 	{
-		position.y++;
+		position.y += 0.5f;
 	}
 
 	return true;
