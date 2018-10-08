@@ -63,6 +63,12 @@ private:
 	float time = 0.0f;
 	int time_2 = 0;
 	int position_y_aux;
+	fPoint previous_position = position;
+	bool block_y = false;
+	bool block_x = false;
+	SDL_Rect coll_rect;
+public:
+	bool isThereCollision = false;
 };
 
 #endif // __PLAYER_H__

@@ -7,6 +7,7 @@
 #include "j1Collision.h"
 #include "j1Input.h"
 #include "j1Render.h"
+#include "j1Player.h"
 
 j1Collision::j1Collision()
 {
@@ -16,6 +17,8 @@ j1Collision::j1Collision()
 		colliders[i] = nullptr;
 
 	// matrix here
+	matrix[COLLIDER_PLAYER][COLLIDER_WALL] = true;
+	matrix[COLLIDER_WALL][COLLIDER_PLAYER] = true;
 }
 
 // Destructor
@@ -62,6 +65,7 @@ bool j1Collision::Update(float dt)
 
 			if (c1->CheckCollision(c2->rect) == true)
 			{
+				App->player->isThereCollision = true;
 				if (matrix[c1->type][c2->type] && c1->callback)
 					c1->callback->OnCollision(c1, c2);
 
@@ -97,6 +101,9 @@ void j1Collision::DebugDraw()
 			break;
 		case COLLIDER_PLAYER: // green
 			App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
+			break;
+		case COLLIDER_WALL: // green
+			App->render->DrawQuad(colliders[i]->rect, 250, 0, 0, alpha);
 			break;
 		}
 	}
