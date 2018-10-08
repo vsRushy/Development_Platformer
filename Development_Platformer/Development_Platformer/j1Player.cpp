@@ -78,7 +78,7 @@ bool j1Player::Update(float dt)
 		going_left = true;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT && !block_x_right)
 	{
 		going_right = true;
 	}
@@ -174,7 +174,12 @@ void j1Player::OnCollision(Collider* a, Collider* b)
 		block_y = true;
 		time = 0.0f;
 		not_jumping = true;
+		position.y = b->rect.y - PLAYER_COLLIDER_SIZE_Y;
 	}
-	position.y = b->rect.y - PLAYER_COLLIDER_SIZE_Y;
+	if (previous_position.x < position.x && position.x + PLAYER_COLLIDER_SIZE_Y > b->rect.x && position.y < b->rect.y + b->rect.h && position.y + PLAYER_COLLIDER_SIZE_Y > b->rect.y) {
+		block_x_right = true;
+		position.x = b->rect.x - PLAYER_COLLIDER_SIZE_X;
+	}
+
 	coll_rect = b->rect;
 }

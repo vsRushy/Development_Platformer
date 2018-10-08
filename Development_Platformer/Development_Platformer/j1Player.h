@@ -63,7 +63,8 @@ private:
 	float position_y_aux = 10;
 	fPoint previous_position = position;
 	bool block_y = false;
-	bool block_x = false;
+	bool block_x_right = false;
+	bool block_x_left = false;
 	SDL_Rect coll_rect;
 };
 
