@@ -58,11 +58,10 @@ private:
 	bool going_right = false;
 	bool jump = false;
 	bool not_jumping = true;
-	float initial_speed = -20.0f;
+	float initial_speed = 0.0f;
 	short gravity = 3;
 	float time = 0.0f;
-	int time_2 = 0;
-	int position_y_aux;
+	float position_y_aux = 10;
 	fPoint previous_position = position;
 	bool block_y = false;
 	bool block_x = false;

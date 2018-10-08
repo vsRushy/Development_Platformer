@@ -93,10 +93,9 @@ bool j1Player::Update(float dt)
 		position.y += 0.5f;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && time_2 == 0)
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && not_jumping)
 	{
 		jump = true;
-		not_jumping = false;
 	}
 
 	// Player input (when releasing a key)
@@ -133,21 +132,26 @@ bool j1Player::Update(float dt)
 			velocity_x = max_accel_x;
 	}
 
-	if (jump && time == 0.0f) {		
+	if (jump && not_jumping && time == 0.0f) {		
 		position_y_aux = position.y;
 		block_y = false;
+		initial_speed = -20.0f;
+		not_jumping = false;
 	}
-	if (!not_jumping) {
+
+	if (not_jumping && block_y && (position.x + PLAYER_COLLIDER_SIZE_X < coll_rect.x || position.x > coll_rect.x + coll_rect.w || position.y + PLAYER_COLLIDER_SIZE_Y > coll_rect.y)) {
+		block_y = false;
+		initial_speed = 0.0f;
+		time = 0.0f;
+		position_y_aux = position.y;
+	}
+
+	if (!block_y) {
 		position.y = position_y_aux + initial_speed * time + (gravity*time*time) / 2;
 		time += 0.1f;
-		if (previous_position.y < position.y && block_y) {
-			not_jumping = true;
-			time = 0.0f;
-		}
 	}
-	if (!block_y && not_jumping) position.y += gravity;
 
-	if (block_y && (position.x + PLAYER_COLLIDER_SIZE_X < coll_rect.x || position.x > coll_rect.x + coll_rect.w) || position.y + PLAYER_COLLIDER_SIZE_Y > coll_rect.y) block_y = false;
+	
 
 	// Update player position
 	previous_position = position;
@@ -168,7 +172,11 @@ bool j1Player::Save(pugi::xml_node& data) const
 
 void j1Player::OnCollision(Collider* a, Collider* b)
 {
-	if (position.y + PLAYER_COLLIDER_SIZE_Y > b->rect.y && previous_position.y <= position.y) block_y = true;
+	if (position.y + PLAYER_COLLIDER_SIZE_Y > b->rect.y && previous_position.y <= position.y) {
+		block_y = true;
+		time = 0.0f;
+		not_jumping = true;
+	}
 	position.y = b->rect.y - PLAYER_COLLIDER_SIZE_Y;
 	coll_rect = b->rect;
 }
