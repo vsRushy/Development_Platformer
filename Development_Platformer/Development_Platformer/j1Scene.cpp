@@ -35,6 +35,7 @@ bool j1Scene::Start()
 	App->map->Load("level01.tmx");
 	test[0] = App->collision->AddCollider({ 15, 90, 40, 10 }, COLLIDER_WALL, nullptr);
 	test[1] = App->collision->AddCollider({ 55, 140, 40, 10 }, COLLIDER_WALL, nullptr);
+	test[1] = App->collision->AddCollider({ 55, 250, 100, 10 }, COLLIDER_WALL, nullptr);
 
 	return true;
 }

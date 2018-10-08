@@ -67,8 +67,6 @@ private:
 	bool block_y = false;
 	bool block_x = false;
 	SDL_Rect coll_rect;
-public:
-	bool isThereCollision = false;
 };
 
 #endif // __PLAYER_H__

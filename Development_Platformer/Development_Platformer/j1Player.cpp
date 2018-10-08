@@ -135,14 +135,19 @@ bool j1Player::Update(float dt)
 
 	if (jump && time == 0.0f) {		
 		position_y_aux = position.y;
+		block_y = false;
 	}
 	if (!not_jumping) {
 		position.y = position_y_aux + initial_speed * time + (gravity*time*time) / 2;
 		time += 0.1f;
+		if (previous_position.y < position.y && block_y) {
+			not_jumping = true;
+			time = 0.0f;
+		}
 	}
-	if (!block_y) position.y += gravity;
+	if (!block_y && not_jumping) position.y += gravity;
 
-	if (block_y && (position.x + PLAYER_COLLIDER_SIZE_X < coll_rect.x || position.x > coll_rect.x + coll_rect.w)) block_y = false;
+	if (block_y && (position.x + PLAYER_COLLIDER_SIZE_X < coll_rect.x || position.x > coll_rect.x + coll_rect.w) || position.y + PLAYER_COLLIDER_SIZE_Y > coll_rect.y) block_y = false;
 
 	// Update player position
 	previous_position = position;

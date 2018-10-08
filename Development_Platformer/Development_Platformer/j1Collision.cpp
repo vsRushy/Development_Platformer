@@ -7,7 +7,6 @@
 #include "j1Collision.h"
 #include "j1Input.h"
 #include "j1Render.h"
-#include "j1Player.h"
 
 j1Collision::j1Collision()
 {
@@ -65,7 +64,6 @@ bool j1Collision::Update(float dt)
 
 			if (c1->CheckCollision(c2->rect) == true)
 			{
-				App->player->isThereCollision = true;
 				if (matrix[c1->type][c2->type] && c1->callback)
 					c1->callback->OnCollision(c1, c2);
 
