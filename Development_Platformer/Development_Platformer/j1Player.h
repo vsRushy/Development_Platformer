@@ -56,6 +56,13 @@ private:
 
 	bool going_left = false;
 	bool going_right = false;
+	bool jump = false;
+	bool not_jumping = true;
+	float initial_speed = -20.0f;
+	short gravity = 3;
+	float time = 0.0f;
+	int time_2 = 0;
+	int position_y_aux;
 };
 
 #endif // __PLAYER_H__

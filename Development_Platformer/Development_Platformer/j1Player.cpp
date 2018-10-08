@@ -93,6 +93,12 @@ bool j1Player::Update(float dt)
 		position.y += 0.5f;
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && time_2 == 0)
+	{
+		jump = true;
+		not_jumping = false;
+	}
+
 	// Player input (when releasing a key)
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP)
 	{
@@ -106,6 +112,11 @@ bool j1Player::Update(float dt)
 		going_right = false;
 	}
 
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
+	{
+		jump = false;
+	}
+
 	// Movement logic
 	if (going_left)
 	{
@@ -116,12 +127,26 @@ bool j1Player::Update(float dt)
 	}
 	else if (going_right)
 	{
-
 		App->render->camera.x -= 1;
 		velocity_x += 0.1f;
 		if (velocity_x > max_accel_x)
 			velocity_x = max_accel_x;
 	}
+
+	if (jump && time == 0.0f) {		
+		position_y_aux = position.y;
+	}
+	if (!not_jumping) {
+		position.y = position_y_aux + initial_speed * time + (gravity*time*time) / 2;
+		time += 0.1f;
+		if (time > 0.1f && position.y >= position_y_aux) {
+			not_jumping = true;
+			++time_2;
+			time = 0.0f;
+		}
+	}
+	if (time_2 > 0) ++time_2;
+	if (time_2 == 30) time_2 = 0;
 
 	// Update player position
 	position.x += velocity_x;
