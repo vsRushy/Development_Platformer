@@ -60,7 +60,7 @@ void j1Map::Draw()
 						}
 						else if (layerItem->data->name == "Parallax")
 						{
-							App->render->Blit(tilesetItem->data->texture, printCoords.x, printCoords.y, &printRect, 0.5f);
+							App->render->Blit(tilesetItem->data->texture, printCoords.x, printCoords.y, &printRect, parallax_speed);
 						}
 						else
 						{
