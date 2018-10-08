@@ -43,7 +43,6 @@ public:
 	fPoint position;
 
 private:
-	Collider* col = nullptr;
 	Animation*  current_animation = nullptr;
 	Animation idle;
 

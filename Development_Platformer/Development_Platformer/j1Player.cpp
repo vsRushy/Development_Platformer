@@ -151,8 +151,6 @@ bool j1Player::Update(float dt)
 		time += 0.1f;
 	}
 
-	
-
 	// Update player position
 	previous_position = position;
 	position.x += velocity_x;

@@ -58,6 +58,10 @@ void j1Map::Draw()
 							if (App->collision->IsDebug())  // If debug is true, we'll blit the collision layer
 								App->render->Blit(tilesetItem->data->texture, printCoords.x, printCoords.y, &printRect);
 						}
+						else if (layerItem->data->name == "Parallax")
+						{
+							App->render->Blit(tilesetItem->data->texture, printCoords.x, printCoords.y, &printRect, 0.5f);
+						}
 						else
 						{
 							App->render->Blit(tilesetItem->data->texture, printCoords.x, printCoords.y, &printRect);

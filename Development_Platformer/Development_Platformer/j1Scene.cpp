@@ -32,7 +32,7 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-	App->map->Load("level01.tmx");
+	App->map->Load("level02.tmx");
 	test[0] = App->collision->AddCollider({ 15, 90, 40, 10 }, COLLIDER_WALL, nullptr);
 	test[1] = App->collision->AddCollider({ 55, 140, 40, 10 }, COLLIDER_WALL, nullptr);
 	test[1] = App->collision->AddCollider({ 55, 250, 100, 10 }, COLLIDER_WALL, nullptr);
