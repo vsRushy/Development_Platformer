@@ -110,11 +110,14 @@ bool j1Player::Update(float dt)
 	if (going_left)
 	{
 		velocity_x -= 0.1f;
+		App->render->camera.x += 1;
 		if (velocity_x < -max_accel_x)
 			velocity_x = -max_accel_x;
 	}
 	else if (going_right)
 	{
+
+		App->render->camera.x -= 1;
 		velocity_x += 0.1f;
 		if (velocity_x > max_accel_x)
 			velocity_x = max_accel_x;

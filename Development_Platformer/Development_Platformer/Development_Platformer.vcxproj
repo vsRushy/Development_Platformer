@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{46252549-C566-488B-BFFE-E345E649F157}</ProjectGuid>
     <RootNamespace>DevelopmentPlatformer</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -69,7 +69,10 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>C:\Users\martiti\Desktop\Development_Platformer\Development_Platformer\Development_Platformer\SDL_mixer\include;C:\Users\martiti\Desktop\Development_Platformer\Development_Platformer\Development_Platformer\SDL_image\include;C:\Users\martiti\Desktop\Development_Platformer\Development_Platformer\Development_Platformer\SDL\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\martiti\Desktop\Development_Platformer\Development_Platformer\Development_Platformer\SDL_mixer\libx86;C:\Users\martiti\Desktop\Development_Platformer\Development_Platformer\Development_Platformer\SDL_image\libx86;C:\Users\martiti\Desktop\Development_Platformer\Development_Platformer\Development_Platformer\SDL\libx86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -88,6 +91,9 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
+    <Link>
+      <SubSystem>NotSet</SubSystem>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
