@@ -143,6 +143,7 @@ bool j1Player::Update(float dt)
 			not_jumping = true;
 			++time_2;
 			time = 0.0f;
+			position.y -= 1;
 		}
 	}
 	if (time_2 > 0) ++time_2;
