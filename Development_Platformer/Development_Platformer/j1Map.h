@@ -6,6 +6,13 @@
 #include "p2Point.h"
 #include "j1Module.h"
 
+enum class LayerType
+{
+	DEFAULT,
+	COLLISION,
+	PARALLAX
+};
+
 // TODO 1: Create a struct for the map layer
 // ----------------------------------------------------
 struct MapLayer
@@ -14,6 +21,7 @@ struct MapLayer
 	uint width = 0u;
 	uint height = 0u;
 	uint* data = nullptr;
+	LayerType type;
 	// TODO 6: Short function to get the value of x,y
 	inline uint Get(int x, int y) const
 	{
@@ -42,6 +50,8 @@ struct TileSet
 	int					num_tiles_height;
 	int					offset_x;
 	int					offset_y;
+
+	~TileSet();
 };
 
 enum MapTypes
@@ -63,6 +73,7 @@ struct MapData
 	p2List<TileSet*>	tilesets;
     // List of layers to the map!
 	p2List<MapLayer*>   layers;
+	p2List<MapLayer*>   collisionLayers;
 };
 
 // ----------------------------------------------------
@@ -92,6 +103,12 @@ public:
     // Method that translates x,y coordinates from map positions to world positions
 	iPoint MapToWorld(int x, int y) const;
 
+	iPoint WorldToMap(int x, int y) const;
+
+	// Check map collisions
+	bool CheckCollisionX(int, int, int);
+	bool CheckCollisionY(int, int, int);
+
 private:
 
 	bool LoadMap();
@@ -104,6 +121,7 @@ private:
 public:
 
 	MapData data;
+	MapLayer* collision_layer = nullptr;
 
 private:
 

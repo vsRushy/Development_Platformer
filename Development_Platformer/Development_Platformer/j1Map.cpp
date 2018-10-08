@@ -35,6 +35,7 @@ void j1Map::Draw()
     // Draw all tilesets + Blit
 	p2List_item<TileSet*>* tilesetItem = data.tilesets.start;
 	p2List_item<MapLayer*>* layerItem = data.layers.start;
+	p2List_item<MapLayer*>* collisionsLayerItem = data.collisionLayers.start;
 
 	while (tilesetItem != NULL)
 	{
@@ -52,17 +53,12 @@ void j1Map::Draw()
 						// get tile rect
 						SDL_Rect printRect = tilesetItem->data->GetTileRect(tileid);
 						iPoint printCoords = MapToWorld(i, j);
-
-						if (layerItem->data->name == "Colliders")
-						{
-							if (App->collision->IsDebug())  // If debug is true, we'll blit the collision layer
-								App->render->Blit(tilesetItem->data->texture, printCoords.x, printCoords.y, &printRect);
-						}
-						else if (layerItem->data->name == "Parallax")
-						{
+						
+						if(layerItem->data->type == LayerType::PARALLAX)
+						{ 
 							App->render->Blit(tilesetItem->data->texture, printCoords.x, printCoords.y, &printRect, parallax_speed);
 						}
-						else
+						else if(layerItem->data->type == LayerType::DEFAULT)
 						{
 							App->render->Blit(tilesetItem->data->texture, printCoords.x, printCoords.y, &printRect);
 						}
@@ -72,8 +68,29 @@ void j1Map::Draw()
 
 			layerItem = layerItem->next;
 		}
+		while (collisionsLayerItem != nullptr) {
+			for (uint j = 0; j < collisionsLayerItem->data->height; j++) 
+			{
+				for (uint i = 0; i < collisionsLayerItem->data->width; i++) 
+				{
+					// get tile id
+					int tileid = collisionsLayerItem->data->Get(i, j);
+
+					if (tileid != 0) {
+						iPoint pos = MapToWorld(i, j);
+						SDL_Rect printRect = tilesetItem->data->GetTileRect(collisionsLayerItem->data->Get(i, j));
+
+						if (collisionsLayerItem->data->type == LayerType::COLLISION && App->collision->IsDebug())
+							App->render->Blit(tilesetItem->data->texture, pos.x, pos.y, &printRect);
+					}
+				}
+			}
+
+			collisionsLayerItem = collisionsLayerItem->next;
+		}
 
 		layerItem = data.layers.start;
+		collisionsLayerItem = data.collisionLayers.start;
 		tilesetItem = tilesetItem->next;
 	}
 }
@@ -85,6 +102,16 @@ iPoint j1Map::MapToWorld(int x, int y) const
 
 	ret.x = x * data.tile_width;
 	ret.y = y * data.tile_height;
+
+	return ret;
+}
+
+iPoint j1Map::WorldToMap(int x, int y) const
+{
+	iPoint ret;
+
+	ret.x = x / data.tile_width;
+	ret.y = y / data.tile_height;
 
 	return ret;
 }
@@ -176,7 +203,15 @@ bool j1Map::Load(const char* file_name)
 		{
 			ret = LoadLayer(layer, set);
 		}
-		data.layers.add(set);
+
+		if (set->type == LayerType::COLLISION)
+		{
+			data.collisionLayers.add(set);
+		}
+		else
+		{
+			data.layers.add(set);
+		}
 	}
 
 	if (ret == true)
@@ -346,6 +381,19 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	bool ret = true;
 
 	layer->name.create(node.attribute("name").as_string());
+	if (layer->name == "Parallax")
+	{
+		layer->type = LayerType::PARALLAX;
+	}
+	else if (layer->name == "Colliders")
+	{
+		layer->type = LayerType::COLLISION;
+	}
+	else
+	{
+		layer->type = LayerType::DEFAULT;
+	}
+
 	layer->width = node.attribute("width").as_int();
 	layer->height = node.attribute("height").as_int();
 
@@ -365,4 +413,54 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 MapLayer::~MapLayer()
 {
 	delete[] data;
+}
+
+TileSet::~TileSet()
+{
+	App->tex->UnLoad(texture);
+}
+
+// COLLISIONS ------------------------------
+bool j1Map::CheckCollisionX(int x, int upper_y, int lower_y)
+{
+	bool ret = false;
+	// Game boundaries. Camera is not necessary as we compare to the tileset.
+	if (x < 0 || x > data.width)
+	{
+		ret = true;
+	}
+
+	if (!ret)
+	{
+		p2List_item<MapLayer*>* c_item = data.collisionLayers.start;
+		for (int y = upper_y; y <= lower_y; y++)
+		{
+			if (c_item->data->Get(x, y) != 0)
+			{
+				ret = true;
+			}
+		}
+	}
+
+	return ret;
+}
+
+bool j1Map::CheckCollisionY(int y, int left_x, int right_x)
+{
+	bool ret = false;
+
+	if (y < 0)
+		ret = true;
+
+	if (!ret)
+	{
+		p2List_item<MapLayer*>* collisions = data.collisionLayers.start;
+		for (uint x = left_x; x <= right_x; x++)
+		{
+			if (collisions->data->Get(x, y) != 0)
+				ret = true;
+		}
+	}
+	
+	return ret;
 }

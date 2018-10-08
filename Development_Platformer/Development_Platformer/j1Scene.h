@@ -33,7 +33,6 @@ public:
 	bool CleanUp();
 
 private:
-	Collider * test[5];
 };
 
 #endif // __j1SCENE_H__

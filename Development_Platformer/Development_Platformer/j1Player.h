@@ -43,6 +43,7 @@ public:
 	fPoint position;
 
 private:
+	Collider* col = nullptr;
 	Animation*  current_animation = nullptr;
 	Animation idle;
 
@@ -50,22 +51,15 @@ private:
 	iPoint collider_position;
 
 	// Player movement
-	float velocity_x;
+	float velocity_x = 1.0f;
 	float max_accel_x = 0.5f;
 
 	bool going_left = false;
 	bool going_right = false;
-	bool jump = false;
-	bool not_jumping = true;
-	float initial_speed = 0.0f;
-	short gravity = 3;
-	float time = 0.0f;
-	float position_y_aux = 10;
-	fPoint previous_position = position;
-	bool block_y = false;
-	bool block_x_right = false;
-	bool block_x_left = false;
-	SDL_Rect coll_rect;
+	bool going_up = false;
+	bool going_down = false;
+
+	float gravity = 0.5f;
 };
 
 #endif // __PLAYER_H__
