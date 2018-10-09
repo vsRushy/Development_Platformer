@@ -89,9 +89,14 @@ bool j1Player::Update(float dt)
 		position.y -= 0.5f;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT && !block_y)
 	{
 		position.y += 0.5f;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && not_jumping)
+	{
+		jump = true;
 	}
 
 	// Player input (when releasing a key)
@@ -103,6 +108,11 @@ bool j1Player::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_UP)
 	{
 		going_right = false;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
+	{
+		jump = false;
 	}
 
 	// Movement logic
@@ -125,7 +135,7 @@ bool j1Player::Update(float dt)
 		iPoint worldPos = App->map->WorldToMap(position.x, position.y);
 		// (x + w, y + h) point where the player's ending coordinates are located in the world
 		iPoint worldFinalPos = App->map->WorldToMap(position.x + PLAYER_COLLIDER_SIZE_X, position.y + PLAYER_COLLIDER_SIZE_Y);
-
+		previous_position = position;
 		position.x += velocity_x;
 		if (App->map->CheckCollisionX(worldFinalPos.x, worldPos.y, worldFinalPos.y))
 		{
@@ -133,6 +143,24 @@ bool j1Player::Update(float dt)
 		}
 	}
 
+	if (jump && not_jumping && time == 0.0f) {
+		position_y_aux = position.y;
+		block_y = false;
+		initial_speed = -10.0f;
+		not_jumping = false;
+	}
+	if (not_jumping && block_y && (position.x + PLAYER_COLLIDER_SIZE_X < coll_rect.x || position.x > coll_rect.x + coll_rect.w || position.y + PLAYER_COLLIDER_SIZE_Y > coll_rect.y)) {
+		block_y = false;
+		initial_speed = 0.0f;
+		time = 0.0f;
+		position_y_aux = position.y;
+	}
+	if (!block_y) {
+		position.y = position_y_aux + initial_speed * time + (gravity*time*time) / 2;
+		time += 0.1f;
+	}
+
+	
 	/*
 	// Update player position
 	position.x += velocity_x;
@@ -152,5 +180,11 @@ bool j1Player::Save(pugi::xml_node& data) const
 
 void j1Player::OnCollision(Collider* a, Collider* b)
 {
-
+	if (position.y + PLAYER_COLLIDER_SIZE_Y > b->rect.y && previous_position.y <= position.y) {
+		block_y = true;
+		time = 0.0f;
+		not_jumping = true;
+		position.y = b->rect.y - PLAYER_COLLIDER_SIZE_Y;
+	}
+	coll_rect = b->rect;
 }

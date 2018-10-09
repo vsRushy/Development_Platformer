@@ -9,6 +9,7 @@
 #include "j1Map.h"
 #include "j1Scene.h"
 #include "j1Player.h"
+#include "j1Collision.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -32,6 +33,10 @@ bool j1Scene::Awake()
 bool j1Scene::Start()
 {
 	App->map->Load("level01.tmx");
+	test[0] = App->collision->AddCollider({ 15, 90, 40, 10 }, COLLIDER_WALL, nullptr);
+	test[1] = App->collision->AddCollider({ 55, 140, 40, 10 }, COLLIDER_WALL, nullptr);
+	test[2] = App->collision->AddCollider({ 55, 250, 100, 10 }, COLLIDER_WALL, nullptr);
+	test[3] = App->collision->AddCollider({ 90, 220, 100, 40 }, COLLIDER_WALL, nullptr);
 
 	return true;
 }
