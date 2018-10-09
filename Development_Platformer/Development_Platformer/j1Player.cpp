@@ -146,7 +146,7 @@ bool j1Player::Update(float dt)
 	if (jump && not_jumping && time == 0.0f) {
 		position_y_aux = position.y;
 		block_y = false;
-		initial_speed = -10.0f;
+		initial_speed = -12.0f;
 		not_jumping = false;
 	}
 	if (not_jumping && block_y && (position.x + PLAYER_COLLIDER_SIZE_X < coll_rect.x || position.x > coll_rect.x + coll_rect.w || position.y + PLAYER_COLLIDER_SIZE_Y > coll_rect.y)) {
