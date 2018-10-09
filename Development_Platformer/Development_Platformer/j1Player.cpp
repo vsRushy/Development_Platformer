@@ -94,6 +94,12 @@ bool j1Player::Update(float dt)
 		
 	}*/
 
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && !jump)
+	{
+		jump = true;
+		jump_start = true;
+	}
+
 	// Player input (when releasing a key)
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP)
 	{
@@ -109,9 +115,14 @@ bool j1Player::Update(float dt)
 		going_up = false;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_UP)
+	/*if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_UP)
 	{
 		going_down = false;
+	}*/
+
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
+	{
+		jump = false;
 	}
 
 	// Movement logic
@@ -164,15 +175,23 @@ bool j1Player::Update(float dt)
 
 		if (!App->map->CheckCollisionY(worldFinalPos.y, worldPos.x, worldFinalPos.x))
 		{
-			position.y = previous_position.y + initial_speed * time + (gravity*time*time) * 0.5f;
-			time += 0.1f;
+			if(!jump)time += 0.1f;
 		}
 		else {
 			time = 0.0f;
 			previous_position.y = position.y;
 			initial_speed = 0.0f;
+			if (!jump_start) {
+				jump = false;
+			}
 		}
 	}
+	if (jump) {
+		initial_speed = -20.0f;
+		time += 0.1f;
+		if (jump_start) jump_start = false;
+	}
+	position.y = previous_position.y + initial_speed * time + (gravity*time*time) * 0.5f;
 
 	// Update player position
 

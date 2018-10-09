@@ -52,7 +52,7 @@ private:
 
 	// Player movement
 	float velocity_x = 1.0f;
-	float velocity_y = 0.01f;
+	float velocity_y = 1.0f;
 
 	bool going_left = false;
 	bool going_right = false;
@@ -64,6 +64,8 @@ private:
 	fPoint previous_position;
 	float time = 0.0f;
 	float initial_speed = 0.0f;
+	bool jump = false;
+	bool jump_start = false;
 };
 
 #endif // __PLAYER_H__
