@@ -52,12 +52,18 @@ private:
 
 	// Player movement
 	float velocity_x = 1.0f;
-	float velocity_y = 1.0f;
+	float velocity_y = 0.01f;
 
 	bool going_left = false;
 	bool going_right = false;
 	bool going_up = false;
-	bool going_down = false;
+	bool going_down = true;
+
+	//mrua equation
+	float gravity = 2.8f;
+	fPoint previous_position;
+	float time = 0.0f;
+	float initial_speed = 0.0f;
 };
 
 #endif // __PLAYER_H__

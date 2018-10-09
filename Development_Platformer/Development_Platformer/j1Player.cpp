@@ -35,7 +35,7 @@ bool j1Player::Start()
 
 	LOG("Loading player sound effects");
 
-	position.x = position.y = 10;
+	position.x = position.y = previous_position.x = previous_position.y = 10.0f;
 
 	// Collider initial position
 	collider_position.x = position.x;
@@ -89,10 +89,10 @@ bool j1Player::Update(float dt)
 		going_up = true;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+	/*if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 	{
-		going_down = true;
-	}
+		
+	}*/
 
 	// Player input (when releasing a key)
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP)
@@ -164,14 +164,18 @@ bool j1Player::Update(float dt)
 
 		if (!App->map->CheckCollisionY(worldFinalPos.y, worldPos.x, worldFinalPos.x))
 		{
-			position.y += velocity_y;
+			position.y = previous_position.y + initial_speed * time + (gravity*time*time) * 0.5f;
+			time += 0.1f;
+		}
+		else {
+			time = 0.0f;
+			previous_position.y = position.y;
+			initial_speed = 0.0f;
 		}
 	}
 
-	/*
 	// Update player position
-	position.x += velocity_x;
-	*/
+
 	return true;
 }
 
