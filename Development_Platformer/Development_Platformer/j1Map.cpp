@@ -147,6 +147,9 @@ bool j1Map::CleanUp()
 	// Remove all layers
 	data.layers.clear();
 
+	// Clean up collision layer data
+	data.collisionLayers.clear();
+
 	// Clean up the pugui tree
 	map_file.reset();
 

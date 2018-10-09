@@ -35,7 +35,8 @@ bool j1Player::Start()
 
 	LOG("Loading player sound effects");
 
-	position.x = position.y = previous_position.x = previous_position.y = 10.0f;
+	position.y = previous_position.y = 200.0f;
+	position.x = previous_position.x = 260.0f;
 
 	// Collider initial position
 	collider_position.x = position.x;
@@ -187,7 +188,7 @@ bool j1Player::Update(float dt)
 		}
 	}
 	if (jump) {
-		initial_speed = -20.0f;
+		initial_speed = -25.0f;
 		time += 0.1f;
 		if (jump_start) jump_start = false;
 	}

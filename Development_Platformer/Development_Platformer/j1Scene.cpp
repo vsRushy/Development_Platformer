@@ -31,7 +31,7 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-	App->map->Load("level01.tmx");
+	App->map->Load("map1.tmx");
 
 	return true;
 }
@@ -52,17 +52,21 @@ bool j1Scene::Update(float dt)
 		App->SaveGame();
 
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-		App->render->camera.y -= 1;
-
+		App->render->camera.y -= 2;
+	else
 	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-		App->render->camera.y += 1;
-
+		App->render->camera.y += 2;
+	else
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-		App->render->camera.x -= 1;
-
+		App->render->camera.x -= 2;
+	else
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-		App->render->camera.x += 1;
-
+		App->render->camera.x += 2;
+	else
+	{
+		App->render->camera.x = (int)(App->player->position.x - 242) * (-1) * App->win->GetScale();
+		App->render->camera.y = (int)(App->player->position.y - 200) * (-1) * App->win->GetScale();
+	}
 
 	// Set the window title like
 	// "Map:%dx%d Tiles:%dx%d Tilesets:%d"                            // Uncomment the following if you want to see tileset info as window title

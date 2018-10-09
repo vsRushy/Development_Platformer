@@ -121,7 +121,6 @@ private:
 public:
 
 	MapData data;
-	MapLayer* collision_layer = nullptr;
 
 private:
 
