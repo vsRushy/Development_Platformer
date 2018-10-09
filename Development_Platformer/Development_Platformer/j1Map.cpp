@@ -424,11 +424,6 @@ TileSet::~TileSet()
 bool j1Map::CheckCollisionX(int x, int upper_y, int lower_y)
 {
 	bool ret = false;
-	// Game boundaries. Camera is not necessary as we compare to the tileset.
-	if (x < 0 || x > data.width)
-	{
-		ret = true;
-	}
 
 	if (!ret)
 	{
@@ -448,9 +443,6 @@ bool j1Map::CheckCollisionX(int x, int upper_y, int lower_y)
 bool j1Map::CheckCollisionY(int y, int left_x, int right_x)
 {
 	bool ret = false;
-
-	if (y < 0)
-		ret = true;
 
 	if (!ret)
 	{
