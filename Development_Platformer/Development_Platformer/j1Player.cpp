@@ -199,13 +199,46 @@ bool j1Player::Update(float dt)
 	return true;
 }
 
-bool j1Player::Load(pugi::xml_node& data)
+bool j1Player::Load(pugi::xml_node& save)
 {
+	if (save.child("position") != NULL)
+	{
+		position.x = save.child("position").attribute("x").as_float();
+		position.y = save.child("position").attribute("y").as_float();
+	}
+
+	if (save.child("velocity") != NULL)
+	{
+		velocity_x = save.child("velocity").attribute("x").as_float();
+		velocity_y = save.child("velocity").attribute("y").as_float();
+	}
+
 	return true;
 }
 
-bool j1Player::Save(pugi::xml_node& data) const
+bool j1Player::Save(pugi::xml_node& save) const
 {
+	if (save.child("position") == NULL)
+	{
+		save.append_child("position").append_attribute("x") = position.x;
+		save.child("position").append_attribute("y") = position.y;
+	}
+	else {
+		save.child("position").attribute("x") = position.x;
+		save.child("position").attribute("y") = position.y;
+	}
+
+	if (save.child("velocity") == NULL)
+	{
+		save.append_child("velocity").append_attribute("x") = velocity_x;
+		save.child("velocity").append_attribute("y") = velocity_y;
+	}
+	else
+	{
+		save.child("velocity").attribute("x") = velocity_x;
+		save.child("velocity").attribute("y") = velocity_y;
+	}
+
 	return true;
 }
 
