@@ -5,6 +5,7 @@
 #include "j1Textures.h"
 #include "j1Map.h"
 #include "j1Collision.h"
+#include "j1Window.h"
 #include <math.h>
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
@@ -58,7 +59,11 @@ void j1Map::Draw()
 						{ 
 							App->render->Blit(tilesetItem->data->texture, printCoords.x, printCoords.y, &printRect, parallax_speed);
 						}
-						else if(layerItem->data->type == LayerType::DEFAULT)
+						else if(layerItem->data->type == LayerType::DEFAULT &&
+							printCoords.x < (App->render->camera.x * (-1) + App->render->camera.w) / App->win->GetScale() &&
+							printCoords.x + tilesetItem->data->tile_width > App->render->camera.x * (-1) / App->win->GetScale() &&
+							printCoords.y < (App->render->camera.y * (-1) + App->render->camera.h) / App->win->GetScale() &&
+							printCoords.y + tilesetItem->data->tile_height > App->render->camera.y * (-1) / App->win->GetScale())
 						{
 							App->render->Blit(tilesetItem->data->texture, printCoords.x, printCoords.y, &printRect);
 						}
@@ -80,8 +85,12 @@ void j1Map::Draw()
 						iPoint pos = MapToWorld(i, j);
 						SDL_Rect printRect = tilesetItem->data->GetTileRect(collisionsLayerItem->data->Get(i, j));
 
-						if (collisionsLayerItem->data->type == LayerType::COLLISION && App->collision->IsDebug())
-							App->render->Blit(tilesetItem->data->texture, pos.x, pos.y, &printRect);
+						if (collisionsLayerItem->data->type == LayerType::COLLISION && App->collision->IsDebug() &&
+							pos.x < (App->render->camera.x * (-1) + App->render->camera.w) / App->win->GetScale() &&
+							pos.x + tilesetItem->data->tile_width > App->render->camera.x * (-1) / App->win->GetScale() &&
+							pos.y < (App->render->camera.y * (-1) + App->render->camera.h) / App->win->GetScale() &&
+							pos.y + tilesetItem->data->tile_height > App->render->camera.y * (-1) / App->win->GetScale())
+								App->render->Blit(tilesetItem->data->texture, pos.x, pos.y, &printRect);
 					}
 				}
 			}
