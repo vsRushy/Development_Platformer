@@ -1,6 +1,8 @@
-# Development_Platformer
+﻿# Development_Platformer
 
 ## About
+
+Welcome to our first ever Platformer, Little Big King!
 
 **GitHub repository:** [Development Platformer](https://github.com/vsRushy/Development_Platformer)
 
@@ -38,7 +40,17 @@ Torras Isanta, Martí.
 
 ## Credits
 
+Author 1 nickname: Buch.
 
+• OpenGameArt account: [Buch](https://opengameart.org/users/buch)
+
+• Spritesheet: [Buch's spritesheet](https://opengameart.org/content/a-platformer-in-the-forest)
+
+Author 2 nickname: surt.
+
+• OpenGameArt account: [surt](https://opengameart.org/users/surt)
+
+• Spritesheet: [surt's spritesheet](https://opengameart.org/content/generic-platformer-tiles)
 
 ## License
 
