@@ -174,6 +174,29 @@ bool j1Map::CleanUp()
 	}
 	data.collisionLayers.clear();
 
+	// Remove all object groups
+	p2List_item<ObjectGroup*>* item_object_group;
+	item_object_group = data.objectGroups.start;
+
+	while (item_object_group != NULL)
+	{
+		// Remove all objects
+		p2List_item<Object*>* object;
+		object = item_object_group->data->objects.start;
+
+		while (object != NULL)
+		{
+			RELEASE(object->data);
+			object = object->next;
+		}
+
+		RELEASE(item_object_group->data);
+		item_object_group->data->objects.clear();
+
+		item_object_group = item_object_group->next;
+	}
+	data.objectGroups.clear();
+
 	// Clean up the pugui tree
 	map_file.reset();
 
@@ -238,6 +261,19 @@ bool j1Map::Load(const char* file_name)
 		else
 		{
 			data.layers.add(set);
+		}
+	}
+
+	// Iterate all game objects and load each of them
+	// Load object group info ---------------------------------------
+	pugi::xml_node objGroup;
+	for (objGroup = map_file.child("map").child("objectgroup"); objGroup && ret; objGroup = objGroup.next_sibling("objectgroup"))
+	{
+		ObjectGroup* set = new ObjectGroup();
+
+		if (ret == true)
+		{
+			
 		}
 	}
 
@@ -437,6 +473,17 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	return ret;
 }
 
+//----------------------------------
+bool j1Map::LoadObjectGroupDetails(pugi::xml_node&, ObjectGroup*)
+{
+	return false;
+}
+
+bool j1Map::LoadObject(pugi::xml_node&, Object*)
+{
+	return false;
+}
+
 MapLayer::~MapLayer()
 {
 	delete[] data;
@@ -445,6 +492,18 @@ MapLayer::~MapLayer()
 TileSet::~TileSet()
 {
 	App->tex->UnLoad(texture);
+}
+
+ObjectGroup::~ObjectGroup()
+{
+	p2List_item<Object*>* item;
+	item = objects.start;
+
+	while (item != NULL)
+	{
+		RELEASE(item->data);
+		item = item->next;
+	}
 }
 
 // COLLISIONS ------------------------------
@@ -520,6 +579,29 @@ bool j1Map::Unload()
 		item_collision_layer = item_collision_layer->next;
 	}
 	data.collisionLayers.clear();
+
+	// Remove all object groups
+	p2List_item<ObjectGroup*>* item_object_group;
+	item_object_group = data.objectGroups.start;
+
+	while (item_object_group != NULL)
+	{
+		// Remove all objects
+		p2List_item<Object*>* object;
+		object = item_object_group->data->objects.start;
+
+		while (object != NULL)
+		{
+			RELEASE(object->data);
+			object = object->next;
+		}
+
+		RELEASE(item_object_group->data);
+		item_object_group->data->objects.clear();
+
+		item_object_group = item_object_group->next;
+	}
+	data.objectGroups.clear();
 
 	return true;
 }

@@ -6,6 +6,24 @@
 #include "p2Point.h"
 #include "j1Module.h"
 
+struct Object {
+
+	p2SString name;
+	uint id = 0u;
+	uint x = 0u;
+	uint y = 0u;
+	uint width = 0u;
+	uint height = 0u;
+};
+
+struct ObjectGroup
+{
+	p2SString name;
+	p2List<Object*> objects;
+
+	~ObjectGroup();
+};
+
 enum class LayerType
 {
 	DEFAULT,
@@ -74,6 +92,7 @@ struct MapData
     // List of layers to the map!
 	p2List<MapLayer*>   layers;
 	p2List<MapLayer*>   collisionLayers;
+	p2List<ObjectGroup*> objectGroups;
 };
 
 // ----------------------------------------------------
@@ -115,8 +134,11 @@ private:
 
 	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
-    // Method that loads a single laye
+    // Method that loads a single layer
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
+	// Methods to load object groups
+	bool LoadObjectGroupDetails(pugi::xml_node&, ObjectGroup*);  // Very similar to LoadTileSetDetails(). We just want the attribute (name) of this object group
+	bool LoadObject(pugi::xml_node&, Object*);  // Very similar to LoadTileSetImage(). We just want the attributes of the object
 
 public:
 

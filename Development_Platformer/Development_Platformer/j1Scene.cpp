@@ -28,7 +28,6 @@ bool j1Scene::Awake(pugi::xml_node& config)
 
 	first_map = config.child("first_map").attribute("name").as_string();
 	second_map = config.child("second_map").attribute("name").as_string();
-	map_selected = config.child("starting_map_index").attribute("value").as_int();
 
 	return ret;
 }
@@ -94,7 +93,14 @@ bool j1Scene::Update(float dt)
 	// Start from the current level
 	if (App->input->GetKey(SDL_SCANCODE_F2))
 	{
-
+		if (map_selected == 1)
+		{
+			App->player->position = App->player->first_map_pos;
+		}
+		else if (map_selected == 2)
+		{
+			App->player->position = App->player->second_map_pos;
+		}
 	}
 
 	// Set the window title like

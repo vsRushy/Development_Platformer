@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="50" tilewidth="32" tileheight="32" nextobjectid="1">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="50" tilewidth="32" tileheight="32" nextobjectid="7">
  <tileset firstgid="1" name="generic_platformer_tiles" tilewidth="32" tileheight="32" tilecount="768" columns="32">
   <image source="generic_platformer_tiles.png" width="1024" height="768"/>
  </tileset>
@@ -30030,4 +30030,8 @@
    <tile gid="0"/>
   </data>
  </layer>
+ <objectgroup name="Player">
+  <object id="1" name="PlayerStartPos" x="290" y="160" width="32" height="32"/>
+  <object id="5" name="PlayerEndPos" x="2592" y="1185" width="320" height="64"/>
+ </objectgroup>
 </map>
