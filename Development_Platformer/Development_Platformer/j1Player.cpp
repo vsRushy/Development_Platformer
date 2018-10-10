@@ -95,10 +95,11 @@ bool j1Player::Update(float dt)
 		
 	}*/
 
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && !jump)
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && !jump && able_to_jump)
 	{
 		jump = true;
 		jump_start = true;
+		able_to_jump = false;
 	}
 
 	// Player input (when releasing a key)
@@ -145,7 +146,7 @@ bool j1Player::Update(float dt)
 		// (x, y) point where the player is in the world
 		iPoint worldPos = App->map->WorldToMap(position.x + 1, position.y);
 		// (x + w, y + h) point where the player's ending coordinates are located in the world
-		iPoint worldFinalPos = App->map->WorldToMap(position.x + PLAYER_COLLIDER_SIZE_X, position.y + PLAYER_COLLIDER_SIZE_Y - 1);
+		iPoint worldFinalPos = App->map->WorldToMap(position.x + PLAYER_COLLIDER_SIZE_X + 1, position.y + PLAYER_COLLIDER_SIZE_Y - 1);
 
 		
 		if (!App->map->CheckCollisionX(worldFinalPos.x, worldPos.y, worldFinalPos.y))
@@ -156,7 +157,7 @@ bool j1Player::Update(float dt)
 	if (going_up)
 	{
 		// (x, y) point where the player is in the world
-		iPoint worldPos = App->map->WorldToMap(position.x, position.y - 1);
+		iPoint worldPos = App->map->WorldToMap(position.x, position.y + 1);
 		// (x + w, y + h) point where the player's ending coordinates are located in the world
 		iPoint worldFinalPos = App->map->WorldToMap(position.x + PLAYER_COLLIDER_SIZE_X - 1, position.y + PLAYER_COLLIDER_SIZE_Y);
 
@@ -170,21 +171,34 @@ bool j1Player::Update(float dt)
 	{
 		// (x, y) point where the player is in the world
 		iPoint worldPos = App->map->WorldToMap(position.x, position.y + 1);
+		iPoint worldNextPos = App->map->WorldToMap(position.x, previous_position.y + initial_speed * (time+0.1f) + (gravity*(time+0.1f)*(time + 0.1f)) * 0.5f + 1);
 		// (x + w, y + h) point where the player's ending coordinates are located in the world
-		iPoint worldFinalPos = App->map->WorldToMap(position.x + PLAYER_COLLIDER_SIZE_X - 2, position.y + PLAYER_COLLIDER_SIZE_Y);
+		iPoint worldFinalPos = App->map->WorldToMap(position.x + PLAYER_COLLIDER_SIZE_X - 1, position.y + PLAYER_COLLIDER_SIZE_Y);
+		iPoint worldNextFinalPos = App->map->WorldToMap(position.x + PLAYER_COLLIDER_SIZE_X - 1, previous_position.y + initial_speed * (time + 0.1f) + (gravity*(time + 0.1f)*(time + 0.1f)) * 0.5f + PLAYER_COLLIDER_SIZE_Y);
 
-
-		if (!App->map->CheckCollisionY(worldFinalPos.y, worldPos.x, worldFinalPos.x))
+		if (App->map->CheckCollisionY(worldPos.y, worldPos.x, worldFinalPos.x))
 		{
-			if(!jump)time += 0.1f;
+			time = 0.0f;
+			initial_speed = 0.0f;
+			previous_position.y = position.y;
+			if (jump) jump = false;
+			able_to_jump = false;
 		}
+		else if (!App->map->CheckCollisionY(worldFinalPos.y, worldPos.x, worldFinalPos.x) && !App->map->CheckCollisionY(worldNextFinalPos.y, worldNextPos.x, worldNextFinalPos.x))
+		{
+			if (!jump)time += 0.1f;
+			able_to_jump = false;
+		}
+		else if (!App->map->CheckCollisionY(worldFinalPos.y, worldPos.x, worldFinalPos.x) && App->map->CheckCollisionY(worldNextFinalPos.y, worldNextPos.x, worldNextFinalPos.x)) equation_is_possible = false;
 		else {
 			time = 0.0f;
 			previous_position.y = position.y;
 			initial_speed = 0.0f;
+			equation_is_possible = true;
 			if (!jump_start) {
 				jump = false;
 			}
+			able_to_jump = true;
 		}
 	}
 	if (jump) {
@@ -192,7 +206,8 @@ bool j1Player::Update(float dt)
 		time += 0.1f;
 		if (jump_start) jump_start = false;
 	}
-	position.y = previous_position.y + initial_speed * time + (gravity*time*time) * 0.5f;
+	if(equation_is_possible) position.y = previous_position.y + initial_speed * time + (gravity*time*time) * 0.5f;
+	else ++position.y;
 
 	// Update player position
 

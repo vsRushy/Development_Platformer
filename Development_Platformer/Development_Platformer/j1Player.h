@@ -65,6 +65,8 @@ private:
 	float initial_speed = 0.0f;
 	bool jump = false;
 	bool jump_start = false;
+	bool able_to_jump = false;
+	bool equation_is_possible = true;
 };
 
 #endif // __PLAYER_H__
