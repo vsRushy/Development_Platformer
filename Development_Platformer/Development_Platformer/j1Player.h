@@ -58,15 +58,15 @@ private:
 	bool going_up = false;
 	bool going_down = true;
 
-	//mrua equation
-	float gravity = 2.8f;
-	fPoint previous_position;
-	float time = 0.0f;
-	float initial_speed = 0.0f;
-	bool jump = false;
-	bool jump_start = false;
-	bool able_to_jump = false;
-	bool equation_is_possible = true;
+	//mrua equation X = X0 + v0*t + 1/2*a*t^2
+	float gravity = 2.8f;// acceleration: a
+	fPoint previous_position;//initial position of the jump or fall: X0
+	float time = 0.0f;//t
+	float initial_speed = 0.0f;//v0
+	bool jump = false;// Jump input
+	bool jump_start = false;//only true the moment you are on a platform and want to jump. Otherwise it wouldn't be possible to jump
+	bool able_to_jump = false;// Is it possible to jump?
+	short equation_is_possible = 0;//0 = equation is possible; 1 = equation not possible when going down; 2 = equation not possible when going up
 };
 
 #endif // __PLAYER_H__

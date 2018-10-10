@@ -176,38 +176,52 @@ bool j1Player::Update(float dt)
 		iPoint worldFinalPos = App->map->WorldToMap(position.x + PLAYER_COLLIDER_SIZE_X - 1, position.y + PLAYER_COLLIDER_SIZE_Y);
 		iPoint worldNextFinalPos = App->map->WorldToMap(position.x + PLAYER_COLLIDER_SIZE_X - 1, previous_position.y + initial_speed * (time + 0.1f) + (gravity*(time + 0.1f)*(time + 0.1f)) * 0.5f + PLAYER_COLLIDER_SIZE_Y);
 
-		if (App->map->CheckCollisionY(worldPos.y, worldPos.x, worldFinalPos.x))
+		//when colliding going up
+		if (!App->map->CheckCollisionY(worldPos.y, worldPos.x, worldFinalPos.x) && App->map->CheckCollisionY(worldNextPos.y, worldNextPos.x, worldNextFinalPos.x))
+		{
+			equation_is_possible = 2;
+		}
+		else if (App->map->CheckCollisionY(worldPos.y, worldPos.x, worldFinalPos.x))
 		{
 			time = 0.0f;
 			initial_speed = 0.0f;
 			previous_position.y = position.y;
+			equation_is_possible = 0;
 			if (jump) jump = false;
 			able_to_jump = false;
 		}
-		else if (!App->map->CheckCollisionY(worldFinalPos.y, worldPos.x, worldFinalPos.x) && !App->map->CheckCollisionY(worldNextFinalPos.y, worldNextPos.x, worldNextFinalPos.x))
+
+		//when colliding going down
+		if (!App->map->CheckCollisionY(worldFinalPos.y, worldPos.x, worldFinalPos.x) && !App->map->CheckCollisionY(worldNextFinalPos.y, worldNextPos.x, worldNextFinalPos.x))
 		{
 			if (!jump)time += 0.1f;
 			able_to_jump = false;
 		}
-		else if (!App->map->CheckCollisionY(worldFinalPos.y, worldPos.x, worldFinalPos.x) && App->map->CheckCollisionY(worldNextFinalPos.y, worldNextPos.x, worldNextFinalPos.x)) equation_is_possible = false;
-		else {
+		else if (!App->map->CheckCollisionY(worldFinalPos.y, worldPos.x, worldFinalPos.x) && App->map->CheckCollisionY(worldNextFinalPos.y, worldNextPos.x, worldNextFinalPos.x))
+		{
+			equation_is_possible = 1;
+		}
+		else
+		{
 			time = 0.0f;
 			previous_position.y = position.y;
 			initial_speed = 0.0f;
-			equation_is_possible = true;
+			equation_is_possible = 0;
 			if (!jump_start) {
 				jump = false;
 			}
 			able_to_jump = true;
 		}
 	}
-	if (jump) {
+	if (jump)
+	{
 		initial_speed = -25.0f;
 		time += 0.1f;
 		if (jump_start) jump_start = false;
 	}
-	if(equation_is_possible) position.y = previous_position.y + initial_speed * time + (gravity*time*time) * 0.5f;
-	else ++position.y;
+	if(equation_is_possible == 0) position.y = previous_position.y + initial_speed * time + (gravity*time*time) * 0.5f;
+	else if (equation_is_possible == 1) ++position.y;
+	else --position.y;
 
 	// Update player position
 
