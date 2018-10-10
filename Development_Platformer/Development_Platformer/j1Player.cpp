@@ -171,7 +171,7 @@ bool j1Player::Update(float dt)
 		// (x, y) point where the player is in the world
 		iPoint worldPos = App->map->WorldToMap(position.x, position.y + 1);
 		// (x + w, y + h) point where the player's ending coordinates are located in the world
-		iPoint worldFinalPos = App->map->WorldToMap(position.x + PLAYER_COLLIDER_SIZE_X - 1, position.y + PLAYER_COLLIDER_SIZE_Y);
+		iPoint worldFinalPos = App->map->WorldToMap(position.x + PLAYER_COLLIDER_SIZE_X - 2, position.y + PLAYER_COLLIDER_SIZE_Y);
 
 
 		if (!App->map->CheckCollisionY(worldFinalPos.y, worldPos.x, worldFinalPos.x))

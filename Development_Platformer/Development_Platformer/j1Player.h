@@ -50,7 +50,7 @@ private:
 	iPoint collider_position;
 
 	// Player movement
-	float velocity_x = 1.0f;
+	float velocity_x = 2.0f;
 	float velocity_y = 1.0f;
 
 	bool going_left = false;
