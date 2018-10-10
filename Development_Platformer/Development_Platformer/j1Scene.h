@@ -32,9 +32,13 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	
+	// Load
+	bool Load(pugi::xml_node&);
+	// Save
+	bool Save(pugi::xml_node&) const;
 
 private:
+	int map_selected = 1;
 	p2SString first_map;
 	p2SString second_map;
 };

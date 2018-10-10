@@ -5,7 +5,9 @@
 	<textures />
 	<audio />
 	<map />
-	<scene />
+	<scene>
+		<map_selected value="1"/>
+	</scene>
 	<player>
 		<position x="1914" y="874.600342" />
 		<velocity x="2" y="1" />

@@ -9,6 +9,7 @@
 #include "j1Map.h"
 #include "j1Scene.h"
 #include "j1Player.h"
+#include "j1FadeToBlack.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -34,7 +35,10 @@ bool j1Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool j1Scene::Start()
 {
-	App->map->Load(first_map.GetString());
+	if (map_selected == 1)
+		App->map->Load(first_map.GetString());
+	else if (map_selected == 2)
+		App->map->Load(second_map.GetString());
 
 	return true;
 }
@@ -48,6 +52,7 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
+	/*INPUT--------------------------------------------*/
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->LoadGame();
 
@@ -69,6 +74,26 @@ bool j1Scene::Update(float dt)
 	{
 		App->render->camera.x = (int)(App->player->position.x - 242) * (-1) * App->win->GetScale();
 		App->render->camera.y = (int)(App->player->position.y - 200) * (-1) * App->win->GetScale();
+	}
+
+	// Start from the first level
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	{
+		if (map_selected == 1)
+		{
+			App->player->position = App->player->first_map_pos;
+		}
+		else
+		{
+			map_selected = 1;
+			App->fade->FadeToBlack(this, this);
+		}
+	}
+
+	// Start from the current level
+	if (App->input->GetKey(SDL_SCANCODE_F2))
+	{
+
 	}
 
 	// Set the window title like
@@ -107,6 +132,36 @@ bool j1Scene::PostUpdate()
 bool j1Scene::CleanUp()
 {
 	LOG("Freeing scene");
+	App->map->Unload();
+
+	return true;
+}
+
+bool j1Scene::Load(pugi::xml_node& save)
+{
+	if (save.child("map_selected") != NULL)
+	{
+		// We want to load the map when we are not in the same map_selected index
+		if(save.child("map_selected").attribute("value").as_int() != map_selected/* && !App->fade->IsFading()*/)
+		{
+			map_selected = save.child("map_selected").attribute("value").as_int();
+			App->fade->FadeToBlack(this, this);
+		}
+	}
+
+	return true;
+}
+
+bool j1Scene::Save(pugi::xml_node& save) const
+{
+	if (save.child("map_selected") == NULL)
+	{
+		save.append_child("map_selected").append_attribute("value") = map_selected;
+	}
+	else
+	{
+		save.append_child("map_selected").attribute("value") = map_selected;
+	}
 
 	return true;
 }
