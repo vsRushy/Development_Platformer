@@ -5,8 +5,10 @@
 #include "Animation.h"
 #include "p2Point.h"
 
-#define PLAYER_COLLIDER_SIZE_X 15
-#define PLAYER_COLLIDER_SIZE_Y 22
+#include "SDL/include/SDL_render.h"
+
+#define PLAYER_SIZE_X 16
+#define PLAYER_SIZE_Y 22
 
 struct Collider;
 struct SDL_Texture;
@@ -41,10 +43,12 @@ public:
 	SDL_Rect* rect = nullptr; 
 
 	fPoint position;
+	SDL_RendererFlip flip = SDL_FLIP_NONE;
 
 private:
 	Animation* current_animation = nullptr;
 	Animation idle;
+	Animation walk;
 
 	Collider* player_collider = nullptr;
 	iPoint collider_position;

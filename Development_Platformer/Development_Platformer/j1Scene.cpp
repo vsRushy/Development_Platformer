@@ -84,7 +84,7 @@ bool j1Scene::Update(float dt)
 
 	// Draw the player
 	App->render->Blit(App->player->graphics, App->player->position.x, App->player->position.y, 
-		App->player->rect);
+		App->player->rect, 1.0f, 0.0, App->player->flip);
 
 	return true;
 }

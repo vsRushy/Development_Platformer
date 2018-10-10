@@ -14,9 +14,17 @@ j1Player::j1Player()
 	name.create("player");
 
 	// Player idle animation
-	idle.PushBack({ 9, 42, 15, 22 });
+	idle.PushBack({ 8, 42, 17, 22 });
 	idle.speed = 1.0f;
 	idle.loop = true;
+
+	// Player walk animation
+	walk.PushBack({ 8, 42, 17, 22 });
+	walk.PushBack({ 40, 41, 17, 22 });
+	walk.PushBack({ 72, 42, 17, 22 });
+	walk.PushBack({ 104, 41, 17, 22 });
+	walk.speed = 0.1f;
+	walk.loop = true;
 }
 
 j1Player::~j1Player()
@@ -43,7 +51,7 @@ bool j1Player::Start()
 	collider_position.y = position.y;
 
 	// Set up the player's collider
-	player_collider = App->collision->AddCollider({ collider_position.x, collider_position.y, PLAYER_COLLIDER_SIZE_X, PLAYER_COLLIDER_SIZE_Y }, COLLIDER_PLAYER, this);
+	player_collider = App->collision->AddCollider({ collider_position.x, collider_position.y, PLAYER_SIZE_X, PLAYER_SIZE_Y }, COLLIDER_PLAYER, this);
 
 	// Starting animation
 	current_animation = &idle;
@@ -68,7 +76,7 @@ bool j1Player::CleanUp()
    here, it has more sense to blit the player in the scene, because the player IS in the scene */
 bool j1Player::Update(float dt)
 {
-	current_animation = &idle;
+	
 	rect = &(current_animation->GetCurrentFrame());
 
 	// Update collider position
@@ -78,11 +86,19 @@ bool j1Player::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 	{
 		going_left = true;
+		current_animation = &walk;
+		flip = SDL_FLIP_HORIZONTAL;
 	}
-
+	else
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 	{
 		going_right = true;
+		current_animation = &walk;
+		flip = SDL_FLIP_NONE;
+	}
+	else
+	{
+		current_animation = &idle;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
@@ -133,7 +149,7 @@ bool j1Player::Update(float dt)
 		// (x, y) point where the player is in the world
 		iPoint worldPos = App->map->WorldToMap(position.x - 1, position.y);
 		// (x + w, y + h) point where the player's ending coordinates are located in the world
-		iPoint worldFinalPos = App->map->WorldToMap(position.x + PLAYER_COLLIDER_SIZE_X, position.y + PLAYER_COLLIDER_SIZE_Y - 1);
+		iPoint worldFinalPos = App->map->WorldToMap(position.x + PLAYER_SIZE_X, position.y + PLAYER_SIZE_Y - 1);
 
 		
 		if (!App->map->CheckCollisionX(worldPos.x, worldPos.y, worldFinalPos.y))
@@ -146,7 +162,7 @@ bool j1Player::Update(float dt)
 		// (x, y) point where the player is in the world
 		iPoint worldPos = App->map->WorldToMap(position.x + 1, position.y);
 		// (x + w, y + h) point where the player's ending coordinates are located in the world
-		iPoint worldFinalPos = App->map->WorldToMap(position.x + PLAYER_COLLIDER_SIZE_X + 1, position.y + PLAYER_COLLIDER_SIZE_Y - 1);
+		iPoint worldFinalPos = App->map->WorldToMap(position.x + PLAYER_SIZE_X + 1, position.y + PLAYER_SIZE_Y - 1);
 
 		
 		if (!App->map->CheckCollisionX(worldFinalPos.x, worldPos.y, worldFinalPos.y))
@@ -159,7 +175,7 @@ bool j1Player::Update(float dt)
 		// (x, y) point where the player is in the world
 		iPoint worldPos = App->map->WorldToMap(position.x, position.y + 1);
 		// (x + w, y + h) point where the player's ending coordinates are located in the world
-		iPoint worldFinalPos = App->map->WorldToMap(position.x + PLAYER_COLLIDER_SIZE_X - 1, position.y + PLAYER_COLLIDER_SIZE_Y);
+		iPoint worldFinalPos = App->map->WorldToMap(position.x + PLAYER_SIZE_X - 1, position.y + PLAYER_SIZE_Y);
 
 		
 		if (!App->map->CheckCollisionY(worldPos.y, worldPos.x, worldFinalPos.x))
@@ -173,8 +189,8 @@ bool j1Player::Update(float dt)
 		iPoint worldPos = App->map->WorldToMap(position.x, position.y + 1);
 		iPoint worldNextPos = App->map->WorldToMap(position.x, previous_position.y + initial_speed * (time+0.1f) + (gravity*(time+0.1f)*(time + 0.1f)) * 0.5f + 1);
 		// (x + w, y + h) point where the player's ending coordinates are located in the world
-		iPoint worldFinalPos = App->map->WorldToMap(position.x + PLAYER_COLLIDER_SIZE_X - 1, position.y + PLAYER_COLLIDER_SIZE_Y);
-		iPoint worldNextFinalPos = App->map->WorldToMap(position.x + PLAYER_COLLIDER_SIZE_X - 1, previous_position.y + initial_speed * (time + 0.1f) + (gravity*(time + 0.1f)*(time + 0.1f)) * 0.5f + PLAYER_COLLIDER_SIZE_Y);
+		iPoint worldFinalPos = App->map->WorldToMap(position.x + PLAYER_SIZE_X - 1, position.y + PLAYER_SIZE_Y);
+		iPoint worldNextFinalPos = App->map->WorldToMap(position.x + PLAYER_SIZE_X - 1, previous_position.y + initial_speed * (time + 0.1f) + (gravity*(time + 0.1f)*(time + 0.1f)) * 0.5f + PLAYER_SIZE_Y);
 
 		//when colliding going up
 		if (!App->map->CheckCollisionY(worldPos.y, worldPos.x, worldFinalPos.x) && App->map->CheckCollisionY(worldNextPos.y, worldNextPos.x, worldNextFinalPos.x))
@@ -222,8 +238,6 @@ bool j1Player::Update(float dt)
 	if(equation_is_possible == 0) position.y = previous_position.y + initial_speed * time + (gravity*time*time) * 0.5f;
 	else if (equation_is_possible == 1) ++position.y;
 	else --position.y;
-
-	// Update player position
 
 	return true;
 }
