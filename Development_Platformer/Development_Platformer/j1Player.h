@@ -47,8 +47,8 @@ public:
 
 private:
 	Animation* current_animation = nullptr;
-	Animation idle;
-	Animation walk;
+	Animation idle_anim;
+	Animation walk_anim;
 
 	Collider* player_collider = nullptr;
 	iPoint collider_position;

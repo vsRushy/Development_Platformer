@@ -14,17 +14,17 @@ j1Player::j1Player()
 	name.create("player");
 
 	// Player idle animation
-	idle.PushBack({ 8, 42, 17, 22 });
-	idle.speed = 1.0f;
-	idle.loop = true;
+	idle_anim.PushBack({ 8, 42, 17, 22 });
+	idle_anim.speed = 1.0f;
+	idle_anim.loop = true;
 
 	// Player walk animation
-	walk.PushBack({ 8, 42, 17, 22 });
-	walk.PushBack({ 40, 41, 17, 22 });
-	walk.PushBack({ 72, 42, 17, 22 });
-	walk.PushBack({ 104, 41, 17, 22 });
-	walk.speed = 0.1f;
-	walk.loop = true;
+	walk_anim.PushBack({ 8, 42, 17, 22 });
+	walk_anim.PushBack({ 40, 41, 17, 22 });
+	walk_anim.PushBack({ 72, 42, 17, 22 });
+	walk_anim.PushBack({ 104, 41, 17, 22 });
+	walk_anim.speed = 0.1f;
+	walk_anim.loop = true;
 }
 
 j1Player::~j1Player()
@@ -54,7 +54,7 @@ bool j1Player::Start()
 	player_collider = App->collision->AddCollider({ collider_position.x, collider_position.y, PLAYER_SIZE_X, PLAYER_SIZE_Y }, COLLIDER_PLAYER, this);
 
 	// Starting animation
-	current_animation = &idle;
+	current_animation = &idle_anim;
 	rect = &(current_animation->GetCurrentFrame());
 
 	return true;
@@ -86,19 +86,19 @@ bool j1Player::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 	{
 		going_left = true;
-		current_animation = &walk;
+		current_animation = &walk_anim;
 		flip = SDL_FLIP_HORIZONTAL;
 	}
 	else
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 	{
 		going_right = true;
-		current_animation = &walk;
+		current_animation = &walk_anim;
 		flip = SDL_FLIP_NONE;
 	}
 	else
 	{
-		current_animation = &idle;
+		current_animation = &idle_anim;
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
