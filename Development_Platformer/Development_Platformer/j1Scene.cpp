@@ -20,10 +20,13 @@ j1Scene::~j1Scene()
 {}
 
 // Called before render is available
-bool j1Scene::Awake()
+bool j1Scene::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Scene");
 	bool ret = true;
+
+	first_map = config.child("first_map").attribute("name").as_string();
+	second_map = config.child("second_map").attribute("name").as_string();
 
 	return ret;
 }
@@ -31,7 +34,7 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-	App->map->Load("map1.tmx");
+	App->map->Load(first_map.GetString());
 
 	return true;
 }
@@ -45,22 +48,22 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-	if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->LoadGame();
 
-	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		App->SaveGame();
 
-	if (App->input->GetKey(SDL_SCANCODE_U) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 		App->render->camera.y -= 3;
 	else
-	if (App->input->GetKey(SDL_SCANCODE_J) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
 		App->render->camera.y += 3;
 	else
-	if (App->input->GetKey(SDL_SCANCODE_H) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 		App->render->camera.x -= 3;
 	else
-	if (App->input->GetKey(SDL_SCANCODE_K) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 		App->render->camera.x += 3;
 	else
 	{
@@ -83,7 +86,7 @@ bool j1Scene::Update(float dt)
 	App->map->Draw();
 
 	// Draw the player
-	App->render->Blit(App->player->graphics, App->player->position.x, App->player->position.y, 
+	App->render->Blit(App->player->graphics, (int)App->player->position.x, App->player->position.y, 
 		App->player->rect, 1.0f, 0.0, App->player->flip);
 
 	return true;

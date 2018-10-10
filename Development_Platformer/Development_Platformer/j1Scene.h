@@ -15,7 +15,7 @@ public:
 	virtual ~j1Scene();
 
 	// Called before render is available
-	bool Awake();
+	bool Awake(pugi::xml_node&);
 
 	// Called before the first frame
 	bool Start();
@@ -32,7 +32,11 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	
+
 private:
+	p2SString first_map;
+	p2SString second_map;
 };
 
 #endif // __j1SCENE_H__
