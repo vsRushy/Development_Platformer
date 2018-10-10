@@ -142,21 +142,36 @@ bool j1Map::CleanUp()
 	LOG("Unloading map");
 
 	// Remove all tilesets
-	p2List_item<TileSet*>* item;
-	item = data.tilesets.start;
+	p2List_item<TileSet*>* item_tileset;
+	item_tileset = data.tilesets.start;
 
-	while (item != NULL)
+	while (item_tileset != NULL)
 	{
-		RELEASE(item->data);
-		item = item->next;
+		RELEASE(item_tileset->data);
+		item_tileset = item_tileset->next;
 	}
 	data.tilesets.clear();
 
-	// Clean up all layer data (it's in the destructor; can also be done as above)
 	// Remove all layers
+	p2List_item<MapLayer*>* item_layer;
+	item_layer = data.layers.start;
+
+	while (item_layer != NULL)
+	{
+		RELEASE(item_layer->data);
+		item_layer = item_layer->next;
+	}
 	data.layers.clear();
 
-	// Clean up collision layer data
+	// Remove all collision layers
+	p2List_item<MapLayer*>* item_collision_layer;
+	item_collision_layer = data.collisionLayers.start;
+
+	while (item_collision_layer != NULL)
+	{
+		RELEASE(item_collision_layer->data);
+		item_collision_layer = item_collision_layer->next;
+	}
 	data.collisionLayers.clear();
 
 	// Clean up the pugui tree
@@ -467,4 +482,44 @@ bool j1Map::CheckCollisionY(int y, int left_x, int right_x)
 	}
 	
 	return ret;
+}
+
+bool j1Map::Unload()
+{
+	LOG("Unloading map");
+
+	// Remove all tilesets
+	p2List_item<TileSet*>* item_tileset;
+	item_tileset = data.tilesets.start;
+
+	while (item_tileset != NULL)
+	{
+		RELEASE(item_tileset->data);
+		item_tileset = item_tileset->next;
+	}
+	data.tilesets.clear();
+
+	// Remove all layers
+	p2List_item<MapLayer*>* item_layer;
+	item_layer = data.layers.start;
+
+	while (item_layer != NULL)
+	{
+		RELEASE(item_layer->data);
+		item_layer = item_layer->next;
+	}
+	data.layers.clear();
+
+	// Remove all collision layers
+	p2List_item<MapLayer*>* item_collision_layer;
+	item_collision_layer = data.collisionLayers.start;
+
+	while (item_collision_layer != NULL)
+	{
+		RELEASE(item_collision_layer->data);
+		item_collision_layer = item_collision_layer->next;
+	}
+	data.collisionLayers.clear();
+
+	return true;
 }
