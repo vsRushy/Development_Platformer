@@ -38,7 +38,7 @@ public:
 	bool Save(pugi::xml_node&) const;
 
 private:
-	int map_selected = 1;
+	int map_selected = 2;
 	p2SString first_map;
 	p2SString second_map;
 };

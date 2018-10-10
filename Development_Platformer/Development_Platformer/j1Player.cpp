@@ -76,7 +76,6 @@ bool j1Player::CleanUp()
    here, it has more sense to blit the player in the scene, because the player IS in the scene */
 bool j1Player::Update(float dt)
 {
-	
 	rect = &(current_animation->GetCurrentFrame());
 
 	// Update collider position

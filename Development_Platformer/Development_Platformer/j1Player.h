@@ -46,8 +46,8 @@ public:
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
 
 	// Initial position depending on the map
-	fPoint first_map_pos;
-	fPoint second_map_pos;
+	fPoint first_map_pos = { 200.0f, 260.0f };
+	fPoint second_map_pos = {200.0f, 260.0f };
 
 private:
 	Animation* current_animation = nullptr;
