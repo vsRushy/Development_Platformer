@@ -180,19 +180,17 @@ bool j1Map::CleanUp()
 
 	while (item_object_group != NULL)
 	{
-		// Remove all objects
-		p2List_item<Object*>* object;
-		object = item_object_group->data->objects.start;
+		p2List_item<Object*>* item_object;
+		item_object = item_object_group->data->objects.start;
 
-		while (object != NULL)
+		while (item_object != NULL)
 		{
-			RELEASE(object->data);
-			object = object->next;
+			RELEASE(item_object->data);
+			item_object = item_object->next;
 		}
-
-		RELEASE(item_object_group->data);
 		item_object_group->data->objects.clear();
-
+		
+		RELEASE(item_object_group->data);
 		item_object_group = item_object_group->next;
 	}
 	data.objectGroups.clear();
@@ -267,14 +265,26 @@ bool j1Map::Load(const char* file_name)
 	// Iterate all game objects and load each of them
 	// Load object group info ---------------------------------------
 	pugi::xml_node objGroup;
+	pugi::xml_node obj;
 	for (objGroup = map_file.child("map").child("objectgroup"); objGroup && ret; objGroup = objGroup.next_sibling("objectgroup"))
 	{
 		ObjectGroup* set = new ObjectGroup();
 
 		if (ret == true)
 		{
-			
+			ret = LoadObjectGroupDetails(objGroup, set);
 		}
+
+		for (obj = objGroup.child("object"); obj && ret; obj = obj.next_sibling("object"))
+		{
+			Object* o = new Object();
+			if (ret == true)
+			{
+				ret = LoadObject(obj, o);
+			}
+			set->objects.add(o);
+		}
+		data.objectGroups.add(set);
 	}
 
 	if (ret == true)
@@ -283,6 +293,7 @@ bool j1Map::Load(const char* file_name)
 		LOG("width: %d height: %d", data.width, data.height);
 		LOG("tile_width: %d tile_height: %d", data.tile_width, data.tile_height);
 
+		// Info about the loaded tilesets
 		p2List_item<TileSet*>* item = data.tilesets.start;
 		while (item != NULL)
 		{
@@ -303,6 +314,32 @@ bool j1Map::Load(const char* file_name)
 			LOG("name: %s", l->name.GetString());
 			LOG("tile width: %d tile height: %d", l->width, l->height);
 			item_layer = item_layer->next;
+		}
+
+		// Info about the loaded objects
+		p2List_item<ObjectGroup*>* item_object_group = data.objectGroups.start;
+		while (item_object_group != NULL)
+		{
+			// We want info about the object group...
+			ObjectGroup* og = item_object_group->data;
+			LOG("Object group ----");
+			LOG("name: %s", og->name.GetString());
+			// But also the objects inside this object group!
+			p2List_item<Object*>* item_object = item_object_group->data->objects.start;
+			while (item_object != NULL)
+			{
+				Object* o = item_object->data;
+				LOG("Object ----");
+				LOG("name: %s", o->name.GetString());
+				LOG("id: %i", o->id);
+				LOG("x: %i", o->x);
+				LOG("y: %i", o->y);
+				LOG("width: %i", o->width);
+				LOG("height: %i", o->height);
+
+				item_object = item_object->next;
+			}
+			item_object_group = item_object_group->next;
 		}
 	}
 
@@ -474,14 +511,23 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 }
 
 //----------------------------------
-bool j1Map::LoadObjectGroupDetails(pugi::xml_node&, ObjectGroup*)
+bool j1Map::LoadObjectGroupDetails(pugi::xml_node& node, ObjectGroup* objectGroup)
 {
-	return false;
+	objectGroup->name.create(node.attribute("name").as_string());
+
+	return true;
 }
 
-bool j1Map::LoadObject(pugi::xml_node&, Object*)
+bool j1Map::LoadObject(pugi::xml_node& node, Object* object)
 {
-	return false;
+	object->name.create(node.attribute("name").as_string());
+	object->id = node.attribute("id").as_uint();
+	object->x = node.attribute("x").as_uint();
+	object->y = node.attribute("y").as_uint();
+	object->width = node.attribute("width").as_uint();
+	object->height = node.attribute("height").as_uint();
+
+	return true;
 }
 
 MapLayer::~MapLayer()
@@ -586,19 +632,17 @@ bool j1Map::Unload()
 
 	while (item_object_group != NULL)
 	{
-		// Remove all objects
-		p2List_item<Object*>* object;
-		object = item_object_group->data->objects.start;
+		p2List_item<Object*>* item_object;
+		item_object = item_object_group->data->objects.start;
 
-		while (object != NULL)
+		while (item_object != NULL)
 		{
-			RELEASE(object->data);
-			object = object->next;
+			RELEASE(item_object->data);
+			item_object = item_object->next;
 		}
-
-		RELEASE(item_object_group->data);
 		item_object_group->data->objects.clear();
 
+		RELEASE(item_object_group->data);
 		item_object_group = item_object_group->next;
 	}
 	data.objectGroups.clear();
