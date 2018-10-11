@@ -41,10 +41,12 @@ bool j1Player::Start()
 	LOG("Loading player textures");
 	graphics = App->tex->Load("textures/characters.png");
 
-	LOG("Loading player sound effects");
+	// Better to put on Scene.h. But... doesn't work. Needs fix
+	App->player->first_map_pos = App->map->data.ObjectPos("Player", "PlayerStartPos");
+	App->player->position = App->player->first_map_pos;
+	App->player->previous_position = App->player->position;
 
-	position.y = previous_position.y = 200.0f;
-	position.x = previous_position.x = 260.0f;
+	LOG("Loading player sound effects");
 
 	// Collider initial position
 	collider_position.x = position.x;
@@ -146,7 +148,7 @@ bool j1Player::Update(float dt)
 	if (going_left)
 	{
 		// (x, y) point where the player is in the world
-		iPoint worldPos = App->map->WorldToMap(position.x - 1, position.y);
+		iPoint worldPos = App->map->WorldToMap(position.x - 2, position.y);
 		// (x + w, y + h) point where the player's ending coordinates are located in the world
 		iPoint worldFinalPos = App->map->WorldToMap(position.x + PLAYER_SIZE_X, position.y + PLAYER_SIZE_Y - 1);
 
@@ -159,7 +161,7 @@ bool j1Player::Update(float dt)
 	if (going_right)
 	{
 		// (x, y) point where the player is in the world
-		iPoint worldPos = App->map->WorldToMap(position.x + 1, position.y);
+		iPoint worldPos = App->map->WorldToMap(position.x + 2, position.y);
 		// (x + w, y + h) point where the player's ending coordinates are located in the world
 		iPoint worldFinalPos = App->map->WorldToMap(position.x + PLAYER_SIZE_X + 1, position.y + PLAYER_SIZE_Y - 1);
 
@@ -249,12 +251,6 @@ bool j1Player::Load(pugi::xml_node& save)
 		position.y = save.child("position").attribute("y").as_float();
 	}
 
-	if (save.child("velocity") != NULL)
-	{
-		velocity_x = save.child("velocity").attribute("x").as_float();
-		velocity_y = save.child("velocity").attribute("y").as_float();
-	}
-
 	return true;
 }
 
@@ -268,17 +264,6 @@ bool j1Player::Save(pugi::xml_node& save) const
 	else {
 		save.child("position").attribute("x") = position.x;
 		save.child("position").attribute("y") = position.y;
-	}
-
-	if (save.child("velocity") == NULL)
-	{
-		save.append_child("velocity").append_attribute("x") = velocity_x;
-		save.child("velocity").append_attribute("y") = velocity_y;
-	}
-	else
-	{
-		save.child("velocity").attribute("x") = velocity_x;
-		save.child("velocity").attribute("y") = velocity_y;
 	}
 
 	return true;

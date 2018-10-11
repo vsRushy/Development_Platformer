@@ -649,3 +649,30 @@ bool j1Map::Unload()
 
 	return true;
 }
+
+fPoint MapData::ObjectPos(p2SString obj_group_name, p2SString obj_name)
+{
+	fPoint pos;
+	p2List_item<ObjectGroup*>* obj_group_item = objectGroups.start;
+	bool stop = false;
+	while (obj_group_item != NULL && !stop)
+	{
+		// We just want the objectgroup desired
+		if (obj_group_item->data->name == obj_group_name)
+		{
+			p2List_item<Object*>* obj_item = obj_group_item->data->objects.start;
+			while (obj_item != NULL && !stop)
+			{
+				if (obj_item->data->name == obj_name)
+				{
+					pos.x = obj_item->data->x;
+					pos.y = obj_item->data->y;
+					stop = true;
+				}
+				obj_item = obj_item->next;
+			}
+		}
+		obj_group_item = obj_group_item->next;
+	}
+	return pos;
+}

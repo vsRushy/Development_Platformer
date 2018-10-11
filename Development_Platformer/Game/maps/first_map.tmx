@@ -30031,7 +30031,7 @@
   </data>
  </layer>
  <objectgroup name="Player">
-  <object id="1" name="PlayerStartPos" x="290" y="160" width="32" height="32"/>
+  <object id="1" name="PlayerStartPos" x="289" y="290" width="32" height="32"/>
   <object id="5" name="PlayerEndPos" x="2592" y="1185" width="320" height="64"/>
  </objectgroup>
 </map>

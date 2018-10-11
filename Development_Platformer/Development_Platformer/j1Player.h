@@ -42,12 +42,13 @@ public:
 	to render the player correctly. It stores the player's animation rect */
 	SDL_Rect* rect = nullptr; 
 
-	fPoint position;
+	fPoint position = { 0, 0 };
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
+	fPoint previous_position = { 0, 0 }; //initial position of the jump or fall: X0
 
 	// Initial position depending on the map
-	fPoint first_map_pos = { 200.0f, 260.0f };
-	fPoint second_map_pos = {300.0f, 300.0f };
+	fPoint first_map_pos = { 0, 0 };
+	// fPoint second_map_pos;
 
 private:
 	Animation* current_animation = nullptr;
@@ -68,7 +69,7 @@ private:
 
 	//mrua equation X = X0 + v0*t + 1/2*a*t^2
 	float gravity = 2.8f;// acceleration: a
-	fPoint previous_position;//initial position of the jump or fall: X0
+	
 	float time = 0.0f;//t
 	float initial_speed = 0.0f;//v0
 	bool jump = false;// Jump input

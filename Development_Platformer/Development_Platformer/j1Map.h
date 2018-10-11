@@ -93,6 +93,9 @@ struct MapData
 	p2List<MapLayer*>   layers;
 	p2List<MapLayer*>   collisionLayers;
 	p2List<ObjectGroup*> objectGroups;
+
+	// Functions related to object groups/objects
+	fPoint ObjectPos(p2SString, p2SString);
 };
 
 // ----------------------------------------------------

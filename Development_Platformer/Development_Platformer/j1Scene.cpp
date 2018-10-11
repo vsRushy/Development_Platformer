@@ -36,9 +36,14 @@ bool j1Scene::Awake(pugi::xml_node& config)
 bool j1Scene::Start()
 {
 	if (map_selected == 1)
+	{
 		App->map->Load(first_map.GetString());
+	
+	}
 	else if (map_selected == 2)
+	{
 		App->map->Load(second_map.GetString());
+	}
 
 	return true;
 }
@@ -97,10 +102,10 @@ bool j1Scene::Update(float dt)
 		{
 			App->player->position = App->player->first_map_pos;
 		}
-		else if (map_selected == 2)
+		/*else if (map_selected == 2)
 		{
 			App->player->position = App->player->second_map_pos;
-		}
+		}*/
 	}
 
 	// Set the window title like
