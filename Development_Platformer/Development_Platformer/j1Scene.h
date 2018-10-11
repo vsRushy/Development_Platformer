@@ -38,9 +38,12 @@ public:
 	bool Save(pugi::xml_node&) const;
 
 private:
-	int map_selected = 1;
 	p2SString first_map;
 	p2SString second_map;
+
+public:
+	// Level 1: 1, Level 2: 2.
+	int map_selected = 1;
 };
 
 #endif // __j1SCENE_H__

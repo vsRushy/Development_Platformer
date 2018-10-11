@@ -8,6 +8,7 @@
 #include "j1Player.h"
 #include "j1Collision.h"
 #include "j1Map.h"
+#include "j1Scene.h"
 
 j1Player::j1Player()
 {
@@ -42,9 +43,17 @@ bool j1Player::Start()
 	graphics = App->tex->Load("textures/characters.png");
 
 	// Better to put on Scene.h. But... doesn't work. Needs fix
-	App->player->first_map_pos = App->map->data.ObjectPos("Player", "PlayerStartPos");
-	App->player->position = App->player->first_map_pos;
-	App->player->previous_position = App->player->position;
+	if (App->scene->map_selected == 1) {
+		App->player->first_map_pos = App->map->data.ObjectPos("Player", "PlayerStartPos");
+		App->player->position = App->player->first_map_pos;
+		App->player->previous_position = App->player->position;
+	}
+	else if (App->scene->map_selected == 2)
+	{
+		App->player->second_map_pos = App->map->data.ObjectPos("Player", "PlayerStartPos");
+		App->player->position = App->player->second_map_pos;
+		App->player->previous_position = App->player->position;
+	}
 
 	LOG("Loading player sound effects");
 
