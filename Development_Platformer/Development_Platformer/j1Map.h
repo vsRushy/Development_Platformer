@@ -96,6 +96,8 @@ struct MapData
 
 	// Functions related to object groups/objects
 	fPoint ObjectPos(p2SString, p2SString);
+	fPoint ObjectSize(p2SString, p2SString);
+	bool IsObjectTrigger(p2SString, p2SString, fPoint);
 };
 
 // ----------------------------------------------------

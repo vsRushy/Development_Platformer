@@ -650,6 +650,7 @@ bool j1Map::Unload()
 	return true;
 }
 
+// OBJECT FUNCTIONS --------------------
 fPoint MapData::ObjectPos(p2SString obj_group_name, p2SString obj_name)
 {
 	fPoint pos;
@@ -675,4 +676,50 @@ fPoint MapData::ObjectPos(p2SString obj_group_name, p2SString obj_name)
 		obj_group_item = obj_group_item->next;
 	}
 	return pos;
+}
+
+fPoint MapData::ObjectSize(p2SString obj_group_name, p2SString obj_name)
+{
+	fPoint size;
+	p2List_item<ObjectGroup*>* obj_group_item = objectGroups.start;
+	bool stop = false;
+	while (obj_group_item != NULL && !stop)
+	{
+		// We just want the objectgroup desired
+		if (obj_group_item->data->name == obj_group_name)
+		{
+			p2List_item<Object*>* obj_item = obj_group_item->data->objects.start;
+			while (obj_item != NULL && !stop)
+			{
+				if (obj_item->data->name == obj_name)
+				{
+					size.x = obj_item->data->width;
+					size.y = obj_item->data->height;
+					stop = true;
+				}
+				obj_item = obj_item->next;
+			}
+		}
+		obj_group_item = obj_group_item->next;
+	}
+	return size;
+}
+
+bool MapData::IsObjectTrigger(p2SString obj_group_name, p2SString obj_name, fPoint player_position)
+{
+	bool ret = false;
+
+	fPoint object_position;
+	fPoint object_size;
+
+	object_position = ObjectPos(obj_group_name, obj_name);
+	object_size = ObjectSize(obj_group_name, obj_name);
+
+	if (object_position.x <= player_position.x && 
+		object_position.x + object_size.x > player_position.x &&
+		object_position.y <= player_position.y &&
+		object_size.y + object_position.y > player_position.y)
+			ret = true;
+
+	return ret;
 }

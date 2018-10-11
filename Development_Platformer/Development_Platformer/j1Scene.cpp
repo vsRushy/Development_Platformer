@@ -117,6 +117,14 @@ bool j1Scene::Update(float dt)
 
 	App->win->SetTitle(title.GetString());*/
 
+	/* Will the player reach the end position to go to level 2? */
+	if (App->map->data.IsObjectTrigger("Player", "PlayerEndPos", App->player->position))
+	{
+		if (map_selected == 1)
+			map_selected = 2;
+
+		App->fade->FadeToBlack(this, this);
+	}
 
 	/* DRAW------------ */
 	// App->render->Blit(img, 0, 0);

@@ -48,7 +48,7 @@ public:
 
 	// Initial position depending on the map
 	fPoint first_map_pos = { 0, 0 };
-	// fPoint second_map_pos;
+	fPoint second_map_pos = { 0, 0 };
 
 private:
 	Animation* current_animation = nullptr;
