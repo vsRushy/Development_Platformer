@@ -44,6 +44,7 @@ private:
 public:
 	// Level 1: 1, Level 2: 2.
 	int map_selected = 1;
+	bool isLoading = false;
 };
 
 #endif // __j1SCENE_H__

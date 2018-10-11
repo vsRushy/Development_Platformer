@@ -41,7 +41,7 @@ bool j1Player::Start()
 {
 	LOG("Loading player textures");
 	graphics = App->tex->Load("textures/characters.png");
-
+	/*
 	// Better to put on Scene.h. But... doesn't work. Needs fix
 	if (App->scene->map_selected == 1) {
 		App->player->first_map_pos = App->map->data.ObjectPos("Player", "PlayerStartPos");
@@ -54,6 +54,8 @@ bool j1Player::Start()
 		App->player->position = App->player->second_map_pos;
 		App->player->previous_position = App->player->position;
 	}
+	*/
+	
 
 	LOG("Loading player sound effects");
 

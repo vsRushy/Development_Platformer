@@ -45,6 +45,13 @@ bool j1Scene::Start()
 		App->map->Load(second_map.GetString());
 	}
 
+	if (!isLoading)
+	{
+		App->player->first_map_pos = App->map->data.ObjectPos("Player", "PlayerStartPos");
+		App->player->position = App->player->first_map_pos;
+		App->player->previous_position = App->player->position;
+	}
+
 	return true;
 }
 
@@ -122,6 +129,8 @@ bool j1Scene::Update(float dt)
 	{
 		if (map_selected == 1)
 			map_selected = 2;
+		else
+			map_selected = 1;
 
 		App->fade->FadeToBlack(this, this);
 	}
@@ -162,8 +171,9 @@ bool j1Scene::Load(pugi::xml_node& save)
 	if (save.child("map_selected") != NULL)
 	{
 		// We want to load the map when we are not in the same map_selected index
-		if(save.child("map_selected").attribute("value").as_int() != map_selected/* && !App->fade->IsFading()*/)
+		if(save.child("map_selected").attribute("value").as_int() != map_selected && !App->fade->GetStep() == 0)
 		{
+			isLoading = true;
 			map_selected = save.child("map_selected").attribute("value").as_int();
 			App->fade->FadeToBlack(this, this);
 		}
