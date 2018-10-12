@@ -9,6 +9,7 @@
 #include "j1Collision.h"
 #include "j1Map.h"
 #include "j1Scene.h"
+#include "j1Audio.h"
 
 j1Player::j1Player()
 {
@@ -43,6 +44,7 @@ bool j1Player::Start()
 	graphics = App->tex->Load("textures/characters.png");
 
 	LOG("Loading player sound effects");
+	App->audio->LoadFx("hello_man.wav"); // id: 1
 
 	// Collider initial position
 	collider_position.x = position.x;
@@ -110,6 +112,7 @@ bool j1Player::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && !jump && able_to_jump)
 	{
+		App->audio->PlayFx(1);
 		jump = true;
 		jump_start = true;
 		able_to_jump = false;

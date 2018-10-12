@@ -26,10 +26,17 @@
     <folder>maps/</folder>
   </map>
 
+  <audio>
+    <music_folder>audio/music/</music_folder>
+    <fx_folder>audio/fx/</fx_folder>
+  </audio>
+
   <scene>
     <map_index value="1"/>
     <first_map name="first_map.tmx"/>
     <second_map name="second_map.tmx"/>
+    <first_song name="music_sadpiano.ogg"/>
+    <second_song name=""/>
   </scene>
 
 </config>

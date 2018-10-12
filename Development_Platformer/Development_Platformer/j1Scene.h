@@ -41,6 +41,9 @@ private:
 	p2SString first_map;
 	p2SString second_map;
 
+	p2SString first_song;
+	p2SString second_song;
+
 public:
 	// Level 1: 1, Level 2: 2.
 	int map_selected;

@@ -24,6 +24,9 @@ bool j1Audio::Awake(pugi::xml_node& config)
 	bool ret = true;
 	SDL_Init(0);
 
+	music_folder.create(config.child("music_folder").child_value());
+	fx_folder.create(config.child("fx_folder").child_value());
+
 	if (SDL_InitSubSystem(SDL_INIT_AUDIO) < 0)
 	{
 		LOG("SDL_INIT_AUDIO could not initialize! SDL_Error: %s\n", SDL_GetError());
@@ -102,7 +105,9 @@ bool j1Audio::PlayMusic(const char* path, float fade_time)
 		Mix_FreeMusic(music);
 	}
 
-	music = Mix_LoadMUS(path);
+	p2SString tmp("%s%s", music_folder.GetString(), path);
+
+	music = Mix_LoadMUS(tmp.GetString());
 
 	if (music == NULL)
 	{
@@ -141,7 +146,9 @@ unsigned int j1Audio::LoadFx(const char* path)
 	if (!active)
 		return 0;
 
-	Mix_Chunk* chunk = Mix_LoadWAV(path);
+	p2SString tmp("%s%s", fx_folder.GetString(), path);
+
+	Mix_Chunk* chunk = Mix_LoadWAV(tmp.GetString());
 
 	if (chunk == NULL)
 	{
