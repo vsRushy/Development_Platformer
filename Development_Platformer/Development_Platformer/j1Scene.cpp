@@ -109,15 +109,15 @@ bool j1Scene::Update(float dt)
 	{
 		if (map_selected == 1)
 		{
+			App->fade->FadeToBlack(this, this, 0.1f);
 			App->player->position = App->player->first_map_pos;
 		}
 		else if(map_selected == 2)
 		{
 			map_selected = 1;
+			App->fade->FadeToBlack(this, this, 0.1f);
 			App->player->position = App->player->first_map_pos;
 		}
-
-		App->fade->FadeToBlack(this, this, 0.1f);
 	}
 
 	// Start from the current level
@@ -152,6 +152,7 @@ bool j1Scene::Update(float dt)
 		else if(map_selected == 2)
 			map_selected = 1;
 
+		App->SaveGame();
 		App->fade->FadeToBlack(this, this);
 	}
 
