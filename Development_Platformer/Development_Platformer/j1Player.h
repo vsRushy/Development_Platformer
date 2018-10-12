@@ -47,8 +47,8 @@ public:
 	fPoint previous_position = { 0, 0 }; //initial position of the jump or fall: X0
 
 	// Initial position depending on the map
-	fPoint first_map_pos = { 0, 0 };
-	fPoint second_map_pos = { 0, 0 };
+	fPoint first_map_pos;
+	fPoint second_map_pos;
 
 private:
 	Animation* current_animation = nullptr;

@@ -38,19 +38,31 @@ bool j1Scene::Start()
 	if (map_selected == 1)
 	{
 		App->map->Load(first_map.GetString());
-	
+
 	}
 	else if (map_selected == 2)
 	{
 		App->map->Load(second_map.GetString());
+
 	}
 
 	if (!isLoading)
 	{
-		App->player->first_map_pos = App->map->data.ObjectPos("Player", "PlayerStartPos");
-		App->player->position = App->player->first_map_pos;
-		App->player->previous_position = App->player->position;
+		if (map_selected == 1)
+		{
+			App->player->first_map_pos = App->map->data.ObjectPos("Player", "PlayerStartPos");
+			App->player->position = App->player->first_map_pos;
+			App->player->previous_position = App->player->position;
+		}
+		else if (map_selected == 2)
+		{
+			App->player->second_map_pos = App->map->data.ObjectPos("Player", "PlayerStartPos");
+			App->player->position = App->player->second_map_pos;
+			App->player->previous_position = App->player->position;
+		}
 	}
+
+	isLoading = false;
 
 	return true;
 }
@@ -66,11 +78,13 @@ bool j1Scene::Update(float dt)
 {
 	/*INPUT--------------------------------------------*/
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+	{
 		App->LoadGame();
-
+	}
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+	{
 		App->SaveGame();
-
+	}
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 		App->render->camera.y -= 3;
 	else
@@ -95,24 +109,26 @@ bool j1Scene::Update(float dt)
 		{
 			App->player->position = App->player->first_map_pos;
 		}
-		else
+		else if(map_selected == 2)
 		{
 			map_selected = 1;
-			App->fade->FadeToBlack(this, this);
+			App->player->position = App->player->first_map_pos;
 		}
+
+		App->fade->FadeToBlack(this, this, 0.1f);
 	}
 
 	// Start from the current level
-	if (App->input->GetKey(SDL_SCANCODE_F2))
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
 		if (map_selected == 1)
 		{
 			App->player->position = App->player->first_map_pos;
 		}
-		/*else if (map_selected == 2)
+		else if (map_selected == 2)
 		{
 			App->player->position = App->player->second_map_pos;
-		}*/
+		}
 	}
 
 	// Set the window title like
@@ -125,11 +141,11 @@ bool j1Scene::Update(float dt)
 	App->win->SetTitle(title.GetString());*/
 
 	/* Will the player reach the end position to go to level 2? */
-	if (App->map->data.IsObjectTrigger("Player", "PlayerEndPos", App->player->position))
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN || App->map->data.IsObjectTrigger("Player", "PlayerEndPos", App->player->position))
 	{
 		if (map_selected == 1)
 			map_selected = 2;
-		else
+		else if(map_selected == 2)
 			map_selected = 1;
 
 		App->fade->FadeToBlack(this, this);
@@ -175,7 +191,7 @@ bool j1Scene::Load(pugi::xml_node& save)
 		{
 			isLoading = true;
 			map_selected = save.child("map_selected").attribute("value").as_int();
-			App->fade->FadeToBlack(this, this);
+			App->fade->FadeToBlack(this, this, 2.0f);
 		}
 	}
 
