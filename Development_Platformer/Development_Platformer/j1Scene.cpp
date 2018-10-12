@@ -30,6 +30,9 @@ bool j1Scene::Awake(pugi::xml_node& config)
 	first_map = config.child("first_map").attribute("name").as_string();
 	second_map = config.child("second_map").attribute("name").as_string();
 
+	first_song = config.child("first_song").attribute("name").as_string();
+	second_song = config.child("second_song").attribute("name").as_string();
+
 	return ret;
 }
 
@@ -39,12 +42,12 @@ bool j1Scene::Start()
 	if (map_selected == 1)
 	{
 		App->map->Load(first_map.GetString());
-
+		App->audio->PlayMusic(first_song.GetString());
 	}
 	else if (map_selected == 2)
 	{
 		App->map->Load(second_map.GetString());
-
+		App->audio->PlayMusic(second_song.GetString());
 	}
 
 	if (!isLoading)
