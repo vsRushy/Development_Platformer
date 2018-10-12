@@ -84,6 +84,7 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 	{
 		App->SaveGame();
+		last_map_selected = map_selected;
 	}
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 		App->render->camera.y -= 3;
@@ -129,6 +130,8 @@ bool j1Scene::Update(float dt)
 		{
 			App->player->position = App->player->second_map_pos;
 		}
+
+		App->fade->FadeToBlack(this, this, 0.1f);
 	}
 
 	// Set the window title like
@@ -187,13 +190,13 @@ bool j1Scene::Load(pugi::xml_node& save)
 	if (save.child("map_selected") != NULL)
 	{
 		// We want to load the map when we are not in the same map_selected index
-		if(save.child("map_selected").attribute("value").as_int() != map_selected && !App->fade->GetStep() == 0)
+		if(save.child("map_selected").attribute("value").as_int() != map_selected)
 		{
-			isLoading = true;
 			map_selected = save.child("map_selected").attribute("value").as_int();
 			App->fade->FadeToBlack(this, this, 2.0f);
 		}
 	}
+	isLoading = true;
 
 	return true;
 }
