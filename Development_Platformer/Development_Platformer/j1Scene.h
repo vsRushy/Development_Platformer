@@ -43,8 +43,8 @@ private:
 
 public:
 	// Level 1: 1, Level 2: 2.
-	int map_selected = 1;
-	int last_map_selected = 1;
+	int map_selected;
+	int last_map_selected;
 	bool isLoading = false;
 };
 

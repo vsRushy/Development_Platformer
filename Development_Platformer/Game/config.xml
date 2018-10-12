@@ -27,6 +27,7 @@
   </map>
 
   <scene>
+    <map_index value="1"/>
     <first_map name="first_map.tmx"/>
     <second_map name="second_map.tmx"/>
   </scene>

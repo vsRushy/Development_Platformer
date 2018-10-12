@@ -26,6 +26,7 @@ bool j1Scene::Awake(pugi::xml_node& config)
 	LOG("Loading Scene");
 	bool ret = true;
 
+	map_selected = config.child("map_index").attribute("value").as_int();
 	first_map = config.child("first_map").attribute("name").as_string();
 	second_map = config.child("second_map").attribute("name").as_string();
 
