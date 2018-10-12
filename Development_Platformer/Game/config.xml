@@ -35,8 +35,8 @@
     <map_index value="1"/>
     <first_map name="first_map.tmx"/>
     <second_map name="second_map.tmx"/>
-    <first_song name="music_sadpiano.ogg"/>
-    <second_song name=""/>
+    <first_song name="Worldmap_Theme.ogg"/>
+    <second_song name="Dungeon_Theme.ogg"/>
   </scene>
 
 </config>

@@ -44,7 +44,7 @@ bool j1Player::Start()
 	graphics = App->tex->Load("textures/characters.png");
 
 	LOG("Loading player sound effects");
-	App->audio->LoadFx("hello_man.wav"); // id: 1
+	App->audio->LoadFx("jump.wav"); // id: 1
 
 	// Collider initial position
 	collider_position.x = position.x;
