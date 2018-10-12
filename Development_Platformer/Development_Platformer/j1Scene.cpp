@@ -63,6 +63,7 @@ bool j1Scene::Start()
 		}
 	}
 
+	App->SaveGame();
 	isLoading = false;
 
 	return true;
@@ -145,7 +146,7 @@ bool j1Scene::Update(float dt)
 	App->win->SetTitle(title.GetString());*/
 
 	/* Will the player reach the end position to go to level 2? */
-	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN || App->map->data.IsObjectTrigger("Player", "PlayerEndPos", App->player->position))
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN || App->map->data.IsObjectTrigger("Player", "PlayerEndPos", App->player->position) && !App->fade->IsFading())
 	{
 		if (map_selected == 1)
 			map_selected = 2;
