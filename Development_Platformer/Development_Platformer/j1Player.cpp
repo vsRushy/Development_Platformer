@@ -197,7 +197,7 @@ bool j1Player::Update(float dt)
 		else if (App->map->CheckCollisionY(worldPos.y, worldPos.x, worldFinalPos.x))
 		{
 			time = 0.0f;
-			initial_speed = 0.0f;
+			initial_speed = 2.0f;
 			previous_position.y = position.y;
 			equation_is_possible = 0;
 			if (jump) jump = false;
