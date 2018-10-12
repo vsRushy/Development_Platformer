@@ -160,6 +160,15 @@ bool j1Scene::Update(float dt)
 		App->fade->FadeToBlack(this, this);
 	}
 
+	/* Check if player falls into the death zone*/
+	if (App->map->data.IsObjectTrigger("DeathZone", "DeathZone_1", App->player->position) ||
+		App->map->data.IsObjectTrigger("DeathZone", "DeathZone_2", App->player->position) ||
+		App->map->data.IsObjectTrigger("DeathZone", "DeathZone_3", App->player->position))
+	{
+		App->player->position = App->player->first_map_pos;
+		// TODO: Check at what map we are.
+	}
+
 	/* DRAW------------ */
 	// App->render->Blit(img, 0, 0);
 	App->map->Draw();
