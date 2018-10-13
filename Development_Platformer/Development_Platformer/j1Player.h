@@ -50,6 +50,8 @@ public:
 	fPoint first_map_pos;
 	fPoint second_map_pos;
 
+	bool god_mode;
+
 private:
 	Animation* current_animation = nullptr;
 	Animation idle_anim;
@@ -68,7 +70,7 @@ private:
 	bool going_down = true;
 
 	//mrua equation X = X0 + v0*t + 1/2*a*t^2
-	float gravity = 15.0f;// acceleration: a
+	float gravity = 5.8f;// acceleration: a
 	
 	float time = 0.0f;//t
 	float initial_speed = 0.0f;//v0

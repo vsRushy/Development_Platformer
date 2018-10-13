@@ -164,6 +164,15 @@ bool j1Scene::Update(float dt)
 		App->fade->FadeToBlack(this, this);
 	}
 
+	/* ENVABLE/DISABLE GOD MODE */
+	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+	{
+		if (App->player->god_mode == false)
+			App->player->god_mode = true;
+		else if (App->player->god_mode == true)
+			App->player->god_mode = false;
+	}
+
 	/* Check if player falls into the death zone */
 	if (App->map->data.IsObjectTrigger("DeathZone", "DeathZone_1", App->player->position) ||
 		App->map->data.IsObjectTrigger("DeathZone", "DeathZone_2", App->player->position) ||

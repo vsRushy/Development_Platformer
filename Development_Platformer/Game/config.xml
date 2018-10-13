@@ -39,4 +39,8 @@
     <second_song name="Dungeon_Theme.ogg"/>
   </scene>
 
+  <player>
+    <god_mode value="false"/>
+  </player>
+
 </config>

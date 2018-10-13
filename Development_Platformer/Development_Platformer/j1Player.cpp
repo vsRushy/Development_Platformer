@@ -34,6 +34,8 @@ j1Player::~j1Player()
 
 bool j1Player::Awake(pugi::xml_node& data)
 {
+	god_mode = data.child("god_mode").attribute("value").as_bool();
+
 	return true;
 }
 
@@ -45,7 +47,7 @@ bool j1Player::Start()
 
 	LOG("Loading player sound effects");
 	App->audio->LoadFx("jump.wav"); // id: 1
-	App->audio->LoadFx("dash.wav");
+	App->audio->LoadFx("dash.wav"); // id: 2
 
 	// Collider initial position
 	collider_position.x = position.x;
@@ -82,183 +84,210 @@ bool j1Player::Update(float dt)
 	// Update collider position
 	player_collider->SetPos(position.x, position.y);
 
-	// Player Input (when pressing a key)
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+	if (god_mode == false)
 	{
-		going_left = true;
-		current_animation = &walk_anim;
-		flip = SDL_FLIP_HORIZONTAL;
-	}
-	else
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-	{
-		going_right = true;
-		current_animation = &walk_anim;
-		flip = SDL_FLIP_NONE;
-	}
-	else
-	{
-		current_animation = &idle_anim;
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-	{
-		going_up = true;
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_X) == KEY_REPEAT && !dash && able_to_dash)
-	{
-		dash = true;
-		able_to_dash = false;
-		App->audio->PlayFx(2);
-	}
-
-	/*if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-	{
-		
-	}*/
-
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && !jump && able_to_jump)
-	{
-		App->audio->PlayFx(1);
-		jump = true;
-		jump_start = true;
-		able_to_jump = false;
-	}
-
-	// Player input (when releasing a key)
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP)
-	{
-		going_left = false;
-	}
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_UP)
-	{
-		going_right = false;
-	}
-	// Player input (when releasing a key)
-	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_UP)
-	{
-		going_up = false;
-	}
-
-	/*if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_UP)
-	{
-		going_down = false;
-	}*/
-
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
-	{
-		jump = false;
-	}
-
-	// Movement logic
-	if (going_left)
-	{
-		// (x, y) point where the player is in the world
-		iPoint worldPos = App->map->WorldToMap(position.x - velocity_x - 1, position.y);
-		// (x + w, y + h) point where the player's ending coordinates are located in the world
-		iPoint worldFinalPos = App->map->WorldToMap(position.x + PLAYER_SIZE_X, position.y + PLAYER_SIZE_Y - 1);
-
-		if (!App->map->CheckCollisionX(worldPos.x, worldPos.y, worldFinalPos.y))
+		// Player Input (when pressing a key)
+		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 		{
-			position.x -= velocity_x;
+			going_left = true;
+			current_animation = &walk_anim;
+			flip = SDL_FLIP_HORIZONTAL;
 		}
-	}
-	if (going_right)
-	{
-		// (x, y) point where the player is in the world
-		iPoint worldPos = App->map->WorldToMap(position.x, position.y);
-		// (x + w, y + h) point where the player's ending coordinates are located in the world
-		iPoint worldFinalPos = App->map->WorldToMap(position.x + PLAYER_SIZE_X + velocity_x + 1, position.y + PLAYER_SIZE_Y - 1);
-
-		if (!App->map->CheckCollisionX(worldFinalPos.x, worldPos.y, worldFinalPos.y))
+		else if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		{
-			position.x += velocity_x;
-		}
-	}
-	if (going_up && !dash)
-	{
-		// (x, y) point where the player is in the world
-		iPoint worldPos = App->map->WorldToMap(position.x, position.y + 1);
-		// (x + w, y + h) point where the player's ending coordinates are located in the world
-		iPoint worldFinalPos = App->map->WorldToMap(position.x + PLAYER_SIZE_X - 1, position.y + PLAYER_SIZE_Y);
-
-		if (!App->map->CheckCollisionY(worldPos.y, worldPos.x, worldFinalPos.x))
-		{
-			position.y -= velocity_y;
-		}
-	}
-	if (going_down && !dash)
-	{
-		// (x, y) point where the player is in the world
-		iPoint worldPos = App->map->WorldToMap(position.x, position.y + 1);
-		iPoint worldNextPos = App->map->WorldToMap(position.x, previous_position.y + initial_speed * (time+0.1f) + (gravity*(time+0.1f)*(time + 0.1f)) * 0.5f + 1);
-		// (x + w, y + h) point where the player's ending coordinates are located in the world
-		iPoint worldFinalPos = App->map->WorldToMap(position.x + PLAYER_SIZE_X - velocity_x - 1, position.y + PLAYER_SIZE_Y);
-		iPoint worldNextFinalPos = App->map->WorldToMap(position.x + PLAYER_SIZE_X - velocity_x - 1, previous_position.y + initial_speed * (time + 0.1f) + (gravity*(time + 0.1f)*(time + 0.1f)) * 0.5f + PLAYER_SIZE_Y );
-
-		//when colliding going up
-		if (!App->map->CheckCollisionY(worldPos.y, worldPos.x, worldFinalPos.x) && App->map->CheckCollisionY(worldNextPos.y, worldNextPos.x, worldNextFinalPos.x))
-		{
-			equation_is_possible = 2;
-		}
-		else if (App->map->CheckCollisionY(worldPos.y, worldPos.x, worldFinalPos.x))
-		{
-			time = 0.0f;
-			initial_speed = 2.0f;
-			previous_position.y = position.y;
-			equation_is_possible = 0;
-			if (jump) jump = false;
-			able_to_jump = false;
-		}
-
-		//when colliding going down
-		if (!App->map->CheckCollisionY(worldFinalPos.y, worldPos.x, worldFinalPos.x) && !App->map->CheckCollisionY(worldNextFinalPos.y, worldNextPos.x, worldNextFinalPos.x))
-		{
-			if (!jump)time += 0.1f;
-			able_to_jump = false;
-		}
-		else if (!App->map->CheckCollisionY(worldFinalPos.y, worldPos.x, worldFinalPos.x) && App->map->CheckCollisionY(worldNextFinalPos.y, worldNextPos.x, worldNextFinalPos.x))
-		{
-			equation_is_possible = 1;
+			going_right = true;
+			current_animation = &walk_anim;
+			flip = SDL_FLIP_NONE;
 		}
 		else
 		{
-			time = 0.0f;
-			previous_position.y = position.y;
-			initial_speed = 0.0f;
-			equation_is_possible = 0;
-			if (!jump_start) {
-				jump = false;
+			current_animation = &idle_anim;
+		}
+
+		/*if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+		{
+			going_up = true;
+		}*/
+
+		if (App->input->GetKey(SDL_SCANCODE_X) == KEY_REPEAT && !dash && able_to_dash)
+		{
+			dash = true;
+			able_to_dash = false;
+			App->audio->PlayFx(2);
+		}
+
+		/*if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+		{
+
+		}*/
+
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT && !jump && able_to_jump)
+		{
+			App->audio->PlayFx(1);
+			jump = true;
+			jump_start = true;
+			able_to_jump = false;
+		}
+
+		// Player input (when releasing a key)
+		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP)
+		{
+			going_left = false;
+		}
+		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_UP)
+		{
+			going_right = false;
+		}
+		// Player input (when releasing a key)
+		/*if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_UP)
+		{
+			going_up = false;
+		}*/
+
+		/*if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_UP)
+		{
+			going_down = false;
+		}*/
+
+		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
+		{
+			jump = false;
+		}
+
+		// Movement logic
+		if (going_left)
+		{
+			// (x, y) point where the player is in the world
+			iPoint worldPos = App->map->WorldToMap(position.x - velocity_x - 1, position.y);
+			// (x + w, y + h) point where the player's ending coordinates are located in the world
+			iPoint worldFinalPos = App->map->WorldToMap(position.x + PLAYER_SIZE_X, position.y + PLAYER_SIZE_Y - 1);
+
+			if (!App->map->CheckCollisionX(worldPos.x, worldPos.y, worldFinalPos.y))
+			{
+				position.x -= velocity_x;
 			}
-			able_to_jump = true;
-			able_to_dash = true;
+		}
+		if (going_right)
+		{
+			// (x, y) point where the player is in the world
+			iPoint worldPos = App->map->WorldToMap(position.x, position.y);
+			// (x + w, y + h) point where the player's ending coordinates are located in the world
+			iPoint worldFinalPos = App->map->WorldToMap(position.x + PLAYER_SIZE_X + velocity_x + 1, position.y + PLAYER_SIZE_Y - 1);
+
+			if (!App->map->CheckCollisionX(worldFinalPos.x, worldPos.y, worldFinalPos.y))
+			{
+				position.x += velocity_x;
+			}
+		}
+		if (going_up && !dash)
+		{
+			// (x, y) point where the player is in the world
+			iPoint worldPos = App->map->WorldToMap(position.x, position.y + 1);
+			// (x + w, y + h) point where the player's ending coordinates are located in the world
+			iPoint worldFinalPos = App->map->WorldToMap(position.x + PLAYER_SIZE_X - 1, position.y + PLAYER_SIZE_Y);
+
+			if (!App->map->CheckCollisionY(worldPos.y, worldPos.x, worldFinalPos.x))
+			{
+				position.y -= velocity_y;
+			}
+		}
+		if (going_down && !dash)
+		{
+			// (x, y) point where the player is in the world
+			iPoint worldPos = App->map->WorldToMap(position.x, position.y + 1);
+			iPoint worldNextPos = App->map->WorldToMap(position.x, previous_position.y + initial_speed * (time + 0.1f) + (gravity*(time + 0.1f)*(time + 0.1f)) * 0.5f + 1);
+			// (x + w, y + h) point where the player's ending coordinates are located in the world
+			iPoint worldFinalPos = App->map->WorldToMap(position.x + PLAYER_SIZE_X - velocity_x - 1, position.y + PLAYER_SIZE_Y);
+			iPoint worldNextFinalPos = App->map->WorldToMap(position.x + PLAYER_SIZE_X - velocity_x - 1, previous_position.y + initial_speed * (time + 0.1f) + (gravity*(time + 0.1f)*(time + 0.1f)) * 0.5f + PLAYER_SIZE_Y);
+
+			//when colliding going up
+			if (!App->map->CheckCollisionY(worldPos.y, worldPos.x, worldFinalPos.x) && App->map->CheckCollisionY(worldNextPos.y, worldNextPos.x, worldNextFinalPos.x))
+			{
+				equation_is_possible = 2;
+			}
+			else if (App->map->CheckCollisionY(worldPos.y, worldPos.x, worldFinalPos.x))
+			{
+				time = 0.0f;
+				initial_speed = 2.0f;
+				previous_position.y = position.y;
+				equation_is_possible = 0;
+				if (jump) jump = false;
+				able_to_jump = false;
+			}
+
+			//when colliding going down
+			if (!App->map->CheckCollisionY(worldFinalPos.y, worldPos.x, worldFinalPos.x) && !App->map->CheckCollisionY(worldNextFinalPos.y, worldNextPos.x, worldNextFinalPos.x))
+			{
+				if (!jump)time += 0.1f;
+				able_to_jump = false;
+			}
+			else if (!App->map->CheckCollisionY(worldFinalPos.y, worldPos.x, worldFinalPos.x) && App->map->CheckCollisionY(worldNextFinalPos.y, worldNextPos.x, worldNextFinalPos.x))
+			{
+				equation_is_possible = 1;
+			}
+			else
+			{
+				time = 0.0f;
+				previous_position.y = position.y;
+				initial_speed = 0.0f;
+				equation_is_possible = 0;
+				if (!jump_start) {
+					jump = false;
+				}
+				able_to_jump = true;
+				able_to_dash = true;
+			}
+		}
+		if (jump && !dash)
+		{
+			initial_speed = -35.0f;
+			time += 0.1f;
+			if (jump_start) jump_start = false;
+		}
+		if (!dash)
+		{
+			if (equation_is_possible == 0) position.y = previous_position.y + initial_speed * time + (gravity*time*time) * 0.5f;
+			else if (equation_is_possible == 1) ++position.y;
+			else --position.y;
+		}
+		else {
+			if (dashTime < 1.5f)
+			{
+				dashTime += 0.1f;
+				velocity_x = 10.0f;
+			}
+			else
+			{
+				dashTime = 0.0f;
+				dash = false;
+				velocity_x = 3.0f;
+			}
 		}
 	}
-	if (jump && !dash)
+	else if (god_mode == true)
 	{
-		initial_speed = -45.0f;
-		time += 0.1f;
-		if (jump_start) jump_start = false;
-	}
-	if (!dash)
-	{
-		if (equation_is_possible == 0) position.y = previous_position.y + initial_speed * time + (gravity*time*time) * 0.5f;
-		else if (equation_is_possible == 1) ++position.y;
-		else --position.y;
-	}
-	else {
-		if (dashTime < 1.5f)
+		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 		{
-			dashTime += 0.1f;
-			velocity_x = 10.0f;
+			flip = SDL_FLIP_HORIZONTAL;
+			current_animation = &walk_anim;
+			position.x -= 3.0f;
+		}
+		else if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+		{
+			flip = SDL_FLIP_NONE;
+			current_animation = &walk_anim;
+			position.x += 3.0f;
+		}
+		else if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+		{
+			position.y -= 3.0f;
+		}
+		else if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+		{
+			position.y += 3.0f;
 		}
 		else
-		{
-			dashTime = 0.0f;
-			dash = false;
-			velocity_x = 3.0f;
-		}
+			current_animation = &idle_anim;
 	}
 
 	return true;
