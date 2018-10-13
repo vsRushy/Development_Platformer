@@ -52,6 +52,18 @@ Author 2 nickname: surt.
 
 • Spritesheet: [surt's spritesheet](https://opengameart.org/content/generic-platformer-tiles)
 
+Author 3 nickname: Dameged Panda.
+
+• OpenGameArt account: [Damaged Panda](https://opengameart.org/users/damaged-panda)
+
+• Audio files: [Damaged Panda audio files](https://opengameart.org/content/100-plus-game-sound-effects-wavoggm4a)
+
+Author 4 nickname: CodeManu.
+
+• OpenGameArt account: [CodeManu](https://opengameart.org/users/codemanu)
+
+• Audio files: [CodeManu audio files](https://opengameart.org/content/platformer-game-music-pack)
+
 ## License
 
 MIT License
