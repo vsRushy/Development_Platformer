@@ -45,6 +45,7 @@ bool j1Player::Start()
 
 	LOG("Loading player sound effects");
 	App->audio->LoadFx("jump.wav"); // id: 1
+	App->audio->LoadFx("dash.wav");
 
 	// Collider initial position
 	collider_position.x = position.x;
@@ -103,6 +104,13 @@ bool j1Player::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 	{
 		going_up = true;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_X) == KEY_REPEAT && !dash && able_to_dash)
+	{
+		dash = true;
+		able_to_dash = false;
+		App->audio->PlayFx(2);
 	}
 
 	/*if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
@@ -168,7 +176,7 @@ bool j1Player::Update(float dt)
 			position.x += velocity_x;
 		}
 	}
-	if (going_up)
+	if (going_up && !dash)
 	{
 		// (x, y) point where the player is in the world
 		iPoint worldPos = App->map->WorldToMap(position.x, position.y + 1);
@@ -180,7 +188,7 @@ bool j1Player::Update(float dt)
 			position.y -= velocity_y;
 		}
 	}
-	if (going_down)
+	if (going_down && !dash)
 	{
 		// (x, y) point where the player is in the world
 		iPoint worldPos = App->map->WorldToMap(position.x, position.y + 1);
@@ -224,17 +232,34 @@ bool j1Player::Update(float dt)
 				jump = false;
 			}
 			able_to_jump = true;
+			able_to_dash = true;
 		}
 	}
-	if (jump)
+	if (jump && !dash)
 	{
-		initial_speed = -35.0f;
+		initial_speed = -45.0f;
 		time += 0.1f;
 		if (jump_start) jump_start = false;
 	}
-	if(equation_is_possible == 0) position.y = previous_position.y + initial_speed * time + (gravity*time*time) * 0.5f;
-	else if (equation_is_possible == 1) ++position.y;
-	else --position.y;
+	if (!dash)
+	{
+		if (equation_is_possible == 0) position.y = previous_position.y + initial_speed * time + (gravity*time*time) * 0.5f;
+		else if (equation_is_possible == 1) ++position.y;
+		else --position.y;
+	}
+	else {
+		if (dashTime < 1.5f)
+		{
+			dashTime += 0.1f;
+			velocity_x = 10.0f;
+		}
+		else
+		{
+			dashTime = 0.0f;
+			dash = false;
+			velocity_x = 3.0f;
+		}
+	}
 
 	return true;
 }

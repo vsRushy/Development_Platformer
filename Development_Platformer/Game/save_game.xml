@@ -6,14 +6,14 @@
 	<audio />
 	<map />
 	<scene>
-		<map_selected value="2" />
+		<map_selected value="1" />
 	</scene>
 	<player>
-		<position x="416" y="192" />
+		<position x="288" y="320.049988" />
 	</player>
 	<collision />
 	<fade />
 	<renderer>
-		<camera x="-348" y="234" />
+		<camera x="-92" y="-240" />
 	</renderer>
 </game_state>
