@@ -9,11 +9,11 @@
 		<map_selected value="1" />
 	</scene>
 	<player>
-		<position x="289" y="290.014008" />
+		<position x="289" y="290" />
 	</player>
 	<collision />
 	<fade />
 	<renderer>
-		<camera x="-94" y="-180" />
+		<camera x="-632" y="-1924" />
 	</renderer>
 </game_state>
