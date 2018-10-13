@@ -14,7 +14,7 @@ Welcome to our first ever Platformer, Little Big King!
 
 **Spacebar:** Jump
 
-**X:** Jump
+**X:** Dash
 
 ## Debug keys
 
@@ -29,6 +29,24 @@ Welcome to our first ever Platformer, Little Big King!
 **F9:** View colliders/logic
 
 **F10:** God mode
+
+**A:** Move camera right
+
+**D:** Move camera left
+
+**W:** Move camera down
+
+**S:** Move camera up
+
+If god mode is activated:
+
+**Left arrow:** Move the player to the left
+
+**Right arrow:** Move the player to the right
+
+**Up arrow:** Move player up
+
+**Down arrow:** Move player down
 
 ## Authors
 
