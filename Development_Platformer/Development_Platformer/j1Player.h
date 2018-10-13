@@ -59,8 +59,8 @@ private:
 	iPoint collider_position;
 
 	// Player movement
-	float velocity_x = 2.0f;
-	float velocity_y = 1.0f;
+	float velocity_x = 3.0f;
+	float velocity_y = 2.0f;
 
 	bool going_left = false;
 	bool going_right = false;
@@ -68,7 +68,7 @@ private:
 	bool going_down = true;
 
 	//mrua equation X = X0 + v0*t + 1/2*a*t^2
-	float gravity = 2.8f;// acceleration: a
+	float gravity = 5.6f;// acceleration: a
 	
 	float time = 0.0f;//t
 	float initial_speed = 0.0f;//v0

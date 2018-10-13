@@ -147,7 +147,7 @@ bool j1Player::Update(float dt)
 	if (going_left)
 	{
 		// (x, y) point where the player is in the world
-		iPoint worldPos = App->map->WorldToMap(position.x - 2, position.y);
+		iPoint worldPos = App->map->WorldToMap(position.x - velocity_x, position.y);
 		// (x + w, y + h) point where the player's ending coordinates are located in the world
 		iPoint worldFinalPos = App->map->WorldToMap(position.x + PLAYER_SIZE_X, position.y + PLAYER_SIZE_Y - 1);
 
@@ -159,7 +159,7 @@ bool j1Player::Update(float dt)
 	if (going_right)
 	{
 		// (x, y) point where the player is in the world
-		iPoint worldPos = App->map->WorldToMap(position.x + 2, position.y);
+		iPoint worldPos = App->map->WorldToMap(position.x + velocity_x, position.y);
 		// (x + w, y + h) point where the player's ending coordinates are located in the world
 		iPoint worldFinalPos = App->map->WorldToMap(position.x + PLAYER_SIZE_X + 1, position.y + PLAYER_SIZE_Y - 1);
 
@@ -228,7 +228,7 @@ bool j1Player::Update(float dt)
 	}
 	if (jump)
 	{
-		initial_speed = -25.0f;
+		initial_speed = -35.0f;
 		time += 0.1f;
 		if (jump_start) jump_start = false;
 	}
