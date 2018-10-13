@@ -14,6 +14,6 @@
 	<collision />
 	<fade />
 	<renderer>
-		<camera x="-348" y="14" />
+		<camera x="-348" y="234" />
 	</renderer>
 </game_state>
