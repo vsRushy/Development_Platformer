@@ -14,6 +14,8 @@ Welcome to our first ever Platformer, Little Big King!
 
 **Spacebar:** Jump
 
+**X:** Jump
+
 ## Debug keys
 
 **F1:** Start from the very first level
