@@ -147,7 +147,7 @@ bool j1Player::Update(float dt)
 	if (going_left)
 	{
 		// (x, y) point where the player is in the world
-		iPoint worldPos = App->map->WorldToMap(position.x - velocity_x, position.y);
+		iPoint worldPos = App->map->WorldToMap(position.x - velocity_x - 1, position.y);
 		// (x + w, y + h) point where the player's ending coordinates are located in the world
 		iPoint worldFinalPos = App->map->WorldToMap(position.x + PLAYER_SIZE_X, position.y + PLAYER_SIZE_Y - 1);
 
@@ -159,9 +159,9 @@ bool j1Player::Update(float dt)
 	if (going_right)
 	{
 		// (x, y) point where the player is in the world
-		iPoint worldPos = App->map->WorldToMap(position.x + velocity_x, position.y);
+		iPoint worldPos = App->map->WorldToMap(position.x, position.y);
 		// (x + w, y + h) point where the player's ending coordinates are located in the world
-		iPoint worldFinalPos = App->map->WorldToMap(position.x + PLAYER_SIZE_X + 1, position.y + PLAYER_SIZE_Y - 1);
+		iPoint worldFinalPos = App->map->WorldToMap(position.x + PLAYER_SIZE_X + velocity_x + 1, position.y + PLAYER_SIZE_Y - 1);
 
 		if (!App->map->CheckCollisionX(worldFinalPos.x, worldPos.y, worldFinalPos.y))
 		{
@@ -186,8 +186,8 @@ bool j1Player::Update(float dt)
 		iPoint worldPos = App->map->WorldToMap(position.x, position.y + 1);
 		iPoint worldNextPos = App->map->WorldToMap(position.x, previous_position.y + initial_speed * (time+0.1f) + (gravity*(time+0.1f)*(time + 0.1f)) * 0.5f + 1);
 		// (x + w, y + h) point where the player's ending coordinates are located in the world
-		iPoint worldFinalPos = App->map->WorldToMap(position.x + PLAYER_SIZE_X - 1, position.y + PLAYER_SIZE_Y);
-		iPoint worldNextFinalPos = App->map->WorldToMap(position.x + PLAYER_SIZE_X - 1, previous_position.y + initial_speed * (time + 0.1f) + (gravity*(time + 0.1f)*(time + 0.1f)) * 0.5f + PLAYER_SIZE_Y);
+		iPoint worldFinalPos = App->map->WorldToMap(position.x + PLAYER_SIZE_X - velocity_x - 1, position.y + PLAYER_SIZE_Y);
+		iPoint worldNextFinalPos = App->map->WorldToMap(position.x + PLAYER_SIZE_X - velocity_x - 1, previous_position.y + initial_speed * (time + 0.1f) + (gravity*(time + 0.1f)*(time + 0.1f)) * 0.5f + PLAYER_SIZE_Y );
 
 		//when colliding going up
 		if (!App->map->CheckCollisionY(worldPos.y, worldPos.x, worldFinalPos.x) && App->map->CheckCollisionY(worldNextPos.y, worldNextPos.x, worldNextFinalPos.x))
