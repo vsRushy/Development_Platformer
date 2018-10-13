@@ -115,12 +115,14 @@ bool j1Scene::Update(float dt)
 		{
 			App->fade->FadeToBlack(this, this, 0.1f);
 			App->player->position = App->player->first_map_pos;
+			App->player->previous_position = App->player->position;
 		}
 		else if(map_selected == 2)
 		{
 			map_selected = 1;
 			App->fade->FadeToBlack(this, this, 0.1f);
 			App->player->position = App->player->first_map_pos;
+			App->player->previous_position = App->player->position;
 		}
 	}
 
@@ -130,10 +132,12 @@ bool j1Scene::Update(float dt)
 		if (map_selected == 1)
 		{
 			App->player->position = App->player->first_map_pos;
+			App->player->previous_position = App->player->position;
 		}
 		else if (map_selected == 2)
 		{
 			App->player->position = App->player->second_map_pos;
+			App->player->previous_position = App->player->position;
 		}
 
 		App->fade->FadeToBlack(this, this, 0.1f);

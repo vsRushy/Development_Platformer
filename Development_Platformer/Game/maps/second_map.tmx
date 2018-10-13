@@ -25027,7 +25027,7 @@
   </data>
  </layer>
  <objectgroup name="Player">
-  <object id="1" name="PlayerStartPos" x="416" y="203" width="32" height="32"/>
+  <object id="1" name="PlayerStartPos" x="416" y="192" width="32" height="32"/>
   <object id="3" name="PlayerEndPos" x="2815.33" y="223.667" width="64" height="32"/>
  </objectgroup>
  <objectgroup name="DeathZone">
