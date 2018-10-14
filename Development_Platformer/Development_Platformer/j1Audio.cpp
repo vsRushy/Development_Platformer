@@ -191,7 +191,7 @@ bool j1Audio::Load(pugi::xml_node& data)
 
 bool j1Audio::Save(pugi::xml_node& data) const
 {
-	data.append_attribute("value") = volume;
+	data.child("volume").append_attribute("value") = volume;
 	
 	return true;
 }
