@@ -38,6 +38,10 @@ Welcome to our first ever Platformer, Little Big King!
 
 **S:** Move camera up
 
+**+:** Volume up
+
+**-:** Volume down
+
 If god mode is activated:
 
 **Left arrow:** Move the player to the left
