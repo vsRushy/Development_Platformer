@@ -35,6 +35,9 @@ j1Player::~j1Player()
 bool j1Player::Awake(pugi::xml_node& data)
 {
 	god_mode = data.child("god_mode").attribute("value").as_bool();
+	gravity = data.child("gravity").attribute("value").as_float();
+	velocity_x = data.child("velocity_x").attribute("value").as_float();
+	velocity_y = data.child("velocity_x").attribute("value").as_float();
 
 	return true;
 }
@@ -146,7 +149,7 @@ bool j1Player::Update(float dt)
 
 		/*if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_UP)
 		{
-			going_down = false;
+			up_and_down = false;
 		}*/
 
 		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
@@ -191,13 +194,15 @@ bool j1Player::Update(float dt)
 				position.y -= velocity_y;
 			}
 		}
-		if (going_down && !dash)
+		if (up_and_down && !dash)
 		{
 			// (x, y) point where the player is in the world
 			iPoint worldPos = App->map->WorldToMap(position.x, position.y + 1);
+			// (x, y) point where the player is in the world in the next frame
 			iPoint worldNextPos = App->map->WorldToMap(position.x, previous_position.y + initial_speed * (time + 0.1f) + (gravity*(time + 0.1f)*(time + 0.1f)) * 0.5f + 1);
 			// (x + w, y + h) point where the player's ending coordinates are located in the world
 			iPoint worldFinalPos = App->map->WorldToMap(position.x + PLAYER_SIZE_X - velocity_x - 1, position.y + PLAYER_SIZE_Y);
+			// (x + w, y + h) point where the player's ending coordinates are located in the world in the next frame
 			iPoint worldNextFinalPos = App->map->WorldToMap(position.x + PLAYER_SIZE_X - velocity_x - 1, previous_position.y + initial_speed * (time + 0.1f) + (gravity*(time + 0.1f)*(time + 0.1f)) * 0.5f + PLAYER_SIZE_Y);
 
 			//when colliding going up
@@ -238,12 +243,16 @@ bool j1Player::Update(float dt)
 				able_to_dash = true;
 			}
 		}
+
+		//jump
 		if (jump && !dash)
 		{
 			initial_speed = -35.0f;
 			time += 0.1f;
 			if (jump_start) jump_start = false;
 		}
+
+		//dash
 		if (!dash)
 		{
 			if (equation_is_possible == 0) position.y = previous_position.y + initial_speed * time + (gravity*time*time) * 0.5f;
@@ -264,6 +273,8 @@ bool j1Player::Update(float dt)
 			}
 		}
 	}
+
+	//god mode
 	else if (god_mode == true)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)

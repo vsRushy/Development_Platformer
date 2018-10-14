@@ -154,8 +154,7 @@ private:
 	pugi::xml_document	map_file;
 	p2SString			folder;
 	bool				map_loaded;
-
-	float parallax_speed = 0.5f;
+	float				parallax_speed;
 };
 
 #endif // __j1MAP_H__

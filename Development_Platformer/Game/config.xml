@@ -24,6 +24,7 @@
 
   <map>
     <folder>maps/</folder>
+    <parallax_speed value="0.5f"/>
   </map>
 
   <audio>
@@ -41,6 +42,9 @@
 
   <player>
     <god_mode value="false"/>
+    <gravity value="5.8f"/>
+    <velocity_x value="3.0f"/>
+    <velocity_y value="2.0f"/>
   </player>
 
 </config>
