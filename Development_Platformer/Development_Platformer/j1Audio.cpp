@@ -27,6 +27,8 @@ bool j1Audio::Awake(pugi::xml_node& config)
 	music_folder.create(config.child("music_folder").child_value());
 	fx_folder.create(config.child("fx_folder").child_value());
 
+	volume = config.child("volume").attribute("value").as_int();
+
 	if (SDL_InitSubSystem(SDL_INIT_AUDIO) < 0)
 	{
 		LOG("SDL_INIT_AUDIO could not initialize! SDL_Error: %s\n", SDL_GetError());
@@ -177,4 +179,27 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 	}
 
 	return ret;
+}
+
+bool j1Audio::Load(pugi::xml_node& data)
+{
+	volume = data.child("volume").attribute("value").as_int();
+	Mix_VolumeMusic(volume);
+
+	return true;
+}
+
+bool j1Audio::Save(pugi::xml_node& data) const
+{
+	data.append_attribute("value") = volume;
+	
+	return true;
+}
+
+void j1Audio::ControlVolume(bool is_true)
+{
+	if (is_true && volume <= 120)
+		Mix_VolumeMusic(volume += 8);
+	else if (!is_true && volume >= 8)
+		Mix_VolumeMusic(volume -= 8);
 }

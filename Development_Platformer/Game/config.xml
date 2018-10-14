@@ -30,6 +30,7 @@
   <audio>
     <music_folder>audio/music/</music_folder>
     <fx_folder>audio/fx/</fx_folder>
+    <volume value="50" />
   </audio>
 
   <scene>

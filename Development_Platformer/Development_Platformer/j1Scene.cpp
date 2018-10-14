@@ -66,7 +66,6 @@ bool j1Scene::Start()
 		}
 	}
 
-	App->SaveGame();
 	isLoading = false;
 
 	return true;
@@ -89,7 +88,6 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 	{
 		App->SaveGame();
-		last_map_selected = map_selected;
 	}
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 		App->render->camera.y -= 3;
@@ -142,6 +140,12 @@ bool j1Scene::Update(float dt)
 
 		App->fade->FadeToBlack(this, this, 0.1f);
 	}
+
+	// Set volume
+	if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_DOWN)
+		App->audio->ControlVolume(true);
+	if (App->input->GetKey(SDL_SCANCODE_KP_MINUS) == KEY_DOWN)
+		App->audio->ControlVolume(false);
 
 	// Set the window title like
 	// "Map:%dx%d Tiles:%dx%d Tilesets:%d"                            // Uncomment the following if you want to see tileset info as window title
@@ -234,7 +238,7 @@ bool j1Scene::Load(pugi::xml_node& save)
 		if(save.child("map_selected").attribute("value").as_int() != map_selected)
 		{
 			map_selected = save.child("map_selected").attribute("value").as_int();
-			App->fade->FadeToBlack(this, this, 2.0f);
+			//App->fade->FadeToBlack(this, this, 2.0f);
 		}
 	}
 	isLoading = true;
