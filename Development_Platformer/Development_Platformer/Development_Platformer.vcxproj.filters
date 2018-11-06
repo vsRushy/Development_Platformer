@@ -39,6 +39,15 @@
     <ClCompile Include="j1Player.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleEnemies.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy_level01_ground.cpp">
+      <Filter>Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h" />
@@ -100,6 +109,15 @@
     <ClInclude Include="j1Player.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleEnemies.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy_level01_ground.h">
+      <Filter>Enemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">
@@ -116,6 +134,9 @@
     </Filter>
     <Filter Include="Scenes">
       <UniqueIdentifier>{3f584f62-674e-4a0e-b46c-b04d1a5b33b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enemies">
+      <UniqueIdentifier>{37cdb38c-095d-49aa-baa8-ed4c820580e4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
