@@ -52,6 +52,11 @@ public:
 
 	bool god_mode;
 
+	bool time_finished = true;
+	uint Bullet_time_init = 0;
+	uint Bullet_delay;
+	bool Reset_time_bullets = true;
+
 private:
 	Animation* current_animation = nullptr;
 	Animation idle_anim;

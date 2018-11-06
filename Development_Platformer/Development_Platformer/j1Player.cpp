@@ -10,6 +10,7 @@
 #include "j1Map.h"
 #include "j1Scene.h"
 #include "j1Audio.h"
+#include "j1Particles.h"
 
 j1Player::j1Player()
 {
@@ -155,6 +156,21 @@ bool j1Player::Update(float dt)
 		if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
 		{
 			jump = false;
+		}
+
+		// sword throw
+		if (Reset_time_bullets) {
+			Bullet_time_init = SDL_GetTicks();
+			Reset_time_bullets = false;
+		}
+		Bullet_delay = SDL_GetTicks() - Bullet_time_init;
+
+		if ((App->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN) && Bullet_delay >= 100)
+		{
+			Bullet_delay = 0;
+			Reset_time_bullets = true;
+			App->particles->AddParticle(App->particles->sword, position.x, position.y, COLLIDER_PLAYER_SHOT);
+
 		}
 
 		// Movement logic
