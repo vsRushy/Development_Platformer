@@ -10,7 +10,7 @@
 #include "Enemy.h"
 #include "Enemy_level01_ground.h"
 
-#define SPAWN_MARGIN (60 * App->win->GetScale())
+#define SPAWN_MARGIN (/*60*/0 * App->win->GetScale())
 
 ModuleEnemies::ModuleEnemies()
 {
@@ -26,24 +26,20 @@ ModuleEnemies::~ModuleEnemies()
 bool ModuleEnemies::Start()
 {
 	// Create a prototype for each enemy available so we can copy them around
-	enemy_level01_ground_tex = App->tex->Load(".png");
+	enemy_level01_ground_tex = App->tex->Load("textures/Enemies/enemy_level01_ground_v2.png");
 
 	return true;
 }
 
 bool ModuleEnemies::PreUpdate()
 {
-	// check camera position to decide what to spawn
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
 		if (queue[i].type != ENEMY_TYPES::NO_TYPE)
 		{
-			if (queue[i].x * App->win->GetScale() < App->render->camera.x + (App->render->camera.w * App->win->GetScale()) + SPAWN_MARGIN)
-			{
-				SpawnEnemy(queue[i]);
-				queue[i].type = ENEMY_TYPES::NO_TYPE;
-				LOG("Spawning enemy at %d", queue[i].x * App->win->GetScale());
-			}
+			SpawnEnemy(queue[i]);
+			queue[i].type = ENEMY_TYPES::NO_TYPE;
+			LOG("Spawning enemy at %d, %d", queue[i].x * App->win->GetScale(), queue[i].y * App->win->GetScale());
 		}
 	}
 

@@ -6,7 +6,7 @@
 Enemy_level01_ground::Enemy_level01_ground(int x, int y) : Enemy(x, y)
 {
 
-	anim.PushBack({ 00, 00, 00, 00 });
+	anim.PushBack({ 25, 5, 25, 37 });
 	anim.loop = true;
 	anim.speed = 0.5f;
 
@@ -14,7 +14,7 @@ Enemy_level01_ground::Enemy_level01_ground(int x, int y) : Enemy(x, y)
 
 	animation = &anim;
 
-	collider = App->collision->AddCollider({ 0, 0, 00, 00 }, COLLIDER_TYPE::COLLIDER_ENEMY, (j1Module*)App->enemies);
+	collider = App->collision->AddCollider({ 0, 0, 25, 37 }, COLLIDER_TYPE::COLLIDER_ENEMY, (j1Module*)App->enemies);
 
 	original_x = x;
 	original_y = y;

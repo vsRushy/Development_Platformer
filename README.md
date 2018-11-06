@@ -88,6 +88,18 @@ Author 4 nickname: CodeManu.
 
 • Audio files: [CodeManu audio files](https://opengameart.org/content/platformer-game-music-pack)
 
+Author 5 nickname: UntiedGames.
+
+• Itch.io account: [UntiedGames](untiedgames.itch.io/)
+
+• Spritesheet: [UntiedGames's spritesheet](https://untiedgames.itch.io/floating-skull-enemy)
+
+Author 6 nickname: FinalBossBlues.
+
+• FinalBossBlues account: [FinalBossBlues](http://finalbossblues.com/)
+
+• Spritesheet: [FinalBossBlues's spritesheet](http://finalbossblues.com/walk-cycles-p1/)
+
 ## License
 
 MIT License

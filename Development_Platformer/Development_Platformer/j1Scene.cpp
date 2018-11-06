@@ -10,6 +10,7 @@
 #include "j1Scene.h"
 #include "j1Player.h"
 #include "j1FadeToBlack.h"
+#include "ModuleEnemies.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -43,6 +44,9 @@ bool j1Scene::Start()
 	{
 		App->map->Load(first_map.GetString());
 		App->audio->PlayMusic(first_song.GetString());
+
+		/* Add enemies :) */
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LEVEL01_GROUND, 295, 320);
 	}
 	else if (map_selected == 2)
 	{

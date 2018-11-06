@@ -6,7 +6,6 @@
 
 struct SDL_Texture;
 struct Collider;
-struct Mix_Chunk;
 
 class Enemy
 {
