@@ -17,6 +17,7 @@ class j1Player;
 class j1Collision;
 class j1FadeToBlack;
 class j1Particles;
+class ModuleEnemies;
 
 class j1App
 {
@@ -91,6 +92,7 @@ public:
 	j1Collision*        collision;
 	j1FadeToBlack*      fade;
 	j1Particles*        particles;
+	ModuleEnemies*      enemies;
 
 private:
 
