@@ -6,13 +6,15 @@
 	<audio />
 	<map />
 	<scene>
-		<map_selected value="1" />
+		<map_selected value="2" />
 	</scene>
 	<player>
 		<position x="288" y="330.395996" />
 	</player>
 	<collision />
 	<fade />
+	<:anonymous />
+	<:anonymous />
 	<renderer>
 		<camera x="-92" y="-260" />
 	</renderer>

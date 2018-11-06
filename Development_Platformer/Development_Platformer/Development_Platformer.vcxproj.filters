@@ -39,11 +39,6 @@
     <ClCompile Include="j1Player.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="j1Particles.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-=======
     <ClCompile Include="ModuleEnemies.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
@@ -53,7 +48,9 @@
     <ClCompile Include="Enemy_level01_ground.cpp">
       <Filter>Enemies</Filter>
     </ClCompile>
->>>>>>> refs/remotes/origin/master
+    <ClCompile Include="j1Particles.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h" />
@@ -115,11 +112,6 @@
     <ClInclude Include="j1Player.h">
       <Filter>Modules</Filter>
     </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="j1Particles.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-=======
     <ClInclude Include="ModuleEnemies.h">
       <Filter>Modules</Filter>
     </ClInclude>
@@ -129,7 +121,9 @@
     <ClInclude Include="Enemy_level01_ground.h">
       <Filter>Enemies</Filter>
     </ClInclude>
->>>>>>> refs/remotes/origin/master
+    <ClInclude Include="j1Particles.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">

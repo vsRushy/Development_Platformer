@@ -163,15 +163,16 @@ bool j1Player::Update(float dt)
 			Bullet_time_init = SDL_GetTicks();
 			Reset_time_bullets = false;
 		}
-		Bullet_delay = SDL_GetTicks() - Bullet_time_init;
 
+		Bullet_delay = SDL_GetTicks() - Bullet_time_init;
+		
 		if ((App->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN) && Bullet_delay >= 100)
 		{
 			Bullet_delay = 0;
 			Reset_time_bullets = true;
 			App->particles->AddParticle(App->particles->sword, position.x, position.y, COLLIDER_PLAYER_SHOT);
-
 		}
+
 
 		// Movement logic
 		if (going_left)

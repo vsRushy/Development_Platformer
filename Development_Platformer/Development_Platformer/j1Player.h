@@ -57,6 +57,7 @@ public:
 	uint Bullet_delay;
 	bool Reset_time_bullets = true;
 
+
 private:
 	Animation* current_animation = nullptr;
 	Animation idle_anim;
