@@ -10,6 +10,9 @@ enum ENEMY_TYPES
 {
 	NO_TYPE,
 	ENEMY_LEVEL01_GROUND,
+	ENEMY_LEVEL01_AIR,
+	ENEMY_LEVEL02_GROUND,
+	ENEMY_LEVEL02_AIR,
 };
 
 class Enemy;
@@ -46,6 +49,7 @@ public:
 	Enemy* enemies[MAX_ENEMIES];
 
 	SDL_Texture* enemy_level01_ground_tex;
+	SDL_Texture* enemy_level01_air_tex;
 };
 
 #endif // __ModuleEnemies_H__

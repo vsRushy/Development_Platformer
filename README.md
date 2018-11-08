@@ -92,14 +92,15 @@ Author 5 nickname: UntiedGames.
 
 • Itch.io account: [UntiedGames](untiedgames.itch.io/)
  
- • Spritesheet: [UntiedGames's spritesheet](https://untiedgames.itch.io/floating-skull-enemy)
-
-Author 6 nickname: FinalBossBlues.
-
-• FinalBossBlues account: [FinalBossBlues](http://finalbossblues.com/)
+• Spritesheet: [UntiedGames's spritesheet](https://untiedgames.itch.io/floating-skull-enemy)
  
-• Spritesheet: [FinalBossBlues's spritesheet](http://finalbossblues.com/walk-cycles-p1/)
-
+ Author 6 nickname: (Unknown)
+ 
+ • Spritesheet: [spritesheet](https://forum.unity.com/attachments/linkedit-png.80767/)
+ 
+ Author 7 nickname: (Unknown)
+ 
+ • Spritesheet: [spritesheet](https://www.spriters-resource.com/game_boy_advance/pokemonmysterydungeonredrescueteam/sheet/5251/)
 
 ## License
 

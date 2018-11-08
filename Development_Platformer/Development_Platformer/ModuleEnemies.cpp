@@ -9,6 +9,7 @@
 #include "j1Collision.h"
 #include "Enemy.h"
 #include "Enemy_level01_ground.h"
+#include "Enemy_level01_air.h"
 
 #define SPAWN_MARGIN (/*60*/0 * App->win->GetScale())
 
@@ -26,7 +27,8 @@ ModuleEnemies::~ModuleEnemies()
 bool ModuleEnemies::Start()
 {
 	// Create a prototype for each enemy available so we can copy them around
-	enemy_level01_ground_tex = App->tex->Load("textures/Enemies/enemy_level01_ground_v2.png");
+	enemy_level01_ground_tex = App->tex->Load("textures/Enemies/enemy_level01_ground.png");
+	enemy_level01_air_tex = App->tex->Load("textures/Enemies/enemy_level01_air.png");
 
 	return true;
 }
@@ -55,6 +57,10 @@ bool ModuleEnemies::Update(float dt)
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 		if (enemies[i] != nullptr && enemies[i]->type == 1 /* && CHECK WHAT MAP WE ARE IN */) 
 			enemies[i]->Draw(enemy_level01_ground_tex);
+
+	for (uint i = 0; i < MAX_ENEMIES; ++i)
+		if (enemies[i] != nullptr && enemies[i]->type == 2 /* && CHECK WHAT MAP WE ARE IN */)
+			enemies[i]->Draw(enemy_level01_air_tex);
 
 	return true;
 }
@@ -95,6 +101,8 @@ bool ModuleEnemies::CleanUp()
 	LOG("Freeing all enemies");
 
 	App->tex->UnLoad(enemy_level01_ground_tex);
+	App->tex->UnLoad(enemy_level01_air_tex);
+
 
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
@@ -140,6 +148,12 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 		case ENEMY_TYPES::ENEMY_LEVEL01_GROUND:
 			enemies[i] = new Enemy_level01_ground(info.x, info.y);
 			enemies[i]->type = 1;
+			break;
+		case ENEMY_TYPES::ENEMY_LEVEL01_AIR:
+			enemies[i] = new Enemy_level01_air(info.x, info.y);
+			enemies[i]->type = 2;
+			break;
+		default:
 			break;
 		}
 	}
