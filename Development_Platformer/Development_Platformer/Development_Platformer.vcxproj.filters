@@ -54,6 +54,9 @@
     <ClCompile Include="Enemy_level01_air.cpp">
       <Filter>Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="j1Pathfinding.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h" />
@@ -129,6 +132,9 @@
     </ClInclude>
     <ClInclude Include="Enemy_level01_air.h">
       <Filter>Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="j1Pathfinding.h">
+      <Filter>Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -18,6 +18,7 @@ class j1Collision;
 class j1FadeToBlack;
 class ModuleEnemies;
 class j1Particles;
+class j1PathFinding;
 
 class j1App
 {
@@ -93,6 +94,7 @@ public:
 	j1FadeToBlack*      fade;
 	ModuleEnemies*      enemies;
 	j1Particles*        particles;
+	j1PathFinding*      pathfinding;
 
 private:
 
