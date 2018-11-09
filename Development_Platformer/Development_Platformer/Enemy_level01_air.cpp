@@ -38,15 +38,26 @@ void Enemy_level01_air::Update(float dt)
 void Enemy_level01_air::CreateRange()
 {
 	uint counter = 0;
-
-	for (int i = -3; i < 4; i++)
-		for (int k = -3; k < 4; k++)
+	for (int i = -4; i < 5; i++)
+		for (int k = -4; k < 5; k++)
 		{
 			iPoint tmp_range = App->map->WorldToMap(position.x, position.y);
-			if (!(i == 0 && k == 0)) {
+			/* Representation of the enemy range
+				*********
+				*********
+			    *********
+				*********
+				**** ****
+				*********
+				*********
+				*********
+				*********
+			*/
+			if (!(i == 0 && k == 0)) 
+			{
 				tmp_range.x += i;
 				tmp_range.y += k;
-				range[counter++] = tmp_range;
+				range[counter++] = tmp_range; // add it to the range var
 			}
 		}
 }

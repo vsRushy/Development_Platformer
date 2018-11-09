@@ -16,7 +16,7 @@ private:
 	bool player_is_range = false;
 	
 	iPoint objective;
-	iPoint range[32];
+	iPoint range[80];
 
 	iPoint velocity;
 
@@ -28,6 +28,7 @@ public:
 
 	void Move();
 	void Update(float dt);
+	void CreateRange();
 
 	void PathMovement(const p2DynArray<iPoint>*, iPoint, float);
 };
