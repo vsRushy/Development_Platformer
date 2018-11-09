@@ -30,6 +30,8 @@ public:
 	void Update(float dt);
 	void CreateRange();
 
+	bool PlayerIsInRange();
+
 	void PathMovement(const p2DynArray<iPoint>*, iPoint, float);
 };
 

@@ -3,6 +3,7 @@
 #include "j1Collision.h"
 #include "ModuleEnemies.h"
 #include "j1Map.h"
+#include "j1Player.h"
 
 #define AIR_SIZE_01 32
 
@@ -88,4 +89,27 @@ void Enemy_level01_air::PathMovement(const p2DynArray<iPoint>* path, iPoint posi
 	is_moving = true;
 	velocity.x = velocity_x;
 	velocity.y = velocity_y;
+}
+
+bool Enemy_level01_air::PlayerIsInRange()
+{
+	bool ret = false;
+
+	iPoint player_pos = App->map->WorldToMap((int)App->player->position.x, (int)App->player->position.y);
+
+	for (int i = 0; i < 80; i++)
+	{
+		if (player_pos == range[i])
+		{
+			// Now we have the objective
+			objective = player_pos;
+			ret = true;
+		}
+		else
+		{
+			ret = false;
+		}
+	}
+
+	return ret;
 }
