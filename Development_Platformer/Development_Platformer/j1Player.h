@@ -56,6 +56,7 @@ public:
 	uint Bullet_time_init = 0;
 	uint Bullet_delay;
 	bool Reset_time_bullets = true;
+	bool player_facing = true;//true = right; false = left;
 
 
 private:

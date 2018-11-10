@@ -96,12 +96,14 @@ bool j1Player::Update(float dt)
 			going_left = true;
 			current_animation = &walk_anim;
 			flip = SDL_FLIP_HORIZONTAL;
+			if (player_facing)player_facing = false;
 		}
 		else if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		{
 			going_right = true;
 			current_animation = &walk_anim;
 			flip = SDL_FLIP_NONE;
+			if (!player_facing) player_facing = true;
 		}
 		else
 		{
@@ -170,7 +172,8 @@ bool j1Player::Update(float dt)
 		{
 			Bullet_delay = 0;
 			Reset_time_bullets = true;
-			App->particles->AddParticle(App->particles->sword, position.x, position.y, COLLIDER_PLAYER_SHOT);
+			if(player_facing) App->particles->AddParticle(App->particles->sword_right, position.x, position.y, COLLIDER_PLAYER_SHOT);
+			else  App->particles->AddParticle(App->particles->sword_left, position.x, position.y, COLLIDER_PLAYER_SHOT);
 		}
 
 

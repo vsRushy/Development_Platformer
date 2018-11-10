@@ -27,6 +27,7 @@ struct Particle
 	bool Update();
 	enum TYPE_PARTICLE {
 		SHOOT = 0,
+		SHOOT_LEFT = 0,
 		EXPLOSION,
 		EXPLOSION_ENEMY,
 	} Type = TYPE_PARTICLE::SHOOT;
@@ -46,6 +47,7 @@ private:
 	Particle* active[MAX_ACTIVE_PARTICLES];
 public:
 	uint width, height;
-	Particle sword;
+	Particle sword_right;
+	Particle sword_left;
 };
 #endif // __j1PARTICLES_H__ 
