@@ -47,6 +47,13 @@ bool j1Scene::Start()
 		App->map->Load(first_map.GetString());
 		App->audio->PlayMusic(first_song.GetString());
 
+		int w, h;
+		uchar* data = NULL;
+		if (App->map->CreateWalkabilityMap(w, h, &data))
+			App->pathfinding->SetMap(w, h, data);
+
+		RELEASE_ARRAY(data);
+
 		/* Add enemies :) */
 		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LEVEL01_GROUND, 295, 320);
 		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LEVEL01_AIR, 300, 300);

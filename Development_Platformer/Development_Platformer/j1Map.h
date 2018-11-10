@@ -6,6 +6,33 @@
 #include "p2Point.h"
 #include "j1Module.h"
 
+struct Properties
+{
+	struct Property
+	{
+		p2SString name;
+		int value;
+	};
+
+	~Properties()
+	{
+		p2List_item<Property*>* item;
+		item = list.start;
+
+		while (item != NULL)
+		{
+			RELEASE(item->data);
+			item = item->next;
+		}
+
+		list.clear();
+	}
+
+	int Get(const char* name, int default_value = 0) const;
+
+	p2List<Property*>	list;
+};
+
 struct Object {
 
 	p2SString name;
@@ -35,18 +62,25 @@ enum class LayerType
 // ----------------------------------------------------
 struct MapLayer
 {
-	p2SString name;
-	uint width = 0u;
-	uint height = 0u;
-	uint* data = nullptr;
+	p2SString	name;
+	int			width;
+	int			height;
+	uint*		data;
 	LayerType type;
-	// TODO 6: Short function to get the value of x,y
-	inline uint Get(int x, int y) const
+	Properties	properties;
+
+	MapLayer() : data(NULL)
+	{}
+
+	~MapLayer()
 	{
-		return data[y * width + x];
+		RELEASE(data);
 	}
 
-	~MapLayer();
+	inline uint Get(int x, int y) const
+	{
+		return data[(y*width) + x];
+	}
 };
 
 // ----------------------------------------------------
@@ -129,6 +163,8 @@ public:
 
 	iPoint WorldToMap(int x, int y) const;
 
+	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
+
 	// Check map collisions
 	bool CheckCollisionX(int, int, int);
 	bool CheckCollisionY(int, int, int);
@@ -144,6 +180,8 @@ private:
 	// Methods to load object groups
 	bool LoadObjectGroupDetails(pugi::xml_node&, ObjectGroup*);  // Very similar to LoadTileSetDetails(). We just want the attribute (name) of this object group
 	bool LoadObject(pugi::xml_node&, Object*);  // Very similar to LoadTileSetImage(). We just want the attributes of the object
+
+	TileSet* GetTilesetFromTileId(int id) const;
 
 public:
 
