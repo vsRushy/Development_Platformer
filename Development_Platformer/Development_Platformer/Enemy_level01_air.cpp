@@ -37,7 +37,7 @@ void Enemy_level01_air::Update(float dt)
 	CreateRange();
 
 	// Tile where the enemy is
-	iPoint enemy_map_pos = App->map->WorldToMap(position.x, position.y);
+	iPoint enemy_map_pos = App->map->WorldToMap((int)position.x, (int)position.y);
 
 	// Player is in the range of the enemy?
 	player_is_range = PlayerIsInRange();
@@ -55,7 +55,8 @@ void Enemy_level01_air::Update(float dt)
 	if (is_moving)
 	{
 		const p2DynArray<iPoint>* path;
-		if (App->pathfinding->CreatePath(enemy_map_pos, objective) != -1)
+		int c = App->pathfinding->CreatePath(enemy_map_pos, objective);
+		if (c != -1)
 		{
 			path = App->pathfinding->GetLastPath();  // It never reaches this point. Maybe because we don't check if its walkable
 			PathMovement(path, enemy_map_pos, dt);
@@ -72,7 +73,7 @@ void Enemy_level01_air::CreateRange()
 	for (int i = -4; i < 5; i++)
 		for (int k = -4; k < 5; k++)
 		{
-			iPoint tmp_range = App->map->WorldToMap(position.x, position.y);
+			iPoint tmp_range = App->map->WorldToMap((int)position.x, (int)position.y);
 			/* Representation of the enemy range
 				*********
 				*********
