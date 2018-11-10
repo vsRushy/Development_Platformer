@@ -7,6 +7,7 @@
 #include "j1Collision.h"
 #include "j1Input.h"
 #include "j1Render.h"
+#include "j1Map.h"
 
 j1Collision::j1Collision()
 {
@@ -16,6 +17,14 @@ j1Collision::j1Collision()
 		colliders[i] = nullptr;
 
 	// matrix here
+	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_WALL] = true;
+	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_PLAYER] = false;
+	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_ENEMY] = true;
+	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_PLAYER_SHOT] = false;
+
+	matrix[COLLIDER_WALL][COLLIDER_PLAYER_SHOT] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER_SHOT] = false;
+	matrix[COLLIDER_ENEMY][COLLIDER_PLAYER_SHOT] = true;
 }
 
 // Destructor
@@ -100,6 +109,9 @@ void j1Collision::DebugDraw()
 			break;
 		case COLLIDER_ENEMY:
 			App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha);
+			break;
+		case COLLIDER_PLAYER_SHOT:
+			App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, alpha);
 			break;
 		default:
 			break;

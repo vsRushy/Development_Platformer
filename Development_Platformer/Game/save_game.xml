@@ -9,7 +9,7 @@
 		<map_selected value="2" />
 	</scene>
 	<player>
-		<position x="2741" y="1199.57983" />
+		<position x="288" y="330.395996" />
 	</player>
 	<collision />
 	<fade />
@@ -17,6 +17,6 @@
 	<:anonymous />
 	<pathfinding />
 	<renderer>
-		<camera x="-4998" y="-1978" />
+		<camera x="-92" y="-260" />
 	</renderer>
 </game_state>
