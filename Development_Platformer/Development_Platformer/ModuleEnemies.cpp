@@ -51,8 +51,11 @@ bool ModuleEnemies::PreUpdate()
 // Called before render is available
 bool ModuleEnemies::Update(float dt)
 {
+	/*for (uint i = 0; i < MAX_ENEMIES; ++i)
+		if (enemies[i] != nullptr) enemies[i]->Move();*/
+
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
-		if (enemies[i] != nullptr) enemies[i]->Move();
+		if (enemies[i] != nullptr) enemies[i]->Update(dt);
 
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 		if (enemies[i] != nullptr && enemies[i]->type == 1 /* && CHECK WHAT MAP WE ARE IN */) 
@@ -102,7 +105,6 @@ bool ModuleEnemies::CleanUp()
 
 	App->tex->UnLoad(enemy_level01_ground_tex);
 	App->tex->UnLoad(enemy_level01_air_tex);
-
 
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{

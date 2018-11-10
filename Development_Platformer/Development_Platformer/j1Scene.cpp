@@ -11,6 +11,7 @@
 #include "j1Player.h"
 #include "j1FadeToBlack.h"
 #include "ModuleEnemies.h"
+#include "Enemy_level01_air.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -203,6 +204,8 @@ bool j1Scene::Update(float dt)
 			App->player->previous_position = App->player->position;
 		}
 	}
+
+	
 
 	/* DRAW------------ */
 	// App->render->Blit(img, 0, 0);
