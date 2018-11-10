@@ -44,6 +44,8 @@ private:
 	p2SString first_song;
 	p2SString second_song;
 
+	SDL_Texture* debug_tex = nullptr;
+
 public:
 	// Level 1: 1, Level 2: 2.
 	int map_selected;
