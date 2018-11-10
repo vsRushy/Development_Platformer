@@ -47,13 +47,17 @@ void Enemy_level01_air::Update(float dt)
 	{
 		is_moving = true;
 	}
+	else
+	{
+		is_moving = false;
+	}
 
 	if (is_moving)
 	{
 		const p2DynArray<iPoint>* path;
 		if (App->pathfinding->CreatePath(enemy_map_pos, objective) != -1)
 		{
-			path = App->pathfinding->GetLastPath();
+			path = App->pathfinding->GetLastPath();  // It never reaches this point. Maybe because we don't check if its walkable
 			PathMovement(path, enemy_map_pos, dt);
 		}
 	}
@@ -92,8 +96,8 @@ void Enemy_level01_air::CreateRange()
 void Enemy_level01_air::PathMovement(const p2DynArray<iPoint>* path, iPoint position, float dt)
 {
 	iPoint goal = iPoint(path->At(0)->x, path->At(0)->y); // we want the initial point of the path!
-	float velocity_x = 0.0f;
-	float velocity_y = 0.0f;
+	float velocity_x;
+	float velocity_y;
 	dt = 1.0f;
 	if(goal.x < position.x)
 	{ 
@@ -112,7 +116,6 @@ void Enemy_level01_air::PathMovement(const p2DynArray<iPoint>* path, iPoint posi
 		velocity_y = 5.0f * dt;
 	}
 
-	is_moving = true;
 	velocity.x = velocity_x;
 	velocity.y = velocity_y;
 }

@@ -232,6 +232,7 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 					{
 						PathNode temp_path = open.Find(it->data.pos)->data;
 
+						it->data.CalculateF(destination);
 						// If it is a better path, Update the parent
 						if (temp_path.g > it->data.g)
 						{
