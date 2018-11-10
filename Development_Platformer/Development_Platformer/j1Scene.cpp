@@ -68,6 +68,13 @@ bool j1Scene::Start()
 	{
 		if (map_selected == 1)
 		{
+			int w, h;
+			uchar* data = NULL;
+			if (App->map->CreateWalkabilityMap(w, h, &data))
+				App->pathfinding->SetMap(w, h, data);
+
+			RELEASE_ARRAY(data);
+
 			App->player->first_map_pos = App->map->data.ObjectPos("Player", "PlayerStartPos");
 			App->player->position = App->player->first_map_pos;
 			App->player->previous_position = App->player->position;

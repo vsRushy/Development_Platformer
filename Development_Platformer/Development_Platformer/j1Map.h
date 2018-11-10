@@ -55,6 +55,7 @@ enum class LayerType
 {
 	DEFAULT,
 	COLLISION,
+	WALKABILITY,
 	PARALLAX
 };
 
@@ -178,6 +179,7 @@ private:
     // Method that loads a single layer
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
 	// Methods to load object groups
+	bool LoadProperties(pugi::xml_node& node, Properties& properties);
 	bool LoadObjectGroupDetails(pugi::xml_node&, ObjectGroup*);  // Very similar to LoadTileSetDetails(). We just want the attribute (name) of this object group
 	bool LoadObject(pugi::xml_node&, Object*);  // Very similar to LoadTileSetImage(). We just want the attributes of the object
 
