@@ -15,13 +15,13 @@ j1Particles::j1Particles()
 	sword_right.anim.PushBack({ 6, 2, 35, 15 });
 	sword_right.anim.loop = false;
 	sword_right.speed.x = 6;
-	sword_right.life = 1200;
+	sword_right.life = 1500;
 	sword_right.type_particle = 0;
 
 	sword_left.anim.PushBack({ 5, 23, 35, 15 });
 	sword_left.anim.loop = false;
 	sword_left.speed.x = -6;
-	sword_left.life = 1200;
+	sword_left.life = 1500;
 	sword_left.type_particle = 1;
 }
 

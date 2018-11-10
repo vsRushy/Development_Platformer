@@ -52,6 +52,7 @@ bool j1Player::Start()
 	LOG("Loading player sound effects");
 	App->audio->LoadFx("jump.wav"); // id: 1
 	App->audio->LoadFx("dash.wav"); // id: 2
+	App->audio->LoadFx("arrow.wav"); // id: 3
 
 	// Collider initial position
 	collider_position.x = position.x;
@@ -168,12 +169,13 @@ bool j1Player::Update(float dt)
 
 		Bullet_delay = SDL_GetTicks() - Bullet_time_init;
 		
-		if ((App->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN) && Bullet_delay >= 100)
+		if ((App->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN) && Bullet_delay >= 1500)
 		{
 			Bullet_delay = 0;
 			Reset_time_bullets = true;
-			if(player_facing) App->particles->AddParticle(App->particles->sword_right, position.x, position.y, COLLIDER_PLAYER_SHOT);
-			else  App->particles->AddParticle(App->particles->sword_left, position.x, position.y, COLLIDER_PLAYER_SHOT);
+			App->audio->PlayFx(3);
+			if(player_facing) App->particles->AddParticle(App->particles->sword_right, position.x, position.y + 5, COLLIDER_PLAYER_SHOT);
+			else  App->particles->AddParticle(App->particles->sword_left, position.x, position.y + 5, COLLIDER_PLAYER_SHOT);
 		}
 
 
