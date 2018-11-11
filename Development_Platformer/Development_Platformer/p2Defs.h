@@ -1,5 +1,5 @@
-#ifndef __P2Defs_H__
-#define __P2Defs_H__
+#ifndef __P2DEFS_H__
+#define __P2DEFS_H__
 
 #include <stdio.h>
 
@@ -11,23 +11,24 @@
 #define NULL  0
 
 // Deletes a buffer
-#define RELEASE( x )      \
-    {                       \
-    if( x != NULL )       \
-	    {                   \
-      delete x;           \
-	  x = NULL;             \
-	    }                 \
+#define RELEASE( x ) \
+    {                        \
+    if( x != NULL )        \
+	    {                      \
+      delete x;            \
+	  x = NULL;              \
+	    }                      \
     }
 
 // Deletes an array of buffers
-#define RELEASE_ARRAY( x )      \
-    {                             \
-    if( x != NULL )             \
-	    {                         \
-      delete[] x;               \
-	  x = NULL;                   \
-	    }                       \
+#define RELEASE_ARRAY( x ) \
+    {                              \
+    if( x != NULL )              \
+	    {                            \
+      delete[] x;                \
+	  x = NULL;                    \
+	    }                            \
+                              \
     }
 
 #define IN_RANGE( value, min, max ) ( ((value) >= (min) && (value) <= (max)) ? 1 : 0 )
@@ -36,6 +37,8 @@
 #define TO_BOOL( a )  ( (a != 0) ? true : false )
 
 typedef unsigned int uint;
+typedef unsigned __int32 uint32;
+typedef unsigned __int64 uint64;
 typedef unsigned char uchar;
 
 template <class VALUE_TYPE> void SWAP(VALUE_TYPE& a, VALUE_TYPE& b)
@@ -58,4 +61,8 @@ inline const char* const PATH(const char* folder, const char* file)
 	return path;
 }
 
-#endif // __p2Defs_H__
+// Performance macros
+#define PERF_START(timer) timer.Start()
+#define PERF_PEEK(timer) LOG("%s took %f ms", __FUNCTION__, timer.ReadMs())
+
+#endif
