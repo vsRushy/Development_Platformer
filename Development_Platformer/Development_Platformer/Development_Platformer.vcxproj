@@ -130,10 +130,12 @@
     <ClCompile Include="j1Map.cpp" />
     <ClCompile Include="j1Particles.cpp" />
     <ClCompile Include="j1Pathfinding.cpp" />
+    <ClCompile Include="j1PerfTimer.cpp" />
     <ClCompile Include="j1Player.cpp" />
     <ClCompile Include="j1Render.cpp" />
     <ClCompile Include="j1Scene.cpp" />
     <ClCompile Include="j1Textures.cpp" />
+    <ClCompile Include="j1Timer.cpp" />
     <ClCompile Include="j1Window.cpp" />
     <ClCompile Include="ModuleEnemies.cpp" />
     <ClCompile Include="p2Log.cpp" />
@@ -153,10 +155,12 @@
     <ClInclude Include="j1Module.h" />
     <ClInclude Include="j1Particles.h" />
     <ClInclude Include="j1Pathfinding.h" />
+    <ClInclude Include="j1PerfTimer.h" />
     <ClInclude Include="j1Player.h" />
     <ClInclude Include="j1Render.h" />
     <ClInclude Include="j1Scene.h" />
     <ClInclude Include="j1Textures.h" />
+    <ClInclude Include="j1Timer.h" />
     <ClInclude Include="j1Window.h" />
     <ClInclude Include="ModuleEnemies.h" />
     <ClInclude Include="p2Defs.h" />
