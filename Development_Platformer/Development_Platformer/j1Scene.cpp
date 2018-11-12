@@ -268,12 +268,14 @@ bool j1Scene::Update(float dt)
 
 	const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
 
-	for (uint i = 0; i < path->Count(); ++i)
+	if (App->player->god_mode)
 	{
-		iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-		App->render->Blit(debug_tex, pos.x, pos.y);
+		for (uint i = 0; i < path->Count(); ++i)
+		{
+			iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+			App->render->Blit(debug_tex, pos.x, pos.y);
+		}
 	}
-
 
 	return true;
 }
