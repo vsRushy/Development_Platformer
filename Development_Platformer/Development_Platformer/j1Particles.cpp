@@ -4,6 +4,7 @@
 #include "j1Render.h"
 #include "j1Particles.h"
 #include "j1Window.h"
+#include "j1Map.h"
 
 #include "SDL/include/SDL_timer.h"
 
@@ -153,6 +154,17 @@ bool Particle::Update()
 			ret = false;
 	position.x += speed.x;
 	position.y += speed.y;
+
+	iPoint worldPos = App->map->WorldToMap(position.x, position.y);
+	iPoint worldFinalPos = App->map->WorldToMap(position.x + 35 + speed.x, position.y + 15);
+	if (App->map->CheckCollisionX(worldPos.x, worldPos.y, worldFinalPos.y))//left
+	{
+		life = 0;
+	}
+	else if (App->map->CheckCollisionX(worldFinalPos.x, worldPos.y, worldFinalPos.y))//right
+	{
+		life = 0;
+	}
 	/*if (collider != nullptr) {
 	if (position.y < App->render->camera.y / App->win->GetScale() || position.x < App->render->camera.x / App->win->GetScale() || position.x > App->render->camera.x / App->win->GetScale() + width - collider->rect.w || position.y > App->render->camera.y / App->win->GetScale() + height - collider->rect.h)
 	{
