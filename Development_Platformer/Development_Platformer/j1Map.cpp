@@ -567,15 +567,26 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 
 	layer->width = node.attribute("width").as_int();
 	layer->height = node.attribute("height").as_int();
+	LoadProperties(node, layer->properties);
+	
+	pugi::xml_node layer_data = node.child("data");
 
-	layer->data = new uint[layer->width * layer->height];
-
-	memset(layer->data, 0, layer->width * layer->height * sizeof(uint));
-
-	uint i = 0;
-	for (pugi::xml_node aux = node.child("data").child("tile"); aux; aux = aux.next_sibling("tile"))
+	if (layer_data == NULL)
 	{
-		layer->data[i++] = aux.attribute("gid").as_uint();
+		LOG("Error parsing map xml file: Cannot find 'layer/data' tag.");
+		ret = false;
+		RELEASE(layer);
+	}
+	else
+	{
+		layer->data = new uint[layer->width * layer->height];
+		memset(layer->data, 0, layer->width * layer->height * sizeof(uint));
+
+		uint i = 0;
+		for (pugi::xml_node aux = node.child("data").child("tile"); aux; aux = aux.next_sibling("tile"))
+		{
+			layer->data[i++] = aux.attribute("gid").as_uint();
+		}
 	}
 
 	return ret;

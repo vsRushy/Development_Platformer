@@ -55,8 +55,8 @@ bool j1Scene::Start()
 		RELEASE_ARRAY(data);
 
 		/* Add enemies :) */
-		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LEVEL01_GROUND, 295, 320);
-		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LEVEL01_AIR, 300, 300);
+		/*App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LEVEL01_GROUND, 295, 320);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LEVEL01_AIR, 300, 300);*/
 	}
 	else if (map_selected == 2)
 	{

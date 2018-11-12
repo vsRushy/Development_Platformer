@@ -97,8 +97,8 @@ void Enemy_level01_air::CreateRange()
 void Enemy_level01_air::PathMovement(const p2DynArray<iPoint>* path, iPoint position, float dt)
 {
 	iPoint goal = iPoint(path->At(0)->x, path->At(0)->y); // we want the initial point of the path!
-	float velocity_x;
-	float velocity_y;
+	float velocity_x = 0.0f;
+	float velocity_y = 0.0f;
 	dt = 1.0f;
 	if(goal.x < position.x)
 	{ 
