@@ -14,14 +14,14 @@ j1Particles::j1Particles()
 		active[i] = nullptr;
 	// Basic_shoot 0_up
 	sword_right.anim.PushBack({ 6, 2, 35, 15 });
-	sword_right.anim.loop = false;
-	sword_right.speed.x = 6;
+	sword_right.anim.loop = true;
+	sword_right.speed.x = 150;
 	sword_right.life = 1500;
 	sword_right.type_particle = 0;
 
 	sword_left.anim.PushBack({ 5, 23, 35, 15 });
-	sword_left.anim.loop = false;
-	sword_left.speed.x = -6;
+	sword_left.anim.loop = true;
+	sword_left.speed.x = -150;
 	sword_left.life = 1500;
 	sword_left.type_particle = 1;
 }
@@ -62,7 +62,7 @@ bool j1Particles::Update(float dt)
 		Particle* p = active[i];
 		if (p == nullptr)
 			continue;
-		if (p->Update() == false)
+		if (p->Update(dt) == false)
 		{
 			delete p;
 			active[i] = nullptr;
@@ -141,7 +141,7 @@ Particle::~Particle()
 	}
 }
 
-bool Particle::Update()
+bool Particle::Update(float dt)
 {
 	bool ret = true;
 	if (life > 0)
@@ -152,8 +152,8 @@ bool Particle::Update()
 	else
 		if (anim.Finished())
 			ret = false;
-	position.x += speed.x;
-	position.y += speed.y;
+	position.x += speed.x * dt;
+	position.y += speed.y * dt;
 
 	iPoint worldPos = App->map->WorldToMap(position.x, position.y);
 	iPoint worldFinalPos = App->map->WorldToMap(position.x + 35 + speed.x, position.y + 15);

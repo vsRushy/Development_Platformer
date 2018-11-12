@@ -24,7 +24,7 @@ struct Particle
 	Particle();
 	Particle(const Particle& p);
 	virtual ~Particle();
-	bool Update();
+	bool Update(float dt);
 	enum TYPE_PARTICLE {
 		SHOOT = 0,
 		SHOOT_LEFT = 0,
