@@ -81,6 +81,8 @@ void j1App::AddModule(j1Module* module)
 // Called before render is available
 bool j1App::Awake()
 {
+	PERF_START(ptimer);
+
 	pugi::xml_document	config_file;
 	pugi::xml_node		config;
 	pugi::xml_node		app_config;
@@ -109,11 +111,13 @@ bool j1App::Awake()
 
 		while (item != NULL && ret == true)
 		{
-			pugi::xml_node aux = config.child(item->data->name.GetString()); // fix ?
+			pugi::xml_node aux = config.child(item->data->name.GetString());
 			ret = item->data->Awake(aux);
 			item = item->next;
 		}
 	}
+
+	PERF_PEEK(ptimer);
 
 	return ret;
 }
@@ -121,6 +125,8 @@ bool j1App::Awake()
 // Called before the first frame
 bool j1App::Start()
 {
+	PERF_START(ptimer);
+
 	bool ret = true;
 	p2List_item<j1Module*>* item;
 	item = modules.start;
@@ -135,6 +141,8 @@ bool j1App::Start()
 	else is_capped.create("OFF");
 
 	timer.Start();
+
+	PERF_PEEK(ptimer);
 
 	return ret;
 }
@@ -285,6 +293,8 @@ bool j1App::PostUpdate()
 // Called before quitting
 bool j1App::CleanUp()
 {
+	PERF_START(ptimer);
+
 	bool ret = true;
 	p2List_item<j1Module*>* item;
 	item = modules.end;
@@ -294,6 +304,8 @@ bool j1App::CleanUp()
 		ret = item->data->CleanUp();
 		item = item->prev;
 	}
+
+	PERF_PEEK(ptimer);
 
 	return ret;
 }
