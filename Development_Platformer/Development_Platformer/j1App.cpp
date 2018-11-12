@@ -220,7 +220,7 @@ void j1App::FinishUpdate()
 	dt = 1.0f / fps;
 
 	static char title[256];
-	sprintf_s(title, 256, " FPS: %.2f Av.FPS: %.2f Last Frame Ms: %i Is capped: %s vsync: %s", fps, avg_fps, actual_frame_ms,
+	sprintf_s(title, 256, " FPS: %.2f Av.FPS: %.2f Last Frame Ms: %02i Is capped: %s vsync: %s", fps, avg_fps, actual_frame_ms,
 		is_capped.GetString(), App->render->using_vsync.GetString());
 	App->win->SetTitle(title);
 }
