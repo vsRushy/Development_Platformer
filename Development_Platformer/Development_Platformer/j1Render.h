@@ -52,6 +52,8 @@ public:
 	SDL_Rect		camera;
 	SDL_Rect		viewport;
 	SDL_Color		background;
+
+	p2SString using_vsync;
 };
 
 #endif // __j1RENDER_H__

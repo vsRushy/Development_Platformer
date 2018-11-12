@@ -99,6 +99,7 @@ bool j1App::Awake()
 		app_config = config.child("app");
 		title.create(app_config.child("title").child_value());
 		organization.create(app_config.child("organization").child_value());
+		framerate_cap = config.child("app").attribute("framerate_cap").as_uint();
 	}
 
 	if (ret == true)
@@ -129,9 +130,11 @@ bool j1App::Start()
 		ret = item->data->Start();
 		item = item->next;
 	}
+	if (cap)
+		is_capped.create("ON");
+	else is_capped.create("OFF");
 
-	// Set title of the window
-	App->win->SetTitle(title.GetString());
+	timer.Start();
 
 	return ret;
 }
@@ -176,7 +179,9 @@ pugi::xml_node j1App::LoadConfig(pugi::xml_document& config_file) const
 // ---------------------------------------------
 void j1App::PrepareUpdate()
 {
+	PERF_START(ptimer);
 
+	frame_count++;
 }
 
 // ---------------------------------------------
@@ -187,6 +192,29 @@ void j1App::FinishUpdate()
 
 	if (want_to_load == true)
 		LoadGameNow();
+
+	// Framerate calculations ------------------
+	time_since_startup_ms = timer.Read();
+	actual_frame_ms = ptimer.ReadMs();
+
+	if (cap)
+	{
+		f = 1000.0f / framerate_cap;
+		if (actual_frame_ms < f)
+		{
+			SDL_Delay(f - actual_frame_ms);
+		}
+	}
+
+	fps = 1000.0f / ptimer.ReadMs();
+	avg_fps = (float)frame_count / timer.ReadSec();
+
+	dt = 1.0f / fps;
+
+	static char title[256];
+	sprintf_s(title, 256, " FPS: %.2f Av.FPS: %.2f Last Frame Ms: %i Is capped: %s vsync: %s", fps, avg_fps, actual_frame_ms,
+		is_capped.GetString(), App->render->using_vsync.GetString());
+	App->win->SetTitle(title);
 }
 
 // Call modules before each loop iteration

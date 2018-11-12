@@ -245,8 +245,6 @@ bool j1Scene::Update(float dt)
 		}
 	}
 
-	
-
 	/* DRAW------------ */
 	// App->render->Blit(img, 0, 0);
 	App->map->Draw();

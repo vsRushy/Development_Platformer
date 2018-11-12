@@ -3,6 +3,8 @@
 
 #include "p2List.h"
 #include "j1Module.h"
+#include "j1Timer.h"
+#include "j1PerfTimer.h"
 #include "PugiXml\src\pugixml.hpp"
 
 // Modules
@@ -99,8 +101,7 @@ public:
 private:
 
 	p2List<j1Module*>	modules;
-	uint				frames;
-	float				dt;
+
 	int					argc;
 	char**				args;
 
@@ -111,6 +112,24 @@ private:
 	bool				want_to_load;
 	p2SString			load_game;
 	mutable p2SString	save_game;
+
+	uint				frames;
+	float				dt;
+
+	uint64 frame_count = 0u;
+	j1Timer timer;
+	j1PerfTimer ptimer;
+
+	uint32				framerate_cap = 0u;
+	bool				cap = true;
+	p2SString           is_capped;
+
+	// Units in ms
+	float time_since_startup_ms = 0.0f;
+	int actual_frame_ms = 0;
+	float f = 0.0f;
+	float fps = 0.0f;
+	float avg_fps = 0.0f;
 };
 
 extern j1App* App;
