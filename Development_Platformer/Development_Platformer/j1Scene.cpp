@@ -232,6 +232,7 @@ bool j1Scene::Update(float dt)
 		App->map->data.IsObjectTrigger("DeathZone", "DeathZone_6", App->player->position) ||
 		App->map->data.IsObjectTrigger("DeathZone", "DeathZone_7", App->player->position))
 	{
+
 		if (map_selected == 1)
 		{
 			App->player->position = App->player->first_map_pos;

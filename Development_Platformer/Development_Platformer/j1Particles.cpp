@@ -5,6 +5,8 @@
 #include "j1Particles.h"
 #include "j1Window.h"
 #include "j1Map.h"
+#include "j1Input.h"
+#include "j1Player.h"
 
 #include "SDL/include/SDL_timer.h"
 
@@ -13,16 +15,16 @@ j1Particles::j1Particles()
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 		active[i] = nullptr;
 	// Basic_shoot 0_up
-	sword_right.anim.PushBack({ 6, 2, 35, 15 });
+	sword_right.anim.PushBack({ 6, 12, 35, 22 });
 	sword_right.anim.loop = true;
 	sword_right.speed.x = 150;
-	sword_right.life = 2000;
+	sword_right.life = 2500;
 	sword_right.type_particle = 0;
 
-	sword_left.anim.PushBack({ 5, 23, 35, 15 });
+	sword_left.anim.PushBack({ 6, 45, 35, 22 });
 	sword_left.anim.loop = true;
 	sword_left.speed.x = -150;
-	sword_left.life = 2000;
+	sword_left.life = 2500;
 	sword_left.type_particle = 1;
 }
 
@@ -163,6 +165,12 @@ bool Particle::Update(float dt)
 	}
 	else if (App->map->CheckCollisionX(worldFinalPos.x, worldPos.y, worldFinalPos.y))//right
 	{
+		life = 0;
+	}
+	if ((App->input->GetKey(SDL_SCANCODE_LSHIFT) == 1) && life > 0)
+	{
+		App->player->position.x = position.x;
+		App->player->position.y = position.y;
 		life = 0;
 	}
 	/*if (collider != nullptr) {

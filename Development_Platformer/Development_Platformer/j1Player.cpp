@@ -174,8 +174,8 @@ bool j1Player::Update(float dt)
 			Bullet_delay = 0;
 			Reset_time_bullets = true;
 			App->audio->PlayFx(3);
-			if(player_facing) App->particles->AddParticle(App->particles->sword_right, position.x, position.y + 5, COLLIDER_PLAYER_SHOT);
-			else  App->particles->AddParticle(App->particles->sword_left, position.x, position.y + 5, COLLIDER_PLAYER_SHOT);
+			if(player_facing) App->particles->AddParticle(App->particles->sword_right, position.x, position.y, COLLIDER_PLAYER_SHOT);
+			else  App->particles->AddParticle(App->particles->sword_left, position.x, position.y, COLLIDER_PLAYER_SHOT);
 		}
 
 
