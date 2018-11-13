@@ -219,6 +219,18 @@ void j1App::FinishUpdate()
 
 	dt = 1.0f / fps;
 
+	// Cap / uncap fps
+	if ((App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) && cap)
+	{
+		cap = false;
+		is_capped = "OFF";
+	}
+	else if ((App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) && !cap)
+	{
+		cap = true;
+		is_capped = "ON";
+	}
+
 	static char title[256];
 	sprintf_s(title, 256, " FPS: %.2f Av.FPS: %.2f Last Frame Ms: %02i Is capped: %s vsync: %s", fps, avg_fps, actual_frame_ms,
 		is_capped.GetString(), App->render->using_vsync.GetString());
