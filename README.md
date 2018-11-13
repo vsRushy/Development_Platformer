@@ -38,6 +38,10 @@ Welcome to our first ever Platformer, Little Big King!
 
 **S:** Move camera up
 
+**Z:** Launch sword
+
+**LEFT SHIFT:** Teleport to the sword
+
 **+:** Volume up
 
 **-:** Volume down
@@ -61,6 +65,12 @@ Marcos Freixas, Gerard.
 Torras Isanta, Martí.
 
 • GitHub account: [martitorras](https://github.com/martitorras)
+
+## Features
+
+Physics based in real life equations, producing a really dynamic player movement.
+
+You can shoot a sword! The fun thing is, you can teleport to it conserving the kinematic energy of the jump.
 
 ## Credits
 
