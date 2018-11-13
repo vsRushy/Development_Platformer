@@ -16,13 +16,13 @@ j1Particles::j1Particles()
 	sword_right.anim.PushBack({ 6, 2, 35, 15 });
 	sword_right.anim.loop = true;
 	sword_right.speed.x = 150;
-	sword_right.life = 1500;
+	sword_right.life = 2000;
 	sword_right.type_particle = 0;
 
 	sword_left.anim.PushBack({ 5, 23, 35, 15 });
 	sword_left.anim.loop = true;
 	sword_left.speed.x = -150;
-	sword_left.life = 1500;
+	sword_left.life = 2000;
 	sword_left.type_particle = 1;
 }
 
@@ -156,7 +156,7 @@ bool Particle::Update(float dt)
 	position.y += speed.y * dt;
 
 	iPoint worldPos = App->map->WorldToMap(position.x, position.y);
-	iPoint worldFinalPos = App->map->WorldToMap(position.x + 35 + speed.x, position.y + 15);
+	iPoint worldFinalPos = App->map->WorldToMap(position.x + 35 + speed.x*dt, position.y + 15);
 	if (App->map->CheckCollisionX(worldPos.x, worldPos.y, worldFinalPos.y))//left
 	{
 		life = 0;

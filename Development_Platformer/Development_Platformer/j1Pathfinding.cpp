@@ -207,7 +207,7 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 				}
 				// Use the Pathnode::parent and Flip() the path when you are finish
 				last_path.Flip();
-				ret = last_path.Count();
+				return last_path.Count();
 			}
 			else
 			{

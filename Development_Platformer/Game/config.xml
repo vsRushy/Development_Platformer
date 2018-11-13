@@ -44,7 +44,7 @@
   <player>
     <god_mode value="false"/>
     <gravity value="5.8f"/>
-    <velocity_x value="3.0f"/>
+    <velocity_x value="6.0f"/>
     <velocity_y value="2.0f"/>
   </player>
 

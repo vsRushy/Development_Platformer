@@ -131,8 +131,8 @@ bool Enemy_level01_air::PlayerIsInRange()
 	{
 		if (range[i] == player_pos)
 		{
-			LOG("PLAYER DETECTEDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
-			LOG("Objective [x]: %i [y]: %i", objective.x, objective.y);
+			//LOG("PLAYER DETECTEDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
+			//LOG("Objective [x]: %i [y]: %i", objective.x, objective.y);
 			// Now we have the objective
 			objective = range[i];
 			if (objective == iPoint(App->map->WorldToMap(position.x, position.y)))
