@@ -1,14 +1,14 @@
 #ifndef __Enemy_level01_air__
 #define __Enemy_level01_air__
 
-#include "Enemy.h"
+#include "Entity.h"
 
 #include "p2Point.h"
 #include "p2DynArray.h"
 
 #define RANGE_SIZE 80
 
-class Enemy_level01_air : public Enemy
+class Enemy_level01_air : public Entity
 {
 private:
 	iPoint original_pos;

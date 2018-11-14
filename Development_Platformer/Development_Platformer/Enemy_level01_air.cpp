@@ -1,15 +1,15 @@
 #include "j1App.h"
 #include "Enemy_level01_air.h"
 #include "j1Collision.h"
-#include "ModuleEnemies.h"
+#include "j1EntityManager.h"
 #include "j1Map.h"
-#include "j1Player.h"
+#include "Player.h"
 #include "j1Pathfinding.h"
 #include "p2Log.h"
 
 #define AIR_SIZE_01 32
 
-Enemy_level01_air::Enemy_level01_air(int x, int y) : Enemy(x, y)
+Enemy_level01_air::Enemy_level01_air(int x, int y) : Entity(x, y)
 {
 
 	anim.PushBack({ 64, 82, AIR_SIZE_01, AIR_SIZE_01 });
@@ -20,7 +20,7 @@ Enemy_level01_air::Enemy_level01_air(int x, int y) : Enemy(x, y)
 
 	animation = &anim;
 
-	collider = App->collision->AddCollider({ 0, 0, AIR_SIZE_01, AIR_SIZE_01 }, COLLIDER_TYPE::COLLIDER_ENEMY, (j1Module*)App->enemies);
+	collider = App->collision->AddCollider({ 0, 0, AIR_SIZE_01, AIR_SIZE_01 }, COLLIDER_TYPE::COLLIDER_ENEMY, (j1Module*)App->entity_manager);
 
 	original_pos.x = x;
 	original_pos.y = y;
@@ -125,8 +125,9 @@ bool Enemy_level01_air::PlayerIsInRange()
 {
 	bool ret = false;
 
-	iPoint player_pos = App->map->WorldToMap((int)App->player->position.x, (int)App->player->position.y);
-
+	//iPoint player_pos = App->map->WorldToMap((int)App->player->position.x, (int)App->player->position.y);
+	iPoint player_pos = App->map->WorldToMap((int)App->entity_manager->ReturnPlayer()->position.x, (int)App->entity_manager->ReturnPlayer()->position.y);
+	
 	for (int i = 0; i < RANGE_SIZE; i++)
 	{
 		if (range[i] == player_pos)

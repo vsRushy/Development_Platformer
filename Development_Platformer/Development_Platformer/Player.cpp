@@ -5,17 +5,16 @@
 #include "j1Render.h"
 #include "j1Input.h"
 #include "j1FadeToBlack.h"
-#include "j1Player.h"
+#include "Player.h"
 #include "j1Collision.h"
 #include "j1Map.h"
 #include "j1Scene.h"
 #include "j1Audio.h"
 #include "j1Particles.h"
+#include "j1EntityManager.h"
 
-j1Player::j1Player()
+Player::Player(int x, int y) : Entity(x, y)
 {
-	name.create("player");
-
 	// Player idle animation
 	idle_anim.PushBack({ 8, 42, 17, 22 });
 	idle_anim.speed = 1.0f;
@@ -30,10 +29,10 @@ j1Player::j1Player()
 	walk_anim.loop = true;
 }
 
-j1Player::~j1Player()
+Player::~Player()
 {}
 
-bool j1Player::Awake(pugi::xml_node& data)
+bool Player::Awake(pugi::xml_node& data)
 {
 	god_mode = data.child("god_mode").attribute("value").as_bool();
 	gravity = data.child("gravity").attribute("value").as_float();
@@ -44,7 +43,7 @@ bool j1Player::Awake(pugi::xml_node& data)
 }
 
 // Load assets
-bool j1Player::Start()
+bool Player::Start()
 {
 	LOG("Loading player textures");
 	graphics = App->tex->Load("textures/characters.png");
@@ -59,7 +58,7 @@ bool j1Player::Start()
 	collider_position.y = position.y;
 
 	// Set up the player's collider
-	player_collider = App->collision->AddCollider({ collider_position.x, collider_position.y, PLAYER_SIZE_X, PLAYER_SIZE_Y }, COLLIDER_PLAYER, this);
+	player_collider = App->collision->AddCollider({ collider_position.x, collider_position.y, PLAYER_SIZE_X, PLAYER_SIZE_Y }, COLLIDER_PLAYER, App->entity_manager);
 
 	// Starting animation
 	current_animation = &idle_anim;
@@ -68,7 +67,7 @@ bool j1Player::Start()
 	return true;
 }
 
-bool j1Player::CleanUp()
+bool Player::CleanUp()
 {
 	LOG("Unloading player");
 	App->tex->UnLoad(graphics);
@@ -82,7 +81,7 @@ bool j1Player::CleanUp()
 
 /* Here we define the player's logic. It is blitted to the screen in j1Scene.cpp. Although we can do it
    here, it has more sense to blit the player in the scene, because the player IS in the scene */
-bool j1Player::Update(float dt)
+void Player::Update(float dt)
 {
 	rect = &(current_animation->GetCurrentFrame());
 
@@ -322,11 +321,9 @@ bool j1Player::Update(float dt)
 		else
 			current_animation = &idle_anim;
 	}
-
-	return true;
 }
 
-bool j1Player::Load(pugi::xml_node& save)
+bool Player::Load(pugi::xml_node& save)
 {
 	if (save.child("position") != NULL)
 	{
@@ -337,7 +334,7 @@ bool j1Player::Load(pugi::xml_node& save)
 	return true;
 }
 
-bool j1Player::Save(pugi::xml_node& save) const
+bool Player::Save(pugi::xml_node& save) const
 {
 	if (save.child("position") == NULL)
 	{
@@ -352,7 +349,7 @@ bool j1Player::Save(pugi::xml_node& save) const
 	return true;
 }
 
-void j1Player::OnCollision(Collider* a, Collider* b)
+void Player::OnCollision(Collider* a, Collider* b)
 {
 
 }

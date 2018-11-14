@@ -1,27 +1,26 @@
 #include "j1App.h"
-#include "Enemy.h"
+#include "Entity.h"
 #include "j1Collision.h"
 #include "j1Render.h"
 #include "j1Audio.h"
 
-
-Enemy::Enemy(int x, int y) : position(x, y)
+Entity::Entity(int x, int y) : position(x, y)
 {
-	enemy_death_sound = App->audio->LoadFx(".wav");
+	entity_death_sound = App->audio->LoadFx(".wav");
 }
 
-Enemy::~Enemy()
+Entity::~Entity()
 {
 	if (collider != nullptr)
 		collider->to_delete = true;
 }
 
-const Collider* Enemy::GetCollider() const
+const Collider* Entity::GetCollider() const
 {
 	return collider;
 }
 
-void Enemy::Draw(SDL_Texture* sprites, float speed)
+void Entity::Draw(SDL_Texture* sprites, float speed)
 {
 	if (collider != nullptr)
 		collider->SetPos(position.x, position.y);
@@ -30,7 +29,5 @@ void Enemy::Draw(SDL_Texture* sprites, float speed)
 		App->render->Blit(sprites, position.x, position.y, &(animation->GetCurrentFrame()), speed, 0.0f, flip);
 }
 
-void Enemy::OnCollision(Collider* collider, int type)
-{
-	// ...
-}
+void Entity::OnCollision(Collider* a, Collider* b)
+{}

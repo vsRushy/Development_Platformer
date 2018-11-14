@@ -1,7 +1,7 @@
 #ifndef __PLAYER_H__
 #define __PLAYER_H__
 
-#include "j1Module.h"
+#include "Entity.h"
 #include "Animation.h"
 #include "p2Point.h"
 
@@ -15,17 +15,17 @@ struct SDL_Texture;
 
 // TODO: enumeration to know the player states.
 
-class j1Player : public j1Module
+class Player : public Entity
 {
 public:
-	j1Player();
-	~j1Player();
+	Player(int x, int y);
+	~Player();
 
 	// Called before render is available
 	bool Awake(pugi::xml_node&);
 
 	bool Start();
-	bool Update(float dt);
+	void Update(float dt);
 	bool CleanUp();
 
 	// Load

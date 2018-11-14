@@ -15,12 +15,11 @@ class j1Textures;
 class j1Audio;
 class j1Scene;
 class j1Map;
-class j1Player;
 class j1Collision;
 class j1FadeToBlack;
-class ModuleEnemies;
 class j1Particles;
 class j1PathFinding;
+class j1EntityManager;
 
 class j1App
 {
@@ -91,12 +90,11 @@ public:
 	j1Audio*			audio;
 	j1Scene*			scene;
 	j1Map*				map;
-	j1Player*           player;
 	j1Collision*        collision;
 	j1FadeToBlack*      fade;
-	ModuleEnemies*      enemies;
 	j1Particles*        particles;
 	j1PathFinding*      pathfinding;
+	j1EntityManager*     entity_manager;
 
 private:
 
