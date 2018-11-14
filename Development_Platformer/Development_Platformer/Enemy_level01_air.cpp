@@ -58,7 +58,7 @@ void Enemy_level01_air::Update(float dt)
 		int c = App->pathfinding->CreatePath(enemy_map_pos, objective);
 		if (c != -1)
 		{
-			path = App->pathfinding->GetLastPath();  // It never reaches this point. Maybe because we don't check if its walkable
+			path = App->pathfinding->GetLastPath();
 			PathMovement(path, enemy_map_pos, dt);
 		}
 	}

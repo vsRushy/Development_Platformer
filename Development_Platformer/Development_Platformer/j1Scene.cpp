@@ -55,7 +55,7 @@ bool j1Scene::Start()
 		RELEASE_ARRAY(data);
 
 		/* Add enemies :) */
-		/*App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LEVEL01_GROUND, 295, 320);*/
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LEVEL01_GROUND, 960, 779);
 		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LEVEL01_AIR, 470, 200);
 	}
 	else if (map_selected == 2)
@@ -136,16 +136,16 @@ bool j1Scene::Update(float dt)
 		App->SaveGame();
 	}
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-		App->render->camera.y -= 150 * dt;
+		App->render->camera.y -= 450 * dt;
 	else
 	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-		App->render->camera.y += 150 * dt;
+		App->render->camera.y += 450 * dt;
 	else
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-		App->render->camera.x -= 150 * dt;
+		App->render->camera.x -= 450 * dt;
 	else
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-		App->render->camera.x += 150 * dt;
+		App->render->camera.x += 450 * dt;
 	else
 	{
 		App->render->camera.x = (int)(App->player->position.x - 242) * (-1) * App->win->GetScale();
