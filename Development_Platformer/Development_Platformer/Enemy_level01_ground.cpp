@@ -67,7 +67,6 @@ void Enemy_level01_ground::Update(float dt)
 	}
 
 	position.x += velocity.x;
-	position.y += velocity.y;
 }
 
 void Enemy_level01_ground::CreateRange()
@@ -78,7 +77,10 @@ void Enemy_level01_ground::CreateRange()
 		{
 			iPoint tmp_range = App->map->WorldToMap((int)position.x, (int)position.y);
 			/* Representation of the enemy range
-		
+		    *********
+			*********
+			*********
+		    *********
 			****E****
 			*********
 			*********
@@ -98,7 +100,6 @@ void Enemy_level01_ground::PathMovement(const p2DynArray<iPoint>* path, iPoint p
 {
 	iPoint goal = iPoint(path->At(0)->x, path->At(0)->y); // we want the initial point of the path!
 	float velocity_x = 0.0f;
-	float velocity_y = 0.0f;
 	dt = 1.0f;
 	if (goal.x < position.x)
 	{
@@ -108,17 +109,8 @@ void Enemy_level01_ground::PathMovement(const p2DynArray<iPoint>* path, iPoint p
 	{
 		velocity_x = 5.0f * dt;
 	}
-	else if (goal.y < position.y)
-	{
-		velocity_y = -5.0f * dt;
-	}
-	else if (goal.y > position.y)
-	{
-		velocity_y = 5.0f * dt;
-	}
 
 	velocity.x = velocity_x;
-	velocity.y = velocity_y;
 }
 
 bool Enemy_level01_ground::PlayerIsInRange()
