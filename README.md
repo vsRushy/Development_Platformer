@@ -16,6 +16,10 @@ Welcome to our first ever Platformer, Little Big King!
 
 **X:** Dash
 
+**Z:** Launch sword
+
+**LEFT SHIFT:** Teleport to the sword
+
 ## Debug keys
 
 **F1:** Start from the very first level
@@ -37,10 +41,6 @@ Welcome to our first ever Platformer, Little Big King!
 **W:** Move camera down
 
 **S:** Move camera up
-
-**Z:** Launch sword
-
-**LEFT SHIFT:** Teleport to the sword
 
 **+:** Volume up
 
