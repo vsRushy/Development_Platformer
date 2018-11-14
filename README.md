@@ -18,7 +18,7 @@ Welcome to our first ever Platformer, Little Big King!
 
 **Z:** Launch sword
 
-**LEFT SHIFT:** Teleport to the sword
+**Left shift:** Teleport to the sword
 
 ## Debug keys
 
