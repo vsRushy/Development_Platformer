@@ -3,6 +3,7 @@
 
 #include "p2Point.h"
 #include "Animation.h"
+#include "p2DynArray.h"
 
 #include "SDL/include/SDL_render.h"
 
@@ -18,19 +19,27 @@ protected:
 
 public:
 	fPoint position;
-	int entity_death_sound = NULL;
+
 	bool is_alive = true;
 	int hit_points = 1;
 	int type;
+
+	// -------------
+	iPoint objective;
+	iPoint velocity;
+	bool is_moving = true;
+	bool player_is_range = false;
+	virtual void CreateRange() {};
+	virtual bool PlayerIsInRange() { return true; };
+	virtual void PathMovement(const p2DynArray<iPoint>*, iPoint, float) {};
 
 public:
 	Entity(int x, int y);
 	virtual ~Entity(); // needs to be virtual
 
-	virtual void Move() {};
 	virtual void Update(float dt) {};
 	virtual void Draw(SDL_Texture* sprites, float speed = 1.0f);
-	virtual void OnCollision(Collider* a, Collider* b);
+	virtual void OnCollision(Collider* a, Collider* b) {};
 
 	const Collider* GetCollider() const;
 };

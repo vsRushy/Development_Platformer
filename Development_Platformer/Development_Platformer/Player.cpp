@@ -323,33 +323,13 @@ void Player::Update(float dt)
 	}
 }
 
-bool Player::Load(pugi::xml_node& save)
-{
-	if (save.child("position") != NULL)
-	{
-		position.x = save.child("position").attribute("x").as_float();
-		position.y = save.child("position").attribute("y").as_float();
-	}
-
-	return true;
-}
-
-bool Player::Save(pugi::xml_node& save) const
-{
-	if (save.child("position") == NULL)
-	{
-		save.append_child("position").append_attribute("x") = position.x;
-		save.child("position").append_attribute("y") = position.y;
-	}
-	else {
-		save.child("position").attribute("x") = position.x;
-		save.child("position").attribute("y") = position.y;
-	}
-
-	return true;
-}
-
 void Player::OnCollision(Collider* a, Collider* b)
 {
-
+	if (!god_mode && b->type == COLLIDER_ENEMY)
+	{
+		if (App->scene->map_selected == 1)
+			position = first_map_pos;
+		else if (App->scene->map_selected == 2)
+			position = second_map_pos;
+	}
 }

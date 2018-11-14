@@ -210,9 +210,21 @@ void j1EntityManager::OnCollision(Collider* a, Collider* b)
 	}
 }
 
-bool j1EntityManager::Load(pugi::xml_node& load)
+bool j1EntityManager::Load(pugi::xml_node& save)
 {
 	bool ret = true;
+
+	for (uint i = 0; i < MAX_ENTITIES; ++i)
+	{
+		if (player != nullptr && entities[i] == player)
+		{
+			if (save.child("position") != NULL)
+			{
+				player->position.x = save.child("position").attribute("x").as_float();
+				player->position.y = save.child("position").attribute("y").as_float();
+			}
+		}
+	}
 
 	return ret;
 }
@@ -221,18 +233,20 @@ bool j1EntityManager::Save(pugi::xml_node& save) const
 {
 	bool ret = true;
 	
+	if (save.child("position") == NULL)
+	{
+		save.append_child("position").append_attribute("x") = player->position.x;
+		save.child("position").append_attribute("y") = player->position.y;
+	}
+	else {
+		save.child("position").attribute("x") = player->position.x;
+		save.child("position").attribute("y") = player->position.y;
+	}
+
 	return ret;
 }
 
-Player* j1EntityManager::ReturnPlayer() const {
-
-	for (uint i = 0; i < MAX_ENTITIES; ++i)
-	{
-		if (entities[i] != nullptr && entities[i]->type == 0)
-		{
-			return (Player*)entities[i];
-		}
-	}
-
-	return nullptr;
+void j1EntityManager::AddAllEntities()
+{
+	
 }

@@ -20,16 +20,12 @@ Enemy_level01_air::Enemy_level01_air(int x, int y) : Entity(x, y)
 
 	animation = &anim;
 
-	collider = App->collision->AddCollider({ 0, 0, AIR_SIZE_01, AIR_SIZE_01 }, COLLIDER_TYPE::COLLIDER_ENEMY, (j1Module*)App->entity_manager);
+	collider = App->collision->AddCollider({ 0, 0, AIR_SIZE_01, AIR_SIZE_01 }, COLLIDER_TYPE::COLLIDER_ENEMY, App->entity_manager);
+
+	hit_points = 4;
 
 	original_pos.x = x;
 	original_pos.y = y;
-}
-
-void Enemy_level01_air::Move()
-{
-	/*position.x = position.x;
-	position.y = position.y;*/
 }
 
 void Enemy_level01_air::Update(float dt)
@@ -126,7 +122,7 @@ bool Enemy_level01_air::PlayerIsInRange()
 	bool ret = false;
 
 	//iPoint player_pos = App->map->WorldToMap((int)App->player->position.x, (int)App->player->position.y);
-	iPoint player_pos = App->map->WorldToMap((int)App->entity_manager->ReturnPlayer()->position.x, (int)App->entity_manager->ReturnPlayer()->position.y);
+	iPoint player_pos = App->map->WorldToMap((int)App->entity_manager->player->position.x, (int)App->entity_manager->player->position.y);
 	
 	for (int i = 0; i < RANGE_SIZE; i++)
 	{
@@ -144,4 +140,15 @@ bool Enemy_level01_air::PlayerIsInRange()
 	}
 
 	return ret;
+}
+
+void Enemy_level01_air::OnCollision(Collider* a, Collider* b)
+{
+	if (b->type == COLLIDER_PLAYER_SHOT)
+	{
+		if (hit_points > 0)
+			hit_points--;
+		else
+			is_alive = false;
+	}
 }

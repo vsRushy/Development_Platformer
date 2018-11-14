@@ -27,11 +27,6 @@ public:
 	bool Start();
 	void Update(float dt);
 	bool CleanUp();
-
-	// Load
-	bool Load(pugi::xml_node&);
-	// Save
-	bool Save(pugi::xml_node&) const;
 	
 	void OnCollision(Collider*, Collider*);
 

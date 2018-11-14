@@ -46,13 +46,13 @@ public:
 	bool AddEntity(ENTITY_TYPE type, int x, int y);
 	void SpawnEntity(const EntityInfo& info);
 
-	Player* ReturnPlayer() const;
+	void AddAllEntities();
+
+	Player* player = nullptr;
 
 private:
 	EntityInfo queue[MAX_ENTITIES];
 	Entity* entities[MAX_ENTITIES];
-
-	Player* player = nullptr;
 
 	SDL_Texture* player_entity_tex = nullptr;
 	SDL_Texture* enemy_level01_air_tex = nullptr;

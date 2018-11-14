@@ -6,7 +6,7 @@
 
 Entity::Entity(int x, int y) : position(x, y)
 {
-	entity_death_sound = App->audio->LoadFx(".wav");
+
 }
 
 Entity::~Entity()
@@ -28,6 +28,3 @@ void Entity::Draw(SDL_Texture* sprites, float speed)
 	if (animation != nullptr)
 		App->render->Blit(sprites, position.x, position.y, &(animation->GetCurrentFrame()), speed, 0.0f, flip);
 }
-
-void Entity::OnCollision(Collider* a, Collider* b)
-{}

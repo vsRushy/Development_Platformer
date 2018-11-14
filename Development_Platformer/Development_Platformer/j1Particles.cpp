@@ -169,8 +169,8 @@ bool Particle::Update(float dt)
 	}
 	if ((App->input->GetKey(SDL_SCANCODE_LSHIFT) == 1) && life > 0)
 	{
-		App->entity_manager->ReturnPlayer()->position.x = position.x;
-		App->entity_manager->ReturnPlayer()->position.y = position.y;
+		App->entity_manager->player->position.x = position.x;
+		App->entity_manager->player->position.y = position.y;
 		life = 0;
 	}
 	/*if (collider != nullptr) {
