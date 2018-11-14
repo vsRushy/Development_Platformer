@@ -170,33 +170,27 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 	last_path.Clear();
 
 	int ret = -1;
-	// TODO 1: if origin or destination are not walkable, return -1
+
 	if (!IsWalkable(origin) || !IsWalkable(destination))
 	{
 		ret = -1;
 	}
 	else
 	{
-		// TODO 2: Create two lists: open, close
 		PathList open;
 		PathList close;
-		// Add the origin tile to open
+
 		PathNode origin_tile(0, origin.DistanceNoSqrt(destination), origin, nullptr);
 		open.list.add(origin_tile);
 
-		// Iterate while we have tile (1 or more than 1) in the open list
 		while (open.list.count() > 0)
 		{
-			// TODO 3: Move the lowest score cell from open list to the closed list
 			p2List_item<PathNode>* current_node = open.GetNodeLowestScore();
 			close.list.add(current_node->data);
 			open.list.del(current_node);
 
-			// TODO 4: If we just added the destination, we are done!
-			// Backtrack to create the final path
 			if (close.list.end->data.pos == destination)
 			{
-				// backtracking
 				for (const p2List_item<PathNode>* it = close.list.end; it->data.parent != nullptr; it = close.Find(it->data.parent->pos))
 				{
 					last_path.PushBack(it->data.pos);
@@ -205,41 +199,34 @@ int j1PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 						last_path.PushBack(close.list.start->data.pos);
 					}
 				}
-				// Use the Pathnode::parent and Flip() the path when you are finish
+
 				last_path.Flip();
 				return last_path.Count();
 			}
 			else
 			{
-				// TODO 5: Fill a list of all adjancent nodes
 				PathList neighbours;
 				close.list.end->data.FindWalkableAdjacents(neighbours);
 
-				// TODO 6: Iterate adjancent nodes:
 				p2List_item<PathNode>* it = neighbours.list.start;
 
 				while (it != nullptr)
 				{
-					// ignore nodes in the closed list
 					if (close.Find(it->data.pos) != NULL)
 					{
-						// It is in the closed list, so we ignore it
 						it = it->next;
 						continue;
 					}
-					// If it is already in the open list, check if it is a better path (compare G)
 					else if (open.Find(it->data.pos) != NULL)
 					{
 						PathNode temp_path = open.Find(it->data.pos)->data;
 
 						it->data.CalculateF(destination);
-						// If it is a better path, Update the parent
 						if (temp_path.g > it->data.g)
 						{
 							temp_path.parent = it->data.parent;
 						}
 					}
-					// If it is NOT found, calculate its F and add it to the open list
 					else
 					{
 						it->data.CalculateF(destination);
