@@ -12,7 +12,8 @@ class Enemy_level01_ground : public Enemy
 {
 private:
 	iPoint original_pos;
-	Animation anim;
+	Animation idle;
+	Animation walk;
 
 	bool is_moving = true;
 	bool player_is_range = false;

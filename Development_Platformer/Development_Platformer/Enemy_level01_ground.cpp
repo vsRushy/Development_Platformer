@@ -12,20 +12,34 @@
 
 Enemy_level01_ground::Enemy_level01_ground(int x, int y) : Enemy(x, y)
 {
+	idle.PushBack({ 1, 2, GROUND_SIZE_01_X, GROUND_SIZE_01_Y });
+	idle.loop = true;
+	idle.speed = 0.5f;
 
-	anim.PushBack({ 1, 2, GROUND_SIZE_01_X, GROUND_SIZE_01_Y });
-	anim.loop = true;
-	anim.speed = 0.5f;
+	walk.PushBack({ 1, 120, 21, 21 });
+	walk.PushBack({ 23, 120, 18, 21 });
+	walk.PushBack({ 44, 120, 17, 21 });
+	walk.PushBack({ 66, 120, 18, 21 });
+	walk.PushBack({ 88, 120, 18, 21 });
+	walk.PushBack({ 109, 120, 21, 21 });
+	walk.PushBack({ 131, 120, 18, 21 });
+	walk.PushBack({ 153, 120, 16, 21 });
+	walk.PushBack({ 175, 120, 18, 21 });
+	walk.PushBack({ 196, 120, 18, 21 });
+	walk.loop = true;
+	walk.speed = 0.5f;
 
 	hit_points = 4;
 
-	animation = &anim;
+	animation = &idle;
 
 	collider = App->collision->AddCollider({ 0, 0, GROUND_SIZE_01_X, GROUND_SIZE_01_Y }, COLLIDER_TYPE::COLLIDER_ENEMY,
 		(j1Module*)App->enemies);
 
 	original_pos.x = x;
 	original_pos.y = y;
+
+	flip = SDL_FLIP_NONE;
 }
 
 void Enemy_level01_ground::Move()
@@ -103,10 +117,14 @@ void Enemy_level01_ground::PathMovement(const p2DynArray<iPoint>* path, iPoint p
 	dt = 1.0f;
 	if (goal.x < position.x)
 	{
+		flip = SDL_FLIP_NONE;
+		animation = &walk;
 		velocity_x = -5.0f * dt;
 	}
 	else if (goal.x > position.x)
 	{
+		flip = SDL_FLIP_HORIZONTAL;
+		animation = &walk;
 		velocity_x = 5.0f * dt;
 	}
 
@@ -127,7 +145,7 @@ bool Enemy_level01_ground::PlayerIsInRange()
 			//LOG("Objective [x]: %i [y]: %i", objective.x, objective.y);
 			// Now we have the objective
 			objective = range[i];
-			if (objective == iPoint(App->map->WorldToMap(position.x, position.y)))
+			if (objective == iPoint(App->map->WorldToMap((int)position.x, (int)position.y)))
 				ret = false;
 			else
 				ret = true;

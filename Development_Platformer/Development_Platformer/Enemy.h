@@ -4,6 +4,8 @@
 #include "p2Point.h"
 #include "Animation.h"
 
+#include "SDL/include/SDL_render.h"
+
 struct SDL_Texture;
 struct Collider;
 
@@ -12,6 +14,7 @@ class Enemy
 protected:
 	Animation* animation = nullptr;
 	Collider* collider = nullptr;
+	SDL_RendererFlip flip = SDL_FLIP_NONE;
 
 public:
 	fPoint position;
