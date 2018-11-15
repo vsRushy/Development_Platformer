@@ -29,8 +29,3 @@ void Entity::Draw(SDL_Texture* sprites, float speed)
 	if (animation != nullptr)
 		App->render->Blit(sprites, position.x, position.y, &(animation->GetCurrentFrame()), speed, 0.0f, flip);
 }
-
-void Entity::OnCollision(Collider* collider, int type)
-{
-	// ...
-}

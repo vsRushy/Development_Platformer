@@ -28,16 +28,18 @@ class EntityManager : public j1Module
 public:
 
 	EntityManager();
-	virtual ~EntityManager();
+	~EntityManager();
 
 	bool Start();
 	bool PreUpdate();
 	bool Update(float dt);
 	bool PostUpdate();
 	bool CleanUp();
-	void OnCollision(Collider* c1, Collider* c2);
 
 	bool AddEntity(ENTITY_TYPES type, int x, int y);
+
+	bool Load(pugi::xml_node save);
+	bool Save(pugi::xml_node save) const;
 
 private:
 

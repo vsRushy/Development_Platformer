@@ -49,9 +49,6 @@ bool EntityManager::PreUpdate()
 // Called before render is available
 bool EntityManager::Update(float dt)
 {
-	/*for (uint i = 0; i < MAX_ENEMIES; ++i)
-		if (enemies[i] != nullptr) enemies[i]->Move();*/
-
 	for (uint i = 0; i < MAX_ENTITIES; ++i)
 		if (entities[i] != nullptr) entities[i]->Update(dt);
 
@@ -68,31 +65,6 @@ bool EntityManager::Update(float dt)
 
 bool EntityManager::PostUpdate()
 {
-	// check camera position to decide what to spawn
-	/* ENEMIES WONT DESPAWN, THEY NEED TO BE KILLED :)
-	for (uint i = 0; i < MAX_ENEMIES; ++i)
-	{
-		if (enemies[i] != nullptr)
-		{
-			if (enemies[i]->type == 1) {
-				if (enemies[i]->position.x * App->win->GetScale() + (App->render->camera.x) * 0.2f < (App->render->camera.x) - SPAWN_MARGIN)
-				{
-					LOG("DeSpawning enemy at %d", enemies[i]->position.x * App->win->GetScale());
-					delete enemies[i];
-					enemies[i] = nullptr;
-				}
-			}
-			else 
-			if (enemies[i]->position.x * App->win->GetScale() < (App->render->camera.x) - SPAWN_MARGIN)
-			{
-				LOG("DeSpawning enemy at %d", enemies[i]->position.x * App->win->GetScale());
-				delete enemies[i];
-				enemies[i] = nullptr;
-			}
-		}
-	}
-	*/
-
 	return true;
 }
 
@@ -159,13 +131,12 @@ void EntityManager::SpawnEntity(const EntityInfo& info)
 	}
 }
 
-void EntityManager::OnCollision(Collider* c1, Collider* c2)
+bool EntityManager::Load(pugi::xml_node save)
 {
-	for (uint i = 0; i < MAX_ENTITIES; ++i)
-	{
-		if (entities[i] != nullptr && entities[i]->GetCollider() == c1)
-		{
-			
-		}
-	}
+	return true;
+}
+
+bool EntityManager::Save(pugi::xml_node save) const
+{
+	return true;
 }
