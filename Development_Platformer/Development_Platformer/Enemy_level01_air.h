@@ -20,6 +20,11 @@ private:
 	iPoint objective;
 	iPoint range[RANGE_SIZE];
 
+	iPoint velocity;
+
+	iPoint first_point;
+	iPoint last_point;
+
 public:
 	Enemy_level01_air(int x, int y);
 
@@ -27,8 +32,11 @@ public:
 	void CreateRange();
 
 	bool PlayerIsInRange();
+	int GetHP() { return hit_points; };
 
-	void PathMovement(const p2DynArray<iPoint>*, iPoint, float); // p2DynArray needs to be const to call Last Path
+	void PathMovement(const p2DynArray<iPoint>*, iPoint, float);
+
+	void OnCollision(Collider* a, Collider* b);
 };
 
 #endif // __Enemy_level01_air__

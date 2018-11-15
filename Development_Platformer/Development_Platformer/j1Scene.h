@@ -3,6 +3,9 @@
 
 #include "j1Module.h"
 
+class Enemy_level01_air;
+class Enemy_level01_ground;
+
 struct SDL_Texture;
 
 class j1Scene : public j1Module
@@ -51,6 +54,10 @@ public:
 	int map_selected;
 	int last_map_selected;
 	bool isLoading = false;
+
+public:
+	Enemy_level01_air* enemy01air = nullptr;
+	Enemy_level01_ground* enemy01ground = nullptr;
 };
 
 #endif // __j1SCENE_H__

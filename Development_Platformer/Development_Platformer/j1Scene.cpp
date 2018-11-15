@@ -10,7 +10,7 @@
 #include "j1Scene.h"
 #include "j1Player.h"
 #include "j1FadeToBlack.h"
-#include "EntityManager.h"
+#include "j1EntityManager.h"
 #include "Enemy_level01_air.h"
 #include "j1Pathfinding.h"
 
@@ -54,9 +54,9 @@ bool j1Scene::Start()
 
 		RELEASE_ARRAY(data);
 
-		/* Add enemies :) */
-		App->entities->AddEntity(ENTITY_TYPES::ENEMY_LEVEL01_GROUND, 960, 779);
-		App->entities->AddEntity(ENTITY_TYPES::ENEMY_LEVEL01_AIR, 470, 200);
+		/* Add entities :) */
+		enemy01air = (Enemy_level01_air*)App->entities->CreateEntity(ENTITY_TYPES::ENEMY_LEVEL01_AIR, 700, 700);
+		enemy01ground = (Enemy_level01_ground*)App->entities->CreateEntity(ENTITY_TYPES::ENEMY_LEVEL01_GROUND, 400, 400);
 	}
 	else if (map_selected == 2)
 	{

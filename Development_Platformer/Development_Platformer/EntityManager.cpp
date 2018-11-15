@@ -10,9 +10,12 @@
 #include "Entity.h"
 #include "Enemy_level01_ground.h"
 #include "Enemy_level01_air.h"
+#include "Player.h"
 
 EntityManager::EntityManager()
 {
+	name.create("entities");
+
 	for (uint i = 0; i < MAX_ENTITIES; ++i)
 		entities[i] = nullptr;
 }
@@ -20,11 +23,23 @@ EntityManager::EntityManager()
 // Destructor
 EntityManager::~EntityManager()
 {
+
+}
+
+bool EntityManager::Awake(pugi::xml_node& data)
+{
+	player.god_mode = data.child("god_mode").attribute("value").as_bool();
+	player.gravity = data.child("gravity").attribute("value").as_float();
+	player.velocity_x = data.child("velocity_x").attribute("value").as_float();
+	player.velocity_y = data.child("velocity_x").attribute("value").as_float();
+	
+	return true;
 }
 
 bool EntityManager::Start()
 {
-	// Create a prototype for each enemy available so we can copy them around
+	LOG("Loading entities textures...");
+	player_tex = App->tex->Load("textures/characters.png");
 	enemy_level01_ground_tex = App->tex->Load("textures/Enemies/enemy_level01_ground.png");
 	enemy_level01_air_tex = App->tex->Load("textures/Enemies/enemy_level01_air.png");
 
@@ -50,7 +65,8 @@ bool EntityManager::PreUpdate()
 bool EntityManager::Update(float dt)
 {
 	for (uint i = 0; i < MAX_ENTITIES; ++i)
-		if (entities[i] != nullptr) entities[i]->Update(dt);
+		if (entities[i] != nullptr && entities[i]->type == (int)ENTITY_TYPES::PLAYER)
+			entities[i]->Draw(player_tex);
 
 	for (uint i = 0; i < MAX_ENTITIES; ++i)
 		if (entities[i] != nullptr && entities[i]->type == (int)ENTITY_TYPES::ENEMY_LEVEL01_GROUND)
@@ -60,11 +76,23 @@ bool EntityManager::Update(float dt)
 		if (entities[i] != nullptr && entities[i]->type == (int)ENTITY_TYPES::ENEMY_LEVEL01_AIR)
 			entities[i]->Draw(enemy_level01_air_tex);
 
+	for (uint i = 0; i < MAX_ENTITIES; ++i)
+		if (entities[i] != nullptr) entities[i]->Update(dt);
+
 	return true;
 }
 
 bool EntityManager::PostUpdate()
 {
+	for (uint i = 0; i < MAX_ENTITIES; ++i)
+	{
+		if (entities[i] != nullptr && !entities[i]->is_alive)
+		{
+			delete entities[i];
+			entities[i] = nullptr;
+		}
+	}
+
 	return true;
 }
 
@@ -73,6 +101,7 @@ bool EntityManager::CleanUp()
 {
 	LOG("Freeing all enemies");
 
+	App->tex->UnLoad(player_tex);
 	App->tex->UnLoad(enemy_level01_ground_tex);
 	App->tex->UnLoad(enemy_level01_air_tex);
 
@@ -117,13 +146,18 @@ void EntityManager::SpawnEntity(const EntityInfo& info)
 	{
 		switch (info.type)
 		{
+		case ENTITY_TYPES::PLAYER:
+			playerData = new Player(info.x, info.y);
+			entities[i] = playerData;
+			entities[i]->type = 1;
+			break;
 		case ENTITY_TYPES::ENEMY_LEVEL01_GROUND:
 			entities[i] = new Enemy_level01_ground(info.x, info.y);
-			entities[i]->type = 1;
+			entities[i]->type = 2;
 			break;
 		case ENTITY_TYPES::ENEMY_LEVEL01_AIR:
 			entities[i] = new Enemy_level01_air(info.x, info.y);
-			entities[i]->type = 2;
+			entities[i]->type = 3;
 			break;
 		default:
 			break;
@@ -133,10 +167,32 @@ void EntityManager::SpawnEntity(const EntityInfo& info)
 
 bool EntityManager::Load(pugi::xml_node save)
 {
+	if (save.child("position") != NULL)
+	{
+		playerData->position.x = save.child("position").attribute("x").as_float();
+		playerData->position.y = save.child("position").attribute("y").as_float();
+	}
+
 	return true;
 }
 
 bool EntityManager::Save(pugi::xml_node save) const
 {
+	if (save.child("position") == NULL)
+	{
+		save.append_child("position").append_attribute("x") = playerData->position.x;
+		save.child("position").append_attribute("y") = playerData->position.y;
+	}
+	else {
+		save.child("position").attribute("x") = playerData->position.x;
+		save.child("position").attribute("y") = playerData->position.y;
+	}
+
 	return true;
+}
+
+
+PlayerInfo& EntityManager::GetPlayerInfo()
+{
+	return player;
 }

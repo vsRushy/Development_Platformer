@@ -1,7 +1,7 @@
 #include "j1App.h"
 #include "Enemy_level01_air.h"
 #include "j1Collision.h"
-#include "EntityManager.h"
+#include "j1EntityManager.h"
 #include "j1Map.h"
 #include "j1Player.h"
 #include "j1Pathfinding.h"
@@ -9,7 +9,7 @@
 
 #define AIR_SIZE_01 32
 
-Enemy_level01_air::Enemy_level01_air(int x, int y) : Entity(x, y)
+Enemy_level01_air::Enemy_level01_air(int x, int y) : Entity(type, x, y)
 {
 
 	anim.PushBack({ 64, 82, AIR_SIZE_01, AIR_SIZE_01 });
@@ -137,4 +137,9 @@ bool Enemy_level01_air::PlayerIsInRange()
 	}
 
 	return ret;
+}
+
+void Enemy_level01_air::OnCollision(Collider* a, Collider* b)
+{
+
 }

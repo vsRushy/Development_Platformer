@@ -2,18 +2,19 @@
 #include "Entity.h"
 #include "j1Collision.h"
 #include "j1Render.h"
-#include "j1Audio.h"
 
-
-Entity::Entity(int x, int y) : position(x, y)
+Entity::Entity(ENTITY_TYPES type, int x, int y) : type(type), position(x, y)
 {
-
+	
 }
 
 Entity::~Entity()
 {
 	if (collider != nullptr)
-		collider->to_delete = true;
+	{
+		App->collision->EraseCollider(collider);
+		collider = nullptr;
+	}
 }
 
 const Collider* Entity::GetCollider() const

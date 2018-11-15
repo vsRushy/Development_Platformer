@@ -137,7 +137,7 @@
     <ClCompile Include="j1Textures.cpp" />
     <ClCompile Include="j1Timer.cpp" />
     <ClCompile Include="j1Window.cpp" />
-    <ClCompile Include="EntityManager.cpp" />
+    <ClCompile Include="j1EntityManager.cpp" />
     <ClCompile Include="p2Log.cpp" />
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
   </ItemGroup>
@@ -162,7 +162,7 @@
     <ClInclude Include="j1Textures.h" />
     <ClInclude Include="j1Timer.h" />
     <ClInclude Include="j1Window.h" />
-    <ClInclude Include="EntityManager.h" />
+    <ClInclude Include="j1EntityManager.h" />
     <ClInclude Include="p2Defs.h" />
     <ClInclude Include="p2DynArray.h" />
     <ClInclude Include="p2List.h" />

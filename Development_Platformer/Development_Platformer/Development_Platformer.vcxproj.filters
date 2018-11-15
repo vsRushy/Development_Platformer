@@ -40,13 +40,13 @@
       <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="Enemy_level01_ground.cpp">
-      <Filter>Entity</Filter>
+      <Filter>Enemies</Filter>
     </ClCompile>
     <ClCompile Include="j1Particles.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="Enemy_level01_air.cpp">
-      <Filter>Entity</Filter>
+      <Filter>Enemies</Filter>
     </ClCompile>
     <ClCompile Include="j1Pathfinding.cpp">
       <Filter>Modules</Filter>
@@ -57,11 +57,11 @@
     <ClCompile Include="j1Timer.cpp">
       <Filter>Tools</Filter>
     </ClCompile>
-    <ClCompile Include="Entity.cpp">
-      <Filter>Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="EntityManager.cpp">
+    <ClCompile Include="j1EntityManager.cpp">
       <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Enemies</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -125,13 +125,13 @@
       <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="Enemy_level01_ground.h">
-      <Filter>Entity</Filter>
+      <Filter>Enemies</Filter>
     </ClInclude>
     <ClInclude Include="j1Particles.h">
       <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="Enemy_level01_air.h">
-      <Filter>Entity</Filter>
+      <Filter>Enemies</Filter>
     </ClInclude>
     <ClInclude Include="j1Pathfinding.h">
       <Filter>Modules</Filter>
@@ -142,11 +142,11 @@
     <ClInclude Include="j1Timer.h">
       <Filter>Tools</Filter>
     </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="EntityManager.h">
+    <ClInclude Include="j1EntityManager.h">
       <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -165,7 +165,7 @@
     <Filter Include="Scenes">
       <UniqueIdentifier>{3f584f62-674e-4a0e-b46c-b04d1a5b33b3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Entity">
+    <Filter Include="Enemies">
       <UniqueIdentifier>{37cdb38c-095d-49aa-baa8-ed4c820580e4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

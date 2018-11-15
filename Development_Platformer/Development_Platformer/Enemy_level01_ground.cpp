@@ -1,7 +1,7 @@
 #include "j1App.h"
 #include "Enemy_level01_ground.h"
 #include "j1Collision.h"
-#include "EntityManager.h"
+#include "j1EntityManager.h"
 #include "j1Map.h"
 #include "j1Player.h"
 #include "j1Pathfinding.h"
@@ -10,7 +10,7 @@
 #define GROUND_SIZE_01_X 17
 #define GROUND_SIZE_01_Y 22
 
-Enemy_level01_ground::Enemy_level01_ground(int x, int y) : Entity(x, y)
+Enemy_level01_ground::Enemy_level01_ground(int x, int y) : Entity(type, x, y)
 {
 	idle.PushBack({ 1, 2, GROUND_SIZE_01_X, GROUND_SIZE_01_Y });
 	idle.loop = true;
@@ -146,4 +146,9 @@ bool Enemy_level01_ground::PlayerIsInRange()
 	}
 
 	return ret;
+}
+
+void Enemy_level01_ground::OnCollision(Collider* a, Collider* b)
+{
+
 }
