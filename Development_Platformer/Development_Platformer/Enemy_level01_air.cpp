@@ -20,6 +20,8 @@ Enemy_level01_air::Enemy_level01_air(int x, int y) : Entity(type, x, y)
 
 	animation = &anim;
 
+	type = ENTITY_TYPES::ENEMY_LEVEL01_AIR;
+
 	collider = App->collision->AddCollider({ 0, 0, AIR_SIZE_01, AIR_SIZE_01 }, COLLIDER_TYPE::COLLIDER_ENEMY, (j1Module*)App->entities);
 
 	original_pos.x = x;

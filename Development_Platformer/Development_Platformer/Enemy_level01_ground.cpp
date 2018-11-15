@@ -33,6 +33,8 @@ Enemy_level01_ground::Enemy_level01_ground(int x, int y) : Entity(type, x, y)
 
 	animation = &idle;
 
+	type = ENTITY_TYPES::ENEMY_LEVEL01_GROUND;
+
 	collider = App->collision->AddCollider({ 0, 0, GROUND_SIZE_01_X, GROUND_SIZE_01_Y }, COLLIDER_TYPE::COLLIDER_ENEMY,
 		(j1Module*)App->entities);
 
