@@ -118,13 +118,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Enemy_level01_air.cpp" />
     <ClCompile Include="Enemy_level01_ground.cpp" />
-    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="j1App.cpp" />
     <ClCompile Include="j1Audio.cpp" />
     <ClCompile Include="j1Collision.cpp" />
-    <ClCompile Include="j1EntityManager.cpp" />
     <ClCompile Include="j1FadeToBlack.cpp" />
     <ClCompile Include="j1Input.cpp" />
     <ClCompile Include="j1Main.cpp" />
@@ -132,24 +131,24 @@
     <ClCompile Include="j1Particles.cpp" />
     <ClCompile Include="j1Pathfinding.cpp" />
     <ClCompile Include="j1PerfTimer.cpp" />
+    <ClCompile Include="j1Player.cpp" />
     <ClCompile Include="j1Render.cpp" />
     <ClCompile Include="j1Scene.cpp" />
     <ClCompile Include="j1Textures.cpp" />
     <ClCompile Include="j1Timer.cpp" />
     <ClCompile Include="j1Window.cpp" />
+    <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="p2Log.cpp" />
-    <ClCompile Include="Player.cpp" />
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="Entity.h" />
     <ClInclude Include="Enemy_level01_air.h" />
     <ClInclude Include="Enemy_level01_ground.h" />
-    <ClInclude Include="Entity.h" />
     <ClInclude Include="j1App.h" />
     <ClInclude Include="j1Audio.h" />
     <ClInclude Include="j1Collision.h" />
-    <ClInclude Include="j1EntityManager.h" />
     <ClInclude Include="j1FadeToBlack.h" />
     <ClInclude Include="j1Input.h" />
     <ClInclude Include="j1Map.h" />
@@ -157,18 +156,19 @@
     <ClInclude Include="j1Particles.h" />
     <ClInclude Include="j1Pathfinding.h" />
     <ClInclude Include="j1PerfTimer.h" />
+    <ClInclude Include="j1Player.h" />
     <ClInclude Include="j1Render.h" />
     <ClInclude Include="j1Scene.h" />
     <ClInclude Include="j1Textures.h" />
     <ClInclude Include="j1Timer.h" />
     <ClInclude Include="j1Window.h" />
+    <ClInclude Include="EntityManager.h" />
     <ClInclude Include="p2Defs.h" />
     <ClInclude Include="p2DynArray.h" />
     <ClInclude Include="p2List.h" />
     <ClInclude Include="p2Log.h" />
     <ClInclude Include="p2Point.h" />
     <ClInclude Include="p2SString.h" />
-    <ClInclude Include="Player.h" />
     <ClInclude Include="PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="PugiXml\src\pugixml.hpp" />
   </ItemGroup>

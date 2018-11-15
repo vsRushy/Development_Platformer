@@ -43,7 +43,7 @@ public:
 	void OnCollision(Collider* c1, Collider* c2);
 	void AddParticle(const Particle& particle, int x, int y, COLLIDER_TYPE collider_type = COLLIDER_NONE, Uint32 delay = 0);
 private:
-	SDL_Texture* sword_tex = nullptr;
+	SDL_Texture * sword_tex = nullptr;
 	Particle* active[MAX_ACTIVE_PARTICLES];
 public:
 	uint width, height;

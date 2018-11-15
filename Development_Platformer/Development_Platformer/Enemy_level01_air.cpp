@@ -1,9 +1,9 @@
 #include "j1App.h"
 #include "Enemy_level01_air.h"
 #include "j1Collision.h"
-#include "j1EntityManager.h"
+#include "EntityManager.h"
 #include "j1Map.h"
-#include "Player.h"
+#include "j1Player.h"
 #include "j1Pathfinding.h"
 #include "p2Log.h"
 
@@ -20,9 +20,7 @@ Enemy_level01_air::Enemy_level01_air(int x, int y) : Entity(x, y)
 
 	animation = &anim;
 
-	collider = App->collision->AddCollider({ 0, 0, AIR_SIZE_01, AIR_SIZE_01 }, COLLIDER_TYPE::COLLIDER_ENEMY, App->entity_manager);
-
-	hit_points = 4;
+	collider = App->collision->AddCollider({ 0, 0, AIR_SIZE_01, AIR_SIZE_01 }, COLLIDER_TYPE::COLLIDER_ENEMY, (j1Module*)App->entities);
 
 	original_pos.x = x;
 	original_pos.y = y;
@@ -121,9 +119,8 @@ bool Enemy_level01_air::PlayerIsInRange()
 {
 	bool ret = false;
 
-	//iPoint player_pos = App->map->WorldToMap((int)App->player->position.x, (int)App->player->position.y);
-	iPoint player_pos = App->map->WorldToMap((int)App->entity_manager->player->position.x, (int)App->entity_manager->player->position.y);
-	
+	iPoint player_pos = App->map->WorldToMap((int)App->player->position.x, (int)App->player->position.y);
+
 	for (int i = 0; i < RANGE_SIZE; i++)
 	{
 		if (range[i] == player_pos)
@@ -140,15 +137,4 @@ bool Enemy_level01_air::PlayerIsInRange()
 	}
 
 	return ret;
-}
-
-void Enemy_level01_air::OnCollision(Collider* a, Collider* b)
-{
-	if (b->type == COLLIDER_PLAYER_SHOT)
-	{
-		if (hit_points > 0)
-			hit_points--;
-		else
-			is_alive = false;
-	}
 }

@@ -1,9 +1,8 @@
-#ifndef __Entity_H__
-#define __Entity_H__
+#ifndef __ENTITY_H__
+#define __ENTITY_H__
 
 #include "p2Point.h"
 #include "Animation.h"
-#include "p2DynArray.h"
 
 #include "SDL/include/SDL_render.h"
 
@@ -13,35 +12,27 @@ struct Collider;
 class Entity
 {
 protected:
-	Collider* collider = nullptr;
 	Animation* animation = nullptr;
+	Collider* collider = nullptr;
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
 
 public:
 	fPoint position;
+	int enemy_death_sound = NULL;
 
-	bool is_alive = true;
-	int hit_points = 1;
+	int hit_points = 1; // Default HP; may change in every enemy
 	int type;
-
-	// -------------
-	iPoint objective;
-	iPoint velocity;
-	bool is_moving = true;
-	bool player_is_range = false;
-	virtual void CreateRange() {};
-	virtual bool PlayerIsInRange() { return true; };
-	virtual void PathMovement(const p2DynArray<iPoint>*, iPoint, float) {};
 
 public:
 	Entity(int x, int y);
-	virtual ~Entity(); // needs to be virtual
-
-	virtual void Update(float dt) {};
-	virtual void Draw(SDL_Texture* sprites, float speed = 1.0f);
-	virtual void OnCollision(Collider* a, Collider* b) {};
+	virtual ~Entity();
 
 	const Collider* GetCollider() const;
+
+	virtual void Move() {};
+	virtual void Update(float dt) {};
+	virtual void Draw(SDL_Texture* sprites, float speed = 1.0f);
+	virtual void OnCollision(Collider* collider, int type);
 };
 
-#endif // __Entity_H__
+#endif // __ENTITY_H__

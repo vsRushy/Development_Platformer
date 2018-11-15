@@ -6,7 +6,7 @@
 #include "j1Window.h"
 #include "j1Map.h"
 #include "j1Input.h"
-#include "j1EntityManager.h"
+#include "j1Player.h"
 
 #include "SDL/include/SDL_timer.h"
 
@@ -169,8 +169,8 @@ bool Particle::Update(float dt)
 	}
 	if ((App->input->GetKey(SDL_SCANCODE_LSHIFT) == 1) && life > 0)
 	{
-		App->entity_manager->player->position.x = position.x;
-		App->entity_manager->player->position.y = position.y;
+		App->player->position.x = position.x;
+		App->player->position.y = position.y;
 		life = 0;
 	}
 	/*if (collider != nullptr) {

@@ -36,14 +36,17 @@
     <ClCompile Include="j1FadeToBlack.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
+    <ClCompile Include="j1Player.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
     <ClCompile Include="Enemy_level01_ground.cpp">
-      <Filter>Entities</Filter>
+      <Filter>Entity</Filter>
     </ClCompile>
     <ClCompile Include="j1Particles.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="Enemy_level01_air.cpp">
-      <Filter>Entities</Filter>
+      <Filter>Entity</Filter>
     </ClCompile>
     <ClCompile Include="j1Pathfinding.cpp">
       <Filter>Modules</Filter>
@@ -54,14 +57,11 @@
     <ClCompile Include="j1Timer.cpp">
       <Filter>Tools</Filter>
     </ClCompile>
-    <ClCompile Include="j1EntityManager.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
     <ClCompile Include="Entity.cpp">
-      <Filter>Entities</Filter>
+      <Filter>Entity</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Entities</Filter>
+    <ClCompile Include="EntityManager.cpp">
+      <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -121,14 +121,17 @@
     <ClInclude Include="j1FadeToBlack.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="j1Player.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
     <ClInclude Include="Enemy_level01_ground.h">
-      <Filter>Entities</Filter>
+      <Filter>Entity</Filter>
     </ClInclude>
     <ClInclude Include="j1Particles.h">
       <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="Enemy_level01_air.h">
-      <Filter>Entities</Filter>
+      <Filter>Entity</Filter>
     </ClInclude>
     <ClInclude Include="j1Pathfinding.h">
       <Filter>Modules</Filter>
@@ -139,14 +142,11 @@
     <ClInclude Include="j1Timer.h">
       <Filter>Tools</Filter>
     </ClInclude>
-    <ClInclude Include="j1EntityManager.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
     <ClInclude Include="Entity.h">
-      <Filter>Entities</Filter>
+      <Filter>Entity</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Entities</Filter>
+    <ClInclude Include="EntityManager.h">
+      <Filter>Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -165,7 +165,7 @@
     <Filter Include="Scenes">
       <UniqueIdentifier>{3f584f62-674e-4a0e-b46c-b04d1a5b33b3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Entities">
+    <Filter Include="Entity">
       <UniqueIdentifier>{37cdb38c-095d-49aa-baa8-ed4c820580e4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

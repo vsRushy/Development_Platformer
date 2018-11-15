@@ -5,16 +5,17 @@
 #include "j1Render.h"
 #include "j1Input.h"
 #include "j1FadeToBlack.h"
-#include "Player.h"
+#include "j1Player.h"
 #include "j1Collision.h"
 #include "j1Map.h"
 #include "j1Scene.h"
 #include "j1Audio.h"
 #include "j1Particles.h"
-#include "j1EntityManager.h"
 
-Player::Player(int x, int y) : Entity(x, y)
+j1Player::j1Player()
 {
+	name.create("player");
+
 	// Player idle animation
 	idle_anim.PushBack({ 8, 42, 17, 22 });
 	idle_anim.speed = 1.0f;
@@ -29,10 +30,10 @@ Player::Player(int x, int y) : Entity(x, y)
 	walk_anim.loop = true;
 }
 
-Player::~Player()
+j1Player::~j1Player()
 {}
 
-bool Player::Awake(pugi::xml_node& data)
+bool j1Player::Awake(pugi::xml_node& data)
 {
 	god_mode = data.child("god_mode").attribute("value").as_bool();
 	gravity = data.child("gravity").attribute("value").as_float();
@@ -43,7 +44,7 @@ bool Player::Awake(pugi::xml_node& data)
 }
 
 // Load assets
-bool Player::Start()
+bool j1Player::Start()
 {
 	LOG("Loading player textures");
 	graphics = App->tex->Load("textures/characters.png");
@@ -58,7 +59,7 @@ bool Player::Start()
 	collider_position.y = position.y;
 
 	// Set up the player's collider
-	player_collider = App->collision->AddCollider({ collider_position.x, collider_position.y, PLAYER_SIZE_X, PLAYER_SIZE_Y }, COLLIDER_PLAYER, App->entity_manager);
+	player_collider = App->collision->AddCollider({ collider_position.x, collider_position.y, PLAYER_SIZE_X, PLAYER_SIZE_Y }, COLLIDER_PLAYER, this);
 
 	// Starting animation
 	current_animation = &idle_anim;
@@ -67,7 +68,7 @@ bool Player::Start()
 	return true;
 }
 
-bool Player::CleanUp()
+bool j1Player::CleanUp()
 {
 	LOG("Unloading player");
 	App->tex->UnLoad(graphics);
@@ -81,7 +82,7 @@ bool Player::CleanUp()
 
 /* Here we define the player's logic. It is blitted to the screen in j1Scene.cpp. Although we can do it
    here, it has more sense to blit the player in the scene, because the player IS in the scene */
-void Player::Update(float dt)
+bool j1Player::Update(float dt)
 {
 	rect = &(current_animation->GetCurrentFrame());
 
@@ -321,15 +322,37 @@ void Player::Update(float dt)
 		else
 			current_animation = &idle_anim;
 	}
+
+	return true;
 }
 
-void Player::OnCollision(Collider* a, Collider* b)
+bool j1Player::Load(pugi::xml_node& save)
 {
-	if (!god_mode && b->type == COLLIDER_ENEMY)
+	if (save.child("position") != NULL)
 	{
-		if (App->scene->map_selected == 1)
-			position = first_map_pos;
-		else if (App->scene->map_selected == 2)
-			position = second_map_pos;
+		position.x = save.child("position").attribute("x").as_float();
+		position.y = save.child("position").attribute("y").as_float();
 	}
+
+	return true;
+}
+
+bool j1Player::Save(pugi::xml_node& save) const
+{
+	if (save.child("position") == NULL)
+	{
+		save.append_child("position").append_attribute("x") = position.x;
+		save.child("position").append_attribute("y") = position.y;
+	}
+	else {
+		save.child("position").attribute("x") = position.x;
+		save.child("position").attribute("y") = position.y;
+	}
+
+	return true;
+}
+
+void j1Player::OnCollision(Collider* a, Collider* b)
+{
+
 }
