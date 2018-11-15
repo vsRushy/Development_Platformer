@@ -20,11 +20,6 @@ private:
 	iPoint objective;
 	iPoint range[RANGE_SIZE];
 
-	iPoint velocity;
-
-	iPoint first_point;
-	iPoint last_point;
-
 public:
 	Enemy_level01_air(int x, int y);
 

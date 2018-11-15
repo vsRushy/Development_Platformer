@@ -18,10 +18,11 @@ protected:
 
 public:
 	fPoint position;
-	int enemy_death_sound = NULL;
+	int hit_points = 1;
+	int type = 0;
+	bool is_alive = true;
 
-	int hit_points = 1; // Default HP; may change in every enemy
-	int type;
+	iPoint velocity;
 
 public:
 	Entity(int x, int y);
