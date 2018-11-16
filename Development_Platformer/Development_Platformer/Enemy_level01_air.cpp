@@ -27,11 +27,14 @@ Enemy_level01_air::Enemy_level01_air(int x, int y) : Entity(type, x, y)
 
 	original_pos.x = x;
 	original_pos.y = y;
+
+	CreateRange();
 }
 
 void Enemy_level01_air::Update(float dt)
-{
-	CreateRange();
+{	
+	// Starting enemy tile
+	iPoint map_original_pos = App->map->WorldToMap(original_pos.x, original_pos.y);
 
 	// Tile where the enemy is
 	iPoint enemy_map_pos = App->map->WorldToMap((int)position.x, (int)position.y);
@@ -42,14 +45,17 @@ void Enemy_level01_air::Update(float dt)
 	//Then allow the player to move
 	if (player_is_range)
 	{
-		is_moving = true;
+		is_moving_to_player = true;
+		is_moving_to_origin = false;
 	}
 	else
 	{
-		is_moving = false;
+		is_moving_to_player = false;
+		if (enemy_map_pos != map_original_pos)
+			is_moving_to_origin = true;
 	}
 
-	if (is_moving)
+	if (is_moving_to_player)
 	{
 		const p2DynArray<iPoint>* path;
 		int c = App->pathfinding->CreatePath(enemy_map_pos, objective);
@@ -59,9 +65,17 @@ void Enemy_level01_air::Update(float dt)
 			PathMovement(path, enemy_map_pos, dt);
 		}
 	}
-
-	position.x += velocity.x;
-	position.y += velocity.y;
+	
+	if (is_moving_to_origin && enemy_map_pos != map_original_pos)
+	{
+		const p2DynArray<iPoint>* path;
+		int c = App->pathfinding->CreatePath(enemy_map_pos, map_original_pos);
+		if (c != -1)
+		{
+			path = App->pathfinding->GetLastPath();
+			PathMovement(path, enemy_map_pos, dt);
+		}
+	}
 }
 
 void Enemy_level01_air::CreateRange()
@@ -116,6 +130,9 @@ void Enemy_level01_air::PathMovement(const p2DynArray<iPoint>* path, iPoint posi
 
 	velocity.x = velocity_x;
 	velocity.y = velocity_y;
+
+	this->position.x += velocity.x;
+	this->position.y += velocity.y;
 }
 
 bool Enemy_level01_air::PlayerIsInRange()

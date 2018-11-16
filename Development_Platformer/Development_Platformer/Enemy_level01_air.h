@@ -14,16 +14,14 @@ private:
 	iPoint original_pos;
 	Animation anim;
 
-	bool is_moving = true;
+	bool is_moving_to_player = false;
+	bool is_moving_to_origin = false;
 	bool player_is_range = false;
 	
 	iPoint objective;
 	iPoint range[RANGE_SIZE];
 
 	iPoint velocity;
-
-	iPoint first_point;
-	iPoint last_point;
 
 public:
 	Enemy_level01_air(int x, int y);
