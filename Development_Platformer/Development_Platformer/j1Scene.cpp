@@ -8,10 +8,11 @@
 #include "j1Window.h"
 #include "j1Map.h"
 #include "j1Scene.h"
-#include "j1Player.h"
 #include "j1FadeToBlack.h"
 #include "j1EntityManager.h"
+#include "Player.h"
 #include "Enemy_level01_air.h"
+#include "Enemy_level01_ground.h"
 #include "j1Pathfinding.h"
 
 j1Scene::j1Scene() : j1Module()
@@ -54,14 +55,19 @@ bool j1Scene::Start()
 
 		RELEASE_ARRAY(data);
 
+		first_map_pos = App->map->data.ObjectPos("Player", "PlayerStartPos");
+		
 		/* Add entities :) */
-		enemy01air = (Enemy_level01_air*)App->entities->CreateEntity(ENTITY_TYPES::ENEMY_LEVEL01_AIR, 700, 700);
-		enemy01ground = (Enemy_level01_ground*)App->entities->CreateEntity(ENTITY_TYPES::ENEMY_LEVEL01_GROUND, 400, 400);
+		player = (Player*)App->entities->CreateEntity(ENTITY_TYPES::PLAYER, first_map_pos.x, first_map_pos.y);
+		enemy01air = (Enemy_level01_air*)App->entities->CreateEntity(ENTITY_TYPES::ENEMY_LEVEL01_AIR, 470, 200);
+		enemy01ground = (Enemy_level01_ground*)App->entities->CreateEntity(ENTITY_TYPES::ENEMY_LEVEL01_GROUND, 960, 779);
 	}
 	else if (map_selected == 2)
 	{
 		App->map->Load(second_map.GetString());
 		App->audio->PlayMusic(second_song.GetString());
+
+		second_map_pos = App->map->data.ObjectPos("Player", "PlayerStartPos");
 	}
 
 	if (!isLoading)
@@ -75,15 +81,15 @@ bool j1Scene::Start()
 
 			RELEASE_ARRAY(data);
 
-			App->player->first_map_pos = App->map->data.ObjectPos("Player", "PlayerStartPos");
-			App->player->position = App->player->first_map_pos;
-			App->player->previous_position = App->player->position;
+			first_map_pos = App->map->data.ObjectPos("Player", "PlayerStartPos");
+			player->position = first_map_pos;
+			player->previous_position = player->position;
 		}
 		else if (map_selected == 2)
 		{
-			App->player->second_map_pos = App->map->data.ObjectPos("Player", "PlayerStartPos");
-			App->player->position = App->player->second_map_pos;
-			App->player->previous_position = App->player->position;
+			second_map_pos = App->map->data.ObjectPos("Player", "PlayerStartPos");
+			player->position = second_map_pos;
+			player->previous_position = player->position;
 		}
 	}
 
@@ -148,8 +154,8 @@ bool j1Scene::Update(float dt)
 		App->render->camera.x += 450 * dt;
 	else
 	{
-		App->render->camera.x = (int)(App->player->position.x - 242) * (-1) * App->win->GetScale();
-		App->render->camera.y = (int)(App->player->position.y - 200) * (-1) * App->win->GetScale();
+		App->render->camera.x = (int)(player->position.x - 242) * (-1) * App->win->GetScale();
+		App->render->camera.y = (int)(player->position.y - 200) * (-1) * App->win->GetScale();
 	}
 
 	// Start from the first level
@@ -158,15 +164,15 @@ bool j1Scene::Update(float dt)
 		if (map_selected == 1)
 		{
 			App->fade->FadeToBlack(this, this, 0.1f);
-			App->player->position = App->player->first_map_pos;
-			App->player->previous_position = App->player->position;
+			player->position = first_map_pos;
+			player->previous_position = player->position;
 		}
 		else if(map_selected == 2)
 		{
 			map_selected = 1;
 			App->fade->FadeToBlack(this, this, 0.1f);
-			App->player->position = App->player->first_map_pos;
-			App->player->previous_position = App->player->position;
+			player->position = first_map_pos;
+			player->previous_position = player->position;
 		}
 	}
 
@@ -175,13 +181,13 @@ bool j1Scene::Update(float dt)
 	{
 		if (map_selected == 1)
 		{
-			App->player->position = App->player->first_map_pos;
-			App->player->previous_position = App->player->position;
+			player->position = first_map_pos;
+			player->previous_position = player->position;
 		}
 		else if (map_selected == 2)
 		{
-			App->player->position = App->player->second_map_pos;
-			App->player->previous_position = App->player->position;
+			player->position = second_map_pos;
+			player->previous_position = player->position;
 		}
 
 		App->fade->FadeToBlack(this, this, 0.1f);
@@ -203,7 +209,7 @@ bool j1Scene::Update(float dt)
 	App->win->SetTitle(title.GetString());*/
 
 	/* Will the player reach the end position to go to level 2? */
-	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN || App->map->data.IsObjectTrigger("Player", "PlayerEndPos", App->player->position) && !App->fade->IsFading())
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN || App->map->data.IsObjectTrigger("Player", "PlayerEndPos", player->position) && !App->fade->IsFading())
 	{
 		if (map_selected == 1)
 			map_selected = 2;
@@ -217,42 +223,38 @@ bool j1Scene::Update(float dt)
 	/* ENVABLE/DISABLE GOD MODE */
 	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 	{
-		if (App->player->god_mode == false)
-			App->player->god_mode = true;
-		else if (App->player->god_mode == true)
-			App->player->god_mode = false;
+		if (player->god_mode == false)
+			player->god_mode = true;
+		else if (player->god_mode == true)
+			player->god_mode = false;
 	}
 
 	/* Check if player falls into the death zone */
-	if (App->map->data.IsObjectTrigger("DeathZone", "DeathZone_1", App->player->position) ||
-		App->map->data.IsObjectTrigger("DeathZone", "DeathZone_2", App->player->position) ||
-		App->map->data.IsObjectTrigger("DeathZone", "DeathZone_3", App->player->position) ||
-		App->map->data.IsObjectTrigger("DeathZone", "DeathZone_4", App->player->position) ||
-		App->map->data.IsObjectTrigger("DeathZone", "DeathZone_5", App->player->position) ||
-		App->map->data.IsObjectTrigger("DeathZone", "DeathZone_6", App->player->position) ||
-		App->map->data.IsObjectTrigger("DeathZone", "DeathZone_7", App->player->position))
+	if (App->map->data.IsObjectTrigger("DeathZone", "DeathZone_1", player->position) ||
+		App->map->data.IsObjectTrigger("DeathZone", "DeathZone_2", player->position) ||
+		App->map->data.IsObjectTrigger("DeathZone", "DeathZone_3", player->position) ||
+		App->map->data.IsObjectTrigger("DeathZone", "DeathZone_4", player->position) ||
+		App->map->data.IsObjectTrigger("DeathZone", "DeathZone_5", player->position) ||
+		App->map->data.IsObjectTrigger("DeathZone", "DeathZone_6", player->position) ||
+		App->map->data.IsObjectTrigger("DeathZone", "DeathZone_7", player->position))
 	{
 
 		if (map_selected == 1)
 		{
-			App->player->position = App->player->first_map_pos;
-			App->player->previous_position = App->player->position;
+			player->position = first_map_pos;
+			player->previous_position = player->position;
 		}
 	
 		else if (map_selected == 2)
 		{
-			App->player->position = App->player->second_map_pos;
-			App->player->previous_position = App->player->position;
+			player->position = second_map_pos;
+			player->previous_position = player->position;
 		}
 	}
 
 	/* DRAW------------ */
 	// App->render->Blit(img, 0, 0);
 	App->map->Draw();
-
-	// Draw the player
-	App->render->Blit(App->player->graphics, (int)App->player->position.x, App->player->position.y, 
-		App->player->rect, 1.0f, 0.0, App->player->flip);
 
 
 	// Debug pathfinding ------------------------------
@@ -262,12 +264,12 @@ bool j1Scene::Update(float dt)
 	p = App->map->WorldToMap(p.x, p.y);
 	p = App->map->MapToWorld(p.x, p.y);
 
-	if(App->player->god_mode)
+	if(player->god_mode)
 		App->render->Blit(debug_tex, p.x, p.y);
 
 	const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
 
-	if (App->player->god_mode)
+	if (player->god_mode)
 	{
 		for (uint i = 0; i < path->Count(); ++i)
 		{

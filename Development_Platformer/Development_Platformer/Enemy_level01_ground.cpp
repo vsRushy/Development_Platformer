@@ -3,7 +3,8 @@
 #include "j1Collision.h"
 #include "j1EntityManager.h"
 #include "j1Map.h"
-#include "j1Player.h"
+#include "j1Scene.h"
+#include "Player.h"
 #include "j1Pathfinding.h"
 #include "p2Log.h"
 
@@ -130,7 +131,7 @@ bool Enemy_level01_ground::PlayerIsInRange()
 {
 	bool ret = false;
 
-	iPoint player_pos = App->map->WorldToMap((int)App->player->position.x, (int)App->player->position.y);
+	iPoint player_pos = App->map->WorldToMap((int)App->scene->player->position.x, (int)App->scene->player->position.y);
 
 	for (int i = 0; i < RANGE_SIZE; i++)
 	{

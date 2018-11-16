@@ -15,7 +15,6 @@ class j1Textures;
 class j1Audio;
 class j1Scene;
 class j1Map;
-class j1Player;
 class j1Collision;
 class j1FadeToBlack;
 class j1EntityManager;
@@ -92,7 +91,6 @@ public:
 	j1EntityManager*    entities;
 	j1Scene*			scene;
 	j1Map*				map;
-	j1Player*           player;
 	j1Collision*        collision;
 	j1FadeToBlack*      fade;
 	j1Particles*        particles;

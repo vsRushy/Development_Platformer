@@ -36,9 +36,6 @@
     <ClCompile Include="j1FadeToBlack.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
-    <ClCompile Include="j1Player.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
     <ClCompile Include="Enemy_level01_ground.cpp">
       <Filter>Enemies</Filter>
     </ClCompile>
@@ -61,6 +58,9 @@
       <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
+      <Filter>Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
       <Filter>Enemies</Filter>
     </ClCompile>
   </ItemGroup>
@@ -121,9 +121,6 @@
     <ClInclude Include="j1FadeToBlack.h">
       <Filter>Modules</Filter>
     </ClInclude>
-    <ClInclude Include="j1Player.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
     <ClInclude Include="Enemy_level01_ground.h">
       <Filter>Enemies</Filter>
     </ClInclude>
@@ -146,6 +143,9 @@
       <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
+      <Filter>Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
       <Filter>Enemies</Filter>
     </ClInclude>
   </ItemGroup>

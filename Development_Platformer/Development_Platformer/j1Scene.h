@@ -3,6 +3,7 @@
 
 #include "j1Module.h"
 
+class Player;
 class Enemy_level01_air;
 class Enemy_level01_ground;
 
@@ -55,7 +56,11 @@ public:
 	int last_map_selected;
 	bool isLoading = false;
 
+	fPoint first_map_pos;
+	fPoint second_map_pos;
+
 public:
+	Player* player;
 	Enemy_level01_air* enemy01air = nullptr;
 	Enemy_level01_ground* enemy01ground = nullptr;
 };

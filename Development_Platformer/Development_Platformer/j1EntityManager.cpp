@@ -7,7 +7,9 @@
 #include "p2Log.h"
 #include "j1Window.h"
 #include "j1Collision.h"
+#include "j1Audio.h"
 #include "Entity.h"
+#include "Player.h"
 #include "Enemy_level01_ground.h"
 #include "Enemy_level01_air.h"
 
@@ -29,8 +31,14 @@ bool j1EntityManager::Awake(pugi::xml_node& config)
 
 bool j1EntityManager::Start()
 {
+	player_tex = App->tex->Load("textures/characters.png");
 	enemy_level01_ground_tex = App->tex->Load("textures/Enemies/enemy_level01_ground.png");
 	enemy_level01_air_tex = App->tex->Load("textures/Enemies/enemy_level01_air.png");
+
+	LOG("Loading player sound effects");
+	App->audio->LoadFx("jump.wav"); // id: 1
+	App->audio->LoadFx("dash.wav"); // id: 2
+	App->audio->LoadFx("arrow.wav"); // id: 3
 
 	return true;
 }
@@ -49,6 +57,10 @@ bool j1EntityManager::Update(float dt)
 		if (entities[i] != nullptr) entities[i]->Update(dt);
 
 	for (uint i = 0; i < entities.Count(); ++i)
+		if (entities[i] != nullptr && entities[i]->type == ENTITY_TYPES::PLAYER)
+			entities[i]->Draw(player_tex);
+
+	for (uint i = 0; i < entities.Count(); ++i)
 		if (entities[i] != nullptr && entities[i]->type == ENTITY_TYPES::ENEMY_LEVEL01_GROUND)
 			entities[i]->Draw(enemy_level01_ground_tex);
 
@@ -62,8 +74,9 @@ bool j1EntityManager::Update(float dt)
 // Called before quitting
 bool j1EntityManager::CleanUp()
 {
-	LOG("Freeing all enemies");
+	LOG("Freeing all entities");
 
+	App->tex->UnLoad(player_tex);
 	App->tex->UnLoad(enemy_level01_ground_tex);
 	App->tex->UnLoad(enemy_level01_air_tex);
 
@@ -86,6 +99,9 @@ Entity* j1EntityManager::CreateEntity(ENTITY_TYPES type, int x, int y)
 
 	switch (type)
 	{
+	case ENTITY_TYPES::PLAYER:
+		ret = new Player(x, y);
+		break;
 	case ENTITY_TYPES::ENEMY_LEVEL01_GROUND:
 		ret = new Enemy_level01_ground(x, y);
 		break;

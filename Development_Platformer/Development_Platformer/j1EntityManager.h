@@ -7,12 +7,14 @@
 #include "SDL/include/SDL.h"
 
 class Entity;
+class Player;
 
 enum class ENTITY_TYPES
 {
 	UNKNOWN,
 	ENEMY_LEVEL01_GROUND,
 	ENEMY_LEVEL01_AIR,
+	PLAYER,
 	ENEMY_LEVEL02_GROUND,
 	ENEMY_LEVEL02_AIR,
 };
@@ -41,6 +43,7 @@ public:
 private:
 	p2DynArray<Entity*> entities = NULL;
 
+	SDL_Texture* player_tex;
 	SDL_Texture* enemy_level01_ground_tex;
 	SDL_Texture* enemy_level01_air_tex;
 };

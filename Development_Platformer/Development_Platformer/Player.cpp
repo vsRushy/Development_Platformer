@@ -5,17 +5,15 @@
 #include "j1Render.h"
 #include "j1Input.h"
 #include "j1FadeToBlack.h"
-#include "j1Player.h"
+#include "Player.h"
 #include "j1Collision.h"
 #include "j1Map.h"
 #include "j1Scene.h"
 #include "j1Audio.h"
 #include "j1Particles.h"
 
-j1Player::j1Player()
+Player::Player(int x, int y) : Entity(type, x, y)
 {
-	name.create("player");
-
 	// Player idle animation
 	idle_anim.PushBack({ 8, 42, 17, 22 });
 	idle_anim.speed = 1.0f;
@@ -28,66 +26,33 @@ j1Player::j1Player()
 	walk_anim.PushBack({ 104, 41, 17, 22 });
 	walk_anim.speed = 0.1f;
 	walk_anim.loop = true;
+
+	hit_points = 1;
+
+	god_mode = false;
+	gravity = 5.8f;
+	velocity_x = 6.0f;
+	velocity_y = 2.0f;
+
+	animation = &idle_anim;
+	rect = &(animation->GetCurrentFrame());
+
+	type = ENTITY_TYPES::PLAYER;
+
+	collider = App->collision->AddCollider({ 0, 0, PLAYER_SIZE_X, PLAYER_SIZE_Y }, COLLIDER_PLAYER, App->entities);
+
+	original_pos.x = x;
+	original_pos.y = y;
 }
 
-j1Player::~j1Player()
+Player::~Player()
 {}
-
-bool j1Player::Awake(pugi::xml_node& data)
-{
-	god_mode = data.child("god_mode").attribute("value").as_bool();
-	gravity = data.child("gravity").attribute("value").as_float();
-	velocity_x = data.child("velocity_x").attribute("value").as_float();
-	velocity_y = data.child("velocity_x").attribute("value").as_float();
-
-	return true;
-}
-
-// Load assets
-bool j1Player::Start()
-{
-	LOG("Loading player textures");
-	graphics = App->tex->Load("textures/characters.png");
-
-	LOG("Loading player sound effects");
-	App->audio->LoadFx("jump.wav"); // id: 1
-	App->audio->LoadFx("dash.wav"); // id: 2
-	App->audio->LoadFx("arrow.wav"); // id: 3
-
-	// Collider initial position
-	collider_position.x = position.x;
-	collider_position.y = position.y;
-
-	// Set up the player's collider
-	player_collider = App->collision->AddCollider({ collider_position.x, collider_position.y, PLAYER_SIZE_X, PLAYER_SIZE_Y }, COLLIDER_PLAYER, this);
-
-	// Starting animation
-	current_animation = &idle_anim;
-	rect = &(current_animation->GetCurrentFrame());
-
-	return true;
-}
-
-bool j1Player::CleanUp()
-{
-	LOG("Unloading player");
-	App->tex->UnLoad(graphics);
-
-	// Delete collider
-	if (player_collider != nullptr)
-		player_collider->to_delete = true;
-
-	return true;
-}
 
 /* Here we define the player's logic. It is blitted to the screen in j1Scene.cpp. Although we can do it
    here, it has more sense to blit the player in the scene, because the player IS in the scene */
-bool j1Player::Update(float dt)
+void Player::Update(float dt)
 {
-	rect = &(current_animation->GetCurrentFrame());
-
-	// Update collider position
-	player_collider->SetPos(position.x, position.y);
+	rect = &(animation->GetCurrentFrame());
 
 	if (god_mode == false)
 	{
@@ -95,20 +60,20 @@ bool j1Player::Update(float dt)
 		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 		{
 			going_left = true;
-			current_animation = &walk_anim;
+			animation = &walk_anim;
 			flip = SDL_FLIP_HORIZONTAL;
 			if (player_facing)player_facing = false;
 		}
 		else if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		{
 			going_right = true;
-			current_animation = &walk_anim;
+			animation = &walk_anim;
 			flip = SDL_FLIP_NONE;
 			if (!player_facing) player_facing = true;
 		}
 		else
 		{
-			current_animation = &idle_anim;
+			animation = &idle_anim;
 		}
 
 		/*if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
@@ -302,13 +267,13 @@ bool j1Player::Update(float dt)
 		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 		{
 			flip = SDL_FLIP_HORIZONTAL;
-			current_animation = &walk_anim;
+			animation = &walk_anim;
 			position.x -= 3.0f;
 		}
 		else if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		{
 			flip = SDL_FLIP_NONE;
-			current_animation = &walk_anim;
+			animation = &walk_anim;
 			position.x += 3.0f;
 		}
 		else if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
@@ -320,13 +285,11 @@ bool j1Player::Update(float dt)
 			position.y += 3.0f;
 		}
 		else
-			current_animation = &idle_anim;
+			animation = &idle_anim;
 	}
-
-	return true;
 }
 
-bool j1Player::Load(pugi::xml_node& save)
+bool Player::Load(pugi::xml_node& save)
 {
 	if (save.child("position") != NULL)
 	{
@@ -337,7 +300,7 @@ bool j1Player::Load(pugi::xml_node& save)
 	return true;
 }
 
-bool j1Player::Save(pugi::xml_node& save) const
+bool Player::Save(pugi::xml_node& save) const
 {
 	if (save.child("position") == NULL)
 	{
@@ -352,7 +315,7 @@ bool j1Player::Save(pugi::xml_node& save) const
 	return true;
 }
 
-void j1Player::OnCollision(Collider* a, Collider* b)
+void Player::OnCollision(Collider* a, Collider* b)
 {
 
 }

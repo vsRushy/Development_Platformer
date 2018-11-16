@@ -1,7 +1,7 @@
 #ifndef __PLAYER_H__
 #define __PLAYER_H__
 
-#include "j1Module.h"
+#include "Entity.h"
 #include "Animation.h"
 #include "p2Point.h"
 
@@ -15,18 +15,13 @@ struct SDL_Texture;
 
 // TODO: enumeration to know the player states.
 
-class j1Player : public j1Module
+class Player : public Entity
 {
 public:
-	j1Player();
-	~j1Player();
+	Player(int x, int y);
+	~Player();
 
-	// Called before render is available
-	bool Awake(pugi::xml_node&);
-
-	bool Start();
-	bool Update(float dt);
-	bool CleanUp();
+	void Update(float dt);
 
 	// Load
 	bool Load(pugi::xml_node&);
@@ -36,19 +31,11 @@ public:
 	void OnCollision(Collider*, Collider*);
 
 public:
-	SDL_Texture* graphics = nullptr;
-
 	/* This pointer to SDL_Rect needs to be passed to the j1Scene.cpp in order
 	to render the player correctly. It stores the player's animation rect */
 	SDL_Rect* rect = nullptr; 
 
-	fPoint position = { 0, 0 };
-	SDL_RendererFlip flip = SDL_FLIP_NONE;
 	fPoint previous_position = { 0, 0 }; //initial position of the jump or fall: X0
-
-	// Initial position depending on the map
-	fPoint first_map_pos;
-	fPoint second_map_pos;
 
 	bool god_mode;
 
@@ -58,14 +45,11 @@ public:
 	bool Reset_time_bullets = true;
 	bool player_facing = true;//true = right; false = left;
 
-
 private:
-	Animation* current_animation = nullptr;
 	Animation idle_anim;
 	Animation walk_anim;
 
-	Collider* player_collider = nullptr;
-	iPoint collider_position;
+	iPoint original_pos;
 
 	// Player movement
 	float velocity_x;
