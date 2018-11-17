@@ -13,20 +13,13 @@
 struct Collider;
 struct SDL_Texture;
 
-// TODO: enumeration to know the player states.
-
 class Player : public Entity
 {
 public:
 	Player(int x, int y);
-	~Player();
+	~Player() {};
 
 	void Update(float dt);
-
-	// Load
-	bool Load(pugi::xml_node&);
-	// Save
-	bool Save(pugi::xml_node&) const;
 	
 	void OnCollision(Collider*, Collider*);
 
@@ -43,7 +36,7 @@ public:
 	uint Bullet_time_init = 0;
 	uint Bullet_delay;
 	bool Reset_time_bullets = true;
-	bool player_facing = true;//true = right; false = left;
+	bool player_facing = true; //true = right; false = left;
 
 private:
 	Animation idle_anim;

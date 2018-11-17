@@ -26,6 +26,7 @@ private:
 
 public:
 	Enemy_level01_ground(int x, int y);
+	~Enemy_level01_ground() {};
 
 	void Update(float dt);
 	void CreateRange();

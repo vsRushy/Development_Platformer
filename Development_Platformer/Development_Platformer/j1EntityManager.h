@@ -24,7 +24,7 @@ class j1EntityManager : public j1Module
 public:
 
 	j1EntityManager();
-	virtual ~j1EntityManager();
+	~j1EntityManager();
 
 	bool Awake(pugi::xml_node& config);
 

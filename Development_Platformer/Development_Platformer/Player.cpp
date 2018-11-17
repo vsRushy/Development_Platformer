@@ -45,9 +45,6 @@ Player::Player(int x, int y) : Entity(type, x, y)
 	original_pos.y = y;
 }
 
-Player::~Player()
-{}
-
 /* Here we define the player's logic. It is blitted to the screen in j1Scene.cpp. Although we can do it
    here, it has more sense to blit the player in the scene, because the player IS in the scene */
 void Player::Update(float dt)
@@ -287,32 +284,6 @@ void Player::Update(float dt)
 		else
 			animation = &idle_anim;
 	}
-}
-
-bool Player::Load(pugi::xml_node& save)
-{
-	if (save.child("position") != NULL)
-	{
-		position.x = save.child("position").attribute("x").as_float();
-		position.y = save.child("position").attribute("y").as_float();
-	}
-
-	return true;
-}
-
-bool Player::Save(pugi::xml_node& save) const
-{
-	if (save.child("position") == NULL)
-	{
-		save.append_child("position").append_attribute("x") = position.x;
-		save.child("position").append_attribute("y") = position.y;
-	}
-	else {
-		save.child("position").attribute("x") = position.x;
-		save.child("position").attribute("y") = position.y;
-	}
-
-	return true;
 }
 
 void Player::OnCollision(Collider* a, Collider* b)
