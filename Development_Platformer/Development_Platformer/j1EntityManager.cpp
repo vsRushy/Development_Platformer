@@ -12,6 +12,8 @@
 #include "Player.h"
 #include "Enemy_level01_ground.h"
 #include "Enemy_level01_air.h"
+#include "j1Scene.h"
+#include "j1Map.h"
 
 j1EntityManager::j1EntityManager()
 {
@@ -139,6 +141,10 @@ void j1EntityManager::OnCollision(Collider* a, Collider* b)
 				delete entities[i];
 				entities[i] = nullptr;
 				break;
+			}
+			if (b->type == COLLIDER_TYPE::COLLIDER_PLAYER && a->type == COLLIDER_TYPE::COLLIDER_ENEMY) {
+				App->scene->player->position = App->scene->first_map_pos;
+				App->scene->player->previous_position = App->scene->player->position;
 			}
 		}
 	}

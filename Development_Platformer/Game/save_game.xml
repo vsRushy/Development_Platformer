@@ -6,17 +6,14 @@
 	<audio />
 	<map />
 	<scene>
-		<map_selected value="1" />
+		<map_selected value="2" />
 	</scene>
-	<player>
-		<position x="297" y="330.395996" />
-	</player>
+	<entities />
+	<:anonymous />
 	<collision />
 	<fade />
-	<:anonymous />
-	<:anonymous />
 	<pathfinding />
 	<renderer>
-		<camera x="-110" y="-260" />
+		<camera x="-5042" y="-1972" />
 	</renderer>
 </game_state>
