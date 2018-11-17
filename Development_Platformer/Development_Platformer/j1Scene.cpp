@@ -163,17 +163,15 @@ bool j1Scene::Update(float dt)
 	{
 		if (map_selected == 1)
 		{
-			App->fade->FadeToBlack(this, this, 0.1f);
-			player->position = first_map_pos;
-			player->previous_position = player->position;
+			App->entities->DeleteEntity(player);
 		}
 		else if(map_selected == 2)
 		{
 			map_selected = 1;
-			App->fade->FadeToBlack(this, this, 0.1f);
-			player->position = first_map_pos;
-			player->previous_position = player->position;
+			App->entities->DeleteEntity(player);
 		}
+		
+		App->fade->FadeToBlack(this, this, 0.1f);
 	}
 
 	// Start from the current level
@@ -181,8 +179,7 @@ bool j1Scene::Update(float dt)
 	{
 		if (map_selected == 1)
 		{
-			player->position = first_map_pos;
-			player->previous_position = player->position;
+			App->entities->DeleteEntity(player);
 		}
 		else if (map_selected == 2)
 		{

@@ -149,3 +149,16 @@ void j1EntityManager::OnCollision(Collider* a, Collider* b)
 		}
 	}
 }
+
+void j1EntityManager::DeleteEntity(Entity* e)
+{
+	for (int i = 0; i < entities.Count(); ++i)
+	{
+		if (entities[i] == e)
+		{
+			delete entities[i];
+			entities[i] = nullptr;
+			break;
+		}
+	}
+}

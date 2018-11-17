@@ -39,6 +39,7 @@ public:
 
 public:
 	Entity* CreateEntity(ENTITY_TYPES type, int x, int y);
+	void DeleteEntity(Entity* e);
 	void OnCollision(Collider* a, Collider* b);
 
 private:
