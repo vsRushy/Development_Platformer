@@ -51,6 +51,7 @@ public:
 	const char* GetArgv(int index) const;
 	const char* GetTitle() const;
 	const char* GetOrganization() const;
+	float GetDT() const;
 
 	void LoadGame();
 	void SaveGame() const;
@@ -111,23 +112,18 @@ private:
 	p2SString			load_game;
 	mutable p2SString	save_game;
 
-	uint				frames;
-	float				dt;
+	j1PerfTimer			ptimer;
+	uint64				frame_count = 0;
+	j1Timer				startup_time;
+	j1Timer				frame_time;
+	j1Timer				last_sec_frame_time;
+	uint32				last_sec_frame_count = 0;
+	uint32				prev_last_sec_frame_count = 0;
+	float				dt = 0.0f;
+	int					capped_ms = -1;
 
-	uint64 frame_count = 0u;
-	j1Timer timer;
-	j1PerfTimer ptimer;
-
-	uint32				framerate_cap = 0u;
-	bool				cap = true;
-	p2SString           is_capped;
-
-	// Units in ms
-	float time_since_startup_ms = 0.0f;
-	int actual_frame_ms = 0;
-	float f = 0.0f;
-	float fps = 0.0f;
-	float avg_fps = 0.0f;
+	p2SString is_capped = "OFF";
+	bool cap = true;
 };
 
 extern j1App* App;
