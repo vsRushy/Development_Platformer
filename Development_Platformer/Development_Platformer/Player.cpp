@@ -39,7 +39,7 @@ Player::Player(int x, int y) : Entity(type, x, y)
 
 	type = ENTITY_TYPES::PLAYER;
 
-	collider = App->collision->AddCollider({ 0, 0, PLAYER_SIZE_X, PLAYER_SIZE_Y }, COLLIDER_PLAYER, App->entities);
+	collider = App->collision->AddCollider({ 0, 0, PLAYER_SIZE_X, PLAYER_SIZE_Y }, COLLIDER_TYPE::COLLIDER_PLAYER, (j1Module*)App->entities);
 
 	original_pos.x = x;
 	original_pos.y = y;
@@ -288,5 +288,5 @@ void Player::Update(float dt)
 
 void Player::OnCollision(Collider* a, Collider* b)
 {
-
+	
 }

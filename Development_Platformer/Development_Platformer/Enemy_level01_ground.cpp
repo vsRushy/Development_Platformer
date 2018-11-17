@@ -175,5 +175,5 @@ bool Enemy_level01_ground::PlayerIsInRange()
 
 void Enemy_level01_ground::OnCollision(Collider* a, Collider* b)
 {
-
+	
 }

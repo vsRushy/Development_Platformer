@@ -11,10 +11,7 @@ Entity::Entity(ENTITY_TYPES type, int x, int y) : type(type), position(x, y)
 Entity::~Entity()
 {
 	if (collider != nullptr)
-	{
-		App->collision->EraseCollider(collider);
-		collider = nullptr;
-	}
+		collider->to_delete = true;
 }
 
 const Collider* Entity::GetCollider() const

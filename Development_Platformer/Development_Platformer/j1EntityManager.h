@@ -24,7 +24,7 @@ class j1EntityManager : public j1Module
 public:
 
 	j1EntityManager();
-	~j1EntityManager();
+	virtual ~j1EntityManager();
 
 	bool Awake(pugi::xml_node& config);
 
@@ -39,6 +39,7 @@ public:
 
 public:
 	Entity* CreateEntity(ENTITY_TYPES type, int x, int y);
+	void OnCollision(Collider* a, Collider* b);
 
 private:
 	p2DynArray<Entity*> entities = NULL;

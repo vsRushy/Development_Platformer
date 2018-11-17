@@ -127,3 +127,19 @@ bool j1EntityManager::Save(pugi::xml_node&) const
 {
 	return true;
 }
+
+void j1EntityManager::OnCollision(Collider* a, Collider* b)
+{
+	for (uint i = 0; i < entities.Count(); ++i)
+	{
+		if (entities[i] != nullptr && entities[i]->GetCollider() == a)
+		{
+			if (b->type == COLLIDER_TYPE::COLLIDER_PLAYER_SHOT)
+			{
+				delete entities[i];
+				entities[i] = nullptr;
+				break;
+			}
+		}
+	}
+}

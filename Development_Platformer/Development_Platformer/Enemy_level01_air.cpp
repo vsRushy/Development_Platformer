@@ -161,5 +161,5 @@ bool Enemy_level01_air::PlayerIsInRange()
 
 void Enemy_level01_air::OnCollision(Collider* a, Collider* b)
 {
-
+	
 }

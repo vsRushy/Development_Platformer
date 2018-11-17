@@ -225,8 +225,8 @@ void j1App::FinishUpdate()
 	uint32 frames_on_last_update = prev_last_sec_frame_count;
 
 	static char title[256];
-	sprintf_s(title, 256, "Av.FPS: %.2f Last Frame Ms: %u Is capped: %s Vsync: OFF",
-		avg_fps, last_frame_ms, is_capped.GetString());
+	sprintf_s(title, 256, "%s Av.FPS: %.2f Last Frame Ms: %u Is capped: %s Vsync: OFF",
+		this->title.GetString(), avg_fps, last_frame_ms, is_capped.GetString());
 	App->win->SetTitle(title);
 
 	if (cap)
