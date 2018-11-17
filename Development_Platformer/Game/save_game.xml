@@ -14,6 +14,6 @@
 	<fade />
 	<pathfinding />
 	<renderer>
-		<camera x="-5042" y="-1972" />
+		<camera x="0" y="0" />
 	</renderer>
 </game_state>

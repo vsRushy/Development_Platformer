@@ -37,6 +37,7 @@ public:
 	uint Bullet_delay;
 	bool Reset_time_bullets = true;
 	bool player_facing = true; //true = right; false = left;
+	void reset();
 
 private:
 	Animation idle_anim;

@@ -216,15 +216,7 @@ void Player::Update(float dt)
 			}
 			else
 			{
-				time = 0.0f;
-				previous_position.y = position.y;
-				initial_speed = 0.0f;
-				equation_is_possible = 0;
-				if (!jump_start) {
-					jump = false;
-				}
-				able_to_jump = true;
-				able_to_dash = true;
+				reset();
 			}
 		}
 
@@ -289,4 +281,16 @@ void Player::Update(float dt)
 void Player::OnCollision(Collider* a, Collider* b)
 {
 	
+}
+
+void Player::reset() {
+	time = 0.0f;
+	previous_position.y = position.y;
+	initial_speed = 0.0f;
+	equation_is_possible = 0;
+	if (!jump_start) {
+		jump = false;
+	}
+	able_to_jump = true;
+	able_to_dash = true;
 }
