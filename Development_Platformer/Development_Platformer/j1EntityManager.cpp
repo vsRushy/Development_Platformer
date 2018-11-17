@@ -151,7 +151,7 @@ void j1EntityManager::OnCollision(Collider* a, Collider* b)
 				else if (App->scene->map_selected == 2) {
 					App->scene->player->position = App->scene->second_map_pos;
 				}
-				App->scene->player->reset();
+				App->scene->player->Reset();
 			}
 		}
 	}

@@ -216,7 +216,7 @@ void Player::Update(float dt)
 			}
 			else
 			{
-				reset();
+				Reset();
 			}
 		}
 
@@ -283,7 +283,7 @@ void Player::OnCollision(Collider* a, Collider* b)
 	
 }
 
-void Player::reset() {
+void Player::Reset() {
 	time = 0.0f;
 	previous_position.y = position.y;
 	initial_speed = 0.0f;

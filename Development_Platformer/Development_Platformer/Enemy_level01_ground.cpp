@@ -135,18 +135,18 @@ void Enemy_level01_ground::PathMovement(const p2DynArray<iPoint>* path, iPoint p
 	{
 		flip = SDL_FLIP_NONE;
 		animation = &walk;
-		velocity_x = -5.0f * dt;
+		velocity_x = -100.0f;
 	}
 	else if (goal.x > position.x)
 	{
 		flip = SDL_FLIP_HORIZONTAL;
 		animation = &walk;
-		velocity_x = 5.0f * dt;
+		velocity_x = 100.0f;
 	}
 
 	velocity.x = velocity_x;
 
-	this->position.x += velocity.x;
+	this->position.x += velocity.x * dt;
 }
 
 bool Enemy_level01_ground::PlayerIsInRange()

@@ -108,31 +108,32 @@ void Enemy_level01_air::CreateRange()
 void Enemy_level01_air::PathMovement(const p2DynArray<iPoint>* path, iPoint position, float dt)
 {
 	iPoint goal = iPoint(path->At(0)->x, path->At(0)->y); // we want the initial point of the path!
+	
 	float velocity_x = 0.0f;
 	float velocity_y = 0.0f;
-	dt = 1.0f;
+
 	if(goal.x < position.x)
 	{ 
-		velocity_x = -5.0f * dt;
+		velocity_x = -100.0f;
 	}
 	else if (goal.x > position.x)
 	{
-		velocity_x = 5.0f * dt;
+		velocity_x = 100.0f;
 	}
 	else if (goal.y < position.y)
 	{
-		velocity_y = -5.0f * dt;
+		velocity_y = -100.0f;
 	}
 	else if (goal.y > position.y)
 	{
-		velocity_y = 5.0f * dt;
+		velocity_y = 100.0f;
 	}
 
 	velocity.x = velocity_x;
 	velocity.y = velocity_y;
 
-	this->position.x += velocity.x;
-	this->position.y += velocity.y;
+	this->position.x += velocity.x * dt;
+	this->position.y += velocity.y * dt;
 }
 
 bool Enemy_level01_air::PlayerIsInRange()
