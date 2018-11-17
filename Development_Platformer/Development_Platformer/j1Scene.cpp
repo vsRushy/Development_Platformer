@@ -103,29 +103,6 @@ bool j1Scene::Start()
 // Called each loop iteration
 bool j1Scene::PreUpdate()
 {
-	// debug pathfing ------------------
-	static iPoint origin;
-	static bool origin_selected = false;
-
-	int x, y;
-	App->input->GetMousePosition(x, y);
-	iPoint p = App->render->ScreenToWorld(x, y);
-	p = App->map->WorldToMap(p.x, p.y);
-
-	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
-	{
-		if (origin_selected == true)
-		{
-			App->pathfinding->CreatePath(origin, p);
-			origin_selected = false;
-		}
-		else
-		{
-			origin = p;
-			origin_selected = true;
-		}
-	}
-
 	return true;
 }
 
@@ -224,10 +201,7 @@ bool j1Scene::Update(float dt)
 	/* ENVABLE/DISABLE GOD MODE */
 	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 	{
-		if (player->god_mode == false)
-			player->god_mode = true;
-		else if (player->god_mode == true)
-			player->god_mode = false;
+		player->god_mode = !player->god_mode;
 	}
 
 	/* Check if player falls into the death zone */
@@ -267,17 +241,6 @@ bool j1Scene::Update(float dt)
 
 	if(player->god_mode)
 		App->render->Blit(debug_tex, p.x, p.y);
-
-	const p2DynArray<iPoint>* path = App->pathfinding->GetLastPath();
-
-	if (player->god_mode)
-	{
-		for (uint i = 0; i < path->Count(); ++i)
-		{
-			iPoint pos = App->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-			App->render->Blit(debug_tex, pos.x, pos.y);
-		}
-	}
 
 	return true;
 }
