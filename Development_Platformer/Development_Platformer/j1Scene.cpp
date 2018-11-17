@@ -164,11 +164,15 @@ bool j1Scene::Update(float dt)
 		if (map_selected == 1)
 		{
 			App->entities->DeleteEntity(player);
+			App->entities->DeleteEntity(enemy01air);
+			App->entities->DeleteEntity(enemy01ground);
 		}
 		else if(map_selected == 2)
 		{
 			map_selected = 1;
 			App->entities->DeleteEntity(player);
+			App->entities->DeleteEntity(enemy01air);
+			App->entities->DeleteEntity(enemy01ground);
 		}
 		
 		App->fade->FadeToBlack(this, this, 0.1f);
