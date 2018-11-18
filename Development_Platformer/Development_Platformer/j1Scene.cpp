@@ -225,6 +225,7 @@ bool j1Scene::Update(float dt)
 			player->position = second_map_pos;
 			player->previous_position = player->position;
 		}
+		player->Reset();
 	}
 
 	/* DRAW------------ */
