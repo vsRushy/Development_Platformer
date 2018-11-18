@@ -74,7 +74,7 @@ bool j1Scene::Start()
 		second_map_pos = App->map->data.ObjectPos("Player", "PlayerStartPos");
 
 		player = (Player*)App->entities->CreateEntity(ENTITY_TYPES::PLAYER, second_map_pos.x, second_map_pos.y);
-		enemy02air = (Enemy_level01_air*)App->entities->CreateEntity(ENTITY_TYPES::ENEMY_LEVEL01_AIR, 485, 950);
+		enemy02air = (Enemy_level01_air*)App->entities->CreateEntity(ENTITY_TYPES::ENEMY_LEVEL01_AIR, 2274, 992);
 		enemy02ground = (Enemy_level01_ground*)App->entities->CreateEntity(ENTITY_TYPES::ENEMY_LEVEL01_GROUND, 1280, 1131);
 
 		player->position = second_map_pos;
