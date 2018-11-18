@@ -122,7 +122,7 @@ private:
 	float				dt = 0.0f;
 	int					capped_ms = -1;
 
-	p2SString is_capped = "OFF";
+	p2SString is_capped = "ON";
 	bool cap = true;
 };
 

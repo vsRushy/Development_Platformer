@@ -239,9 +239,9 @@ void Player::Update(float dt)
 			else --position.y;
 		}
 		else {
-			if (dashTime < 1.5f)
+			if (dashTime < 0.2f)
 			{
-				dashTime += 0.1f;
+				dashTime += 0.8f*dt;
 				velocity_x = 500.0f;
 			}
 			else
