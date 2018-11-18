@@ -8,14 +8,20 @@
 	<scene />
 	<entities>
 		<player>
-			<position x="348" y="330.100006" />
+			<position x="258" y="330.100006" />
 		</player>
+		<enemy_level01_air>
+			<position x="470" y="200" />
+		</enemy_level01_air>
+		<enemy_level01_ground>
+			<position x="960" y="779" />
+		</enemy_level01_ground>
 	</entities>
 	<:anonymous />
 	<collision />
 	<fade />
 	<pathfinding />
 	<renderer>
-		<camera x="-212" y="-260" />
+		<camera x="-32" y="-260" />
 	</renderer>
 </game_state>

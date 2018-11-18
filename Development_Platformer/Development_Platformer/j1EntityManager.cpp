@@ -173,6 +173,50 @@ bool j1EntityManager::Save(pugi::xml_node& save) const
 				node.child("position").append_attribute("y") = entities[i]->position.y;
 			}
 		}
+
+		if (entities[i]->type == ENTITY_TYPES::ENEMY_LEVEL01_AIR)
+		{
+			if (save.child("enemy_level01_air") == NULL)
+			{
+				node = save.append_child("enemy_level01_air");
+			}
+			else
+			{
+				node = save.child("enemy_level01_air");
+			}
+			if (node.child("position") == NULL)
+			{
+				node.append_child("position").append_attribute("x") = entities[i]->position.x;
+				node.child("position").append_attribute("y") = entities[i]->position.y;
+			}
+			else
+			{
+				node.child("position").append_attribute("x") = entities[i]->position.x;
+				node.child("position").append_attribute("y") = entities[i]->position.y;
+			}
+		}
+
+		if (entities[i]->type == ENTITY_TYPES::ENEMY_LEVEL01_GROUND)
+		{
+			if (save.child("enemy_level01_ground") == NULL)
+			{
+				node = save.append_child("enemy_level01_ground");
+			}
+			else
+			{
+				node = save.child("enemy_level01_ground");
+			}
+			if (node.child("position") == NULL)
+			{
+				node.append_child("position").append_attribute("x") = entities[i]->position.x;
+				node.child("position").append_attribute("y") = entities[i]->position.y;
+			}
+			else
+			{
+				node.child("position").append_attribute("x") = entities[i]->position.x;
+				node.child("position").append_attribute("y") = entities[i]->position.y;
+			}
+		}
 	}
 
 	return ret;
