@@ -5,15 +5,23 @@
 	<textures />
 	<audio />
 	<map />
-	<scene>
-		<map_selected value="2" />
-	</scene>
-	<entities />
+	<scene />
+	<entities>
+		<player>
+			<position x="258" y="330.100006" />
+		</player>
+		<enemy_level01_air>
+			<position x="470" y="200" />
+		</enemy_level01_air>
+		<enemy_level01_ground>
+			<position x="960" y="779" />
+		</enemy_level01_ground>
+	</entities>
 	<:anonymous />
 	<collision />
 	<fade />
 	<pathfinding />
 	<renderer>
-		<camera x="-92" y="-206" />
+		<camera x="-32" y="-260" />
 	</renderer>
 </game_state>
