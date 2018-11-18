@@ -11,6 +11,7 @@
 #include "j1Scene.h"
 #include "j1Audio.h"
 #include "j1Particles.h"
+#include "Brofiler\Brofiler.h"
 
 Player::Player(int x, int y) : Entity(type, x, y)
 {
@@ -49,6 +50,7 @@ Player::Player(int x, int y) : Entity(type, x, y)
    here, it has more sense to blit the player in the scene, because the player IS in the scene */
 void Player::Update(float dt)
 {
+	BROFILER_CATEGORY("Player Update", Profiler::Color::CadetBlue);
 	UpdateAnimation(dt);
 	rect = &(animation->GetCurrentFrame());
 
