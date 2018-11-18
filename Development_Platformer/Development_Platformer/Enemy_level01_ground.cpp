@@ -49,6 +49,8 @@ Enemy_level01_ground::Enemy_level01_ground(int x, int y) : Entity(type, x, y)
 
 void Enemy_level01_ground::Update(float dt)
 {
+	UpdateAnimation(dt);
+
 	// Starting enemy tile
 	iPoint map_original_pos = App->map->WorldToMap(original_pos.x, original_pos.y);
 
@@ -176,4 +178,12 @@ bool Enemy_level01_ground::PlayerIsInRange()
 void Enemy_level01_ground::OnCollision(Collider* a, Collider* b)
 {
 	
+}
+
+void Enemy_level01_ground::UpdateAnimation(float dt)
+{
+	float speed = 10.0f;
+
+	idle.speed = speed * dt;
+	walk.speed = speed * dt;
 }

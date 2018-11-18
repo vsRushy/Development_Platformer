@@ -37,6 +37,8 @@ public:
 	void PathMovement(const p2DynArray<iPoint>*, iPoint, float);
 
 	void OnCollision(Collider* a, Collider* b);
+
+	void UpdateAnimation(float dt);
 };
 
 #endif // __Enemy_level01_ground__
