@@ -128,16 +128,19 @@ bool j1EntityManager::Load(pugi::xml_node& save)
 	pugi::xml_node node;
 	for (int i = 0; i < entities.Count(); ++i)
 	{
-		if (entities[i]->type == ENTITY_TYPES::PLAYER)
+		if (entities[i] != nullptr)
 		{
-			if (save.child("player") != NULL)
+			if (entities[i]->type == ENTITY_TYPES::PLAYER)
 			{
-				node = save.child("player");
-			}
-			if (node.child("position") != NULL)
-			{
-				entities[i]->position.x = node.child("position").attribute("x").as_float();
-				entities[i]->position.y = node.child("position").attribute("y").as_float();
+				if (save.child("player") != NULL)
+				{
+					node = save.child("player");
+				}
+				if (node.child("position") != NULL)
+				{
+					entities[i]->position.x = node.child("position").attribute("x").as_float();
+					entities[i]->position.y = node.child("position").attribute("y").as_float();
+				}
 			}
 		}
 	}
@@ -152,69 +155,72 @@ bool j1EntityManager::Save(pugi::xml_node& save) const
 	pugi::xml_node node;
 	for (int i = 0; i < entities.Count(); ++i)
 	{
-		if (entities[i]->type == ENTITY_TYPES::PLAYER)
+		if(entities[i] != nullptr)
 		{
-			if (save.child("player") == NULL)
+			if (entities[i]->type == ENTITY_TYPES::PLAYER)
 			{
-				node = save.append_child("player");
+				if (save.child("player") == NULL)
+				{
+					node = save.append_child("player");
+				}
+				else
+				{
+					node = save.child("player");
+				}
+				if (node.child("position") == NULL)
+				{
+					node.append_child("position").append_attribute("x") = entities[i]->position.x;
+					node.child("position").append_attribute("y") = entities[i]->position.y;
+				}
+				else
+				{
+					node.child("position").append_attribute("x") = entities[i]->position.x;
+					node.child("position").append_attribute("y") = entities[i]->position.y;
+				}
 			}
-			else
-			{
-				node = save.child("player");
-			}
-			if (node.child("position") == NULL)
-			{
-				node.append_child("position").append_attribute("x") = entities[i]->position.x;
-				node.child("position").append_attribute("y") = entities[i]->position.y;
-			}
-			else
-			{
-				node.child("position").append_attribute("x") = entities[i]->position.x;
-				node.child("position").append_attribute("y") = entities[i]->position.y;
-			}
-		}
 
-		if (entities[i]->type == ENTITY_TYPES::ENEMY_LEVEL01_AIR)
-		{
-			if (save.child("enemy_level01_air") == NULL)
+			if (entities[i]->type == ENTITY_TYPES::ENEMY_LEVEL01_AIR)
 			{
-				node = save.append_child("enemy_level01_air");
+				if (save.child("enemy_level01_air") == NULL)
+				{
+					node = save.append_child("enemy_level01_air");
+				}
+				else
+				{
+					node = save.child("enemy_level01_air");
+				}
+				if (node.child("position") == NULL)
+				{
+					node.append_child("position").append_attribute("x") = entities[i]->position.x;
+					node.child("position").append_attribute("y") = entities[i]->position.y;
+				}
+				else
+				{
+					node.child("position").append_attribute("x") = entities[i]->position.x;
+					node.child("position").append_attribute("y") = entities[i]->position.y;
+				}
 			}
-			else
-			{
-				node = save.child("enemy_level01_air");
-			}
-			if (node.child("position") == NULL)
-			{
-				node.append_child("position").append_attribute("x") = entities[i]->position.x;
-				node.child("position").append_attribute("y") = entities[i]->position.y;
-			}
-			else
-			{
-				node.child("position").append_attribute("x") = entities[i]->position.x;
-				node.child("position").append_attribute("y") = entities[i]->position.y;
-			}
-		}
 
-		if (entities[i]->type == ENTITY_TYPES::ENEMY_LEVEL01_GROUND)
-		{
-			if (save.child("enemy_level01_ground") == NULL)
+			if (entities[i]->type == ENTITY_TYPES::ENEMY_LEVEL01_GROUND)
 			{
-				node = save.append_child("enemy_level01_ground");
-			}
-			else
-			{
-				node = save.child("enemy_level01_ground");
-			}
-			if (node.child("position") == NULL)
-			{
-				node.append_child("position").append_attribute("x") = entities[i]->position.x;
-				node.child("position").append_attribute("y") = entities[i]->position.y;
-			}
-			else
-			{
-				node.child("position").append_attribute("x") = entities[i]->position.x;
-				node.child("position").append_attribute("y") = entities[i]->position.y;
+				if (save.child("enemy_level01_ground") == NULL)
+				{
+					node = save.append_child("enemy_level01_ground");
+				}
+				else
+				{
+					node = save.child("enemy_level01_ground");
+				}
+				if (node.child("position") == NULL)
+				{
+					node.append_child("position").append_attribute("x") = entities[i]->position.x;
+					node.child("position").append_attribute("y") = entities[i]->position.y;
+				}
+				else
+				{
+					node.child("position").append_attribute("x") = entities[i]->position.x;
+					node.child("position").append_attribute("y") = entities[i]->position.y;
+				}
 			}
 		}
 	}
