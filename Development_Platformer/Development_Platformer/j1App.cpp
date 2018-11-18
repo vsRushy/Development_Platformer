@@ -222,7 +222,7 @@ void j1App::FinishUpdate()
 	float avg_fps = float(frame_count) / startup_time.ReadSec();
 	float seconds_since_startup = startup_time.ReadSec();
 	uint32 last_frame_ms = frame_time.Read();
-	uint frames_on_last_update = prev_last_sec_frame_count;
+	uint32 frames_on_last_update = prev_last_sec_frame_count;
 
 	static char title[256];
 	sprintf_s(title, 256, "%s FPS: %i Av.FPS: %.2f Last Frame Ms: %u Is capped: %s Vsync: OFF",
