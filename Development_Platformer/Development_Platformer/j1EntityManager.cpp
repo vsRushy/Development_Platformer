@@ -15,7 +15,7 @@
 #include "j1Scene.h"
 #include "j1Map.h"
 #include "j1FadeToBlack.h"
-
+#include "Brofiler\Brofiler.h"
 j1EntityManager::j1EntityManager()
 {
 	name.create("entities");
@@ -150,6 +150,7 @@ bool j1EntityManager::Load(pugi::xml_node& save)
 
 bool j1EntityManager::Save(pugi::xml_node& save) const
 {
+	BROFILER_CATEGORY("save", Profiler::Color::Silver);
 	bool ret = true;
 
 	pugi::xml_node node;
