@@ -49,7 +49,11 @@ Player::Player(int x, int y) : Entity(type, x, y)
    here, it has more sense to blit the player in the scene, because the player IS in the scene */
 void Player::Update(float dt)
 {
-	UpdateAnimation(dt);
+	float anim_speed = 7.0f;
+
+	idle_anim.speed = anim_speed * dt;
+	walk_anim.speed = anim_speed * dt;
+
 	rect = &(animation->GetCurrentFrame());
 
 	if (god_mode == false)
@@ -297,12 +301,4 @@ void Player::Reset() {
 	}
 	able_to_jump = true;
 	able_to_dash = true;
-}
-
-void Player::UpdateAnimation(float dt)
-{
-	float speed = 7.0f;
-
-	idle_anim.speed = speed * dt;
-	walk_anim.speed = speed * dt;
 }
