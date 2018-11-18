@@ -62,6 +62,8 @@ public:
 	Player* player;
 	Enemy_level01_air* enemy01air = nullptr;
 	Enemy_level01_ground* enemy01ground = nullptr;
+	Enemy_level01_air* enemy02air = nullptr;
+	Enemy_level01_ground* enemy02ground = nullptr;
 };
 
 #endif // __j1SCENE_H__

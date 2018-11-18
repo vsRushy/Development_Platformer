@@ -257,21 +257,21 @@ void Player::Update(float dt)
 		{
 			flip = SDL_FLIP_HORIZONTAL;
 			animation = &walk_anim;
-			position.x -= 75.0f * dt;
+			position.x -= 125.0f * dt;
 		}
 		else if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		{
 			flip = SDL_FLIP_NONE;
 			animation = &walk_anim;
-			position.x += 75.0f * dt;
+			position.x += 125.0f * dt;
 		}
 		else if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		{
-			position.y -= 75.0f * dt;
+			position.y -= 125.0f * dt;
 		}
 		else if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 		{
-			position.y += 75.0f * dt;
+			position.y += 125.0f * dt;
 		}
 		else
 			animation = &idle_anim;
