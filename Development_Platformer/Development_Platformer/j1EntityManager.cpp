@@ -121,14 +121,42 @@ Entity* j1EntityManager::CreateEntity(ENTITY_TYPES type, int x, int y)
 	return ret;
 }
 
-bool j1EntityManager::Load(pugi::xml_node&)
+bool j1EntityManager::Load(pugi::xml_node& save)
 {
 	return true;
 }
 
-bool j1EntityManager::Save(pugi::xml_node&) const
+bool j1EntityManager::Save(pugi::xml_node& save) const
 {
-	return true;
+	bool ret = true;
+
+	pugi::xml_node node;
+	for (int i = 0; i < entities.Count(); ++i)
+	{
+		if (entities[i]->type == ENTITY_TYPES::PLAYER)
+		{
+			if (save.child("player") == NULL)
+			{
+				node = save.append_child("player");
+			}
+			else
+			{
+				node = save.child("player");
+			}
+			if (node.child("position") == NULL)
+			{
+				node.append_child("position").append_attribute("x") = entities[i]->position.x;
+				node.child("position").append_attribute("y") = entities[i]->position.y;
+			}
+			else
+			{
+				node.child("position").append_attribute("x") = entities[i]->position.x;
+				node.child("position").append_attribute("y") = entities[i]->position.y;
+			}
+		}
+	}
+
+	return ret;
 }
 
 void j1EntityManager::OnCollision(Collider* a, Collider* b)

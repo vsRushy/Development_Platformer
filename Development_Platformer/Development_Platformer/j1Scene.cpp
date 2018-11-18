@@ -104,6 +104,7 @@ bool j1Scene::Update(float dt)
 	{
 		App->SaveGame();
 	}
+
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 		App->render->camera.y -= 450 * dt;
 	else
