@@ -7,7 +7,7 @@
 #include "j1Collision.h"
 #include "j1Window.h"
 #include <math.h>
-#include "Brofiler\Brofiler.h"
+
 j1Map::j1Map() : j1Module(), map_loaded(false)
 {
 	name.create("map");
@@ -271,7 +271,6 @@ bool j1Map::CleanUp()
 // Load new map
 bool j1Map::Load(const char* file_name)
 {
-	BROFILER_CATEGORY("load", Profiler::Color::DarkCyan);
 	bool ret = true;
 	p2SString tmp("%s%s", folder.GetString(), file_name);
 

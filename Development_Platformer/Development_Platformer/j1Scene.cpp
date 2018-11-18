@@ -14,7 +14,6 @@
 #include "Enemy_level01_air.h"
 #include "Enemy_level01_ground.h"
 #include "j1Pathfinding.h"
-#include "Brofiler\Brofiler.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -96,7 +95,6 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
-	BROFILER_CATEGORY("Scene update", Profiler::Color::Silver);
 	/*INPUT--------------------------------------------*/
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 	{

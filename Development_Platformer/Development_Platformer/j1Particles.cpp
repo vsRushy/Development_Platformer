@@ -8,7 +8,6 @@
 #include "j1Input.h"
 #include "j1Scene.h"
 #include "Player.h"
-#include "Brofiler\Brofiler.h"
 
 #include "SDL/include/SDL_timer.h"
 
@@ -147,7 +146,6 @@ Particle::~Particle()
 
 bool Particle::Update(float dt)
 {
-	BROFILER_CATEGORY("Particles Update", Profiler::Color::FireBrick);
 	bool ret = true;
 	if (life > 0)
 	{
