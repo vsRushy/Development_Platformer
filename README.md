@@ -62,9 +62,13 @@ Marcos Freixas, Gerard.
 
 • GitHub account: [vsRushy](https://github.com/vsRushy)
 
+• What has he done: entity system, pathfinding, timing control, load/save.
+
 Torras Isanta, Martí.
 
 • GitHub account: [martitorras](https://github.com/martitorras)
+
+• What has he done: particles, player logic, delta time, Brofiler.
 
 ## Features
 
