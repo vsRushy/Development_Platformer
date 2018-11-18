@@ -130,13 +130,17 @@ bool j1Scene::Update(float dt)
 		if (map_selected == 1)
 		{
 			App->entities->DeleteAllEntities();
+			player->position = first_map_pos;
+			player->previous_position = player->position;
 		}
 		else if(map_selected == 2)
 		{
 			map_selected = 1;
 			App->entities->DeleteAllEntities();
+			player->position = first_map_pos;
+			player->previous_position = player->position;
 		}
-		
+		player->player_start = true;
 		App->fade->FadeToBlack(this, this, 0.1f);
 	}
 
@@ -146,12 +150,16 @@ bool j1Scene::Update(float dt)
 		if (map_selected == 1)
 		{
 			App->entities->DeleteAllEntities();
+			player->position = first_map_pos;
+			player->previous_position = player->position;
 		}
 		else if (map_selected == 2)
 		{
 			App->entities->DeleteAllEntities();
+			player->position = second_map_pos;
+			player->previous_position = player->position;
 		}
-
+		player->player_start = true;
 		App->fade->FadeToBlack(this, this, 0.1f);
 	}
 
@@ -179,7 +187,7 @@ bool j1Scene::Update(float dt)
 			map_selected = 1;
 
 		App->entities->DeleteAllEntities();
-
+		player->player_start = true;
 		App->fade->FadeToBlack(this, this);
 	}
 

@@ -146,10 +146,18 @@ void Player::Update(float dt)
 			if(player_facing) App->particles->AddParticle(App->particles->sword_right, position.x, position.y, COLLIDER_PLAYER_SHOT);
 			else  App->particles->AddParticle(App->particles->sword_left, position.x, position.y, COLLIDER_PLAYER_SHOT);
 		}
-
+		if (player_start && wait_time < 2.0f) {
+			wait_time += 1.0f*dt;
+			if (equation_is_possible != 3) equation_is_possible = 3;
+		}
+		else {
+			player_start = false;
+			wait_time = 0.0f;
+			equation_is_possible = 0;
+		}
 
 		// Movement logic
-		if (going_left)
+		if (going_left && !player_start)
 		{
 			// (x, y) point where the player is in the world
 			iPoint worldPos = App->map->WorldToMap(position.x - velocity_x*dt - 1, position.y);
@@ -161,7 +169,7 @@ void Player::Update(float dt)
 				position.x -= velocity_x*dt;
 			}
 		}
-		if (going_right)
+		if (going_right && !player_start)
 		{
 			// (x, y) point where the player is in the world
 			iPoint worldPos = App->map->WorldToMap(position.x, position.y);
@@ -173,7 +181,7 @@ void Player::Update(float dt)
 				position.x += velocity_x*dt;
 			}
 		}
-		if (going_up && !dash)
+		if (going_up && !dash && !player_start)
 		{
 			// (x, y) point where the player is in the world
 			iPoint worldPos = App->map->WorldToMap(position.x, position.y + 1);
@@ -185,7 +193,7 @@ void Player::Update(float dt)
 				position.y -= velocity_y*dt;
 			}
 		}
-		if (up_and_down && !dash)
+		if (up_and_down && !dash && !player_start)
 		{
 			// (x, y) point where the player is in the world
 			iPoint worldPos = App->map->WorldToMap(position.x, position.y + 1);
@@ -243,7 +251,8 @@ void Player::Update(float dt)
 				position.y = previous_position.y + (initial_speed * time + (gravity*time*time) * 0.5f);
 			}
 			else if (equation_is_possible == 1) ++position.y;
-			else --position.y;
+			else if (equation_is_possible == 2) --position.y;
+			else if (equation_is_possible == 3) position.y = position.y;
 		}
 		else {
 			if (dashTime < 0.2f)

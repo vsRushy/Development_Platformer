@@ -38,6 +38,7 @@ public:
 	bool Reset_time_bullets = true;
 	bool player_facing = true; //true = right; false = left;
 	void Reset();
+	bool player_start = true;
 
 private:
 	Animation idle_anim;
@@ -68,6 +69,7 @@ private:
 	bool dash = false;
 	float dashTime = 0.0f;
 	bool able_to_dash = false;
+	float wait_time = 0.0f;
 };
 
 #endif // __PLAYER_H__
