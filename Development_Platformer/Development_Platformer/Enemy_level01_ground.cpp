@@ -30,7 +30,7 @@ Enemy_level01_ground::Enemy_level01_ground(int x, int y) : Entity(type, x, y)
 	walk.loop = true;
 	walk.speed = 0.5f;
 
-	hit_points = 4;
+	hit_points = 1;
 
 	animation = &idle;
 

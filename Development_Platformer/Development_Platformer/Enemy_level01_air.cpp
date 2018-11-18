@@ -17,7 +17,7 @@ Enemy_level01_air::Enemy_level01_air(int x, int y) : Entity(type, x, y)
 	anim.loop = true;
 	anim.speed = 0.5f;
 
-	hit_points = 4;
+	hit_points = 1;
 
 	animation = &anim;
 
