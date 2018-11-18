@@ -38,6 +38,7 @@ public:
 	bool Reset_time_bullets = true;
 	bool player_facing = true; //true = right; false = left;
 	void Reset();
+	void UpdateAnimation(float dt);
 
 private:
 	Animation idle_anim;

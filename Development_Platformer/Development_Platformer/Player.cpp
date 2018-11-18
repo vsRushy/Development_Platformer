@@ -16,7 +16,7 @@ Player::Player(int x, int y) : Entity(type, x, y)
 {
 	// Player idle animation
 	idle_anim.PushBack({ 8, 42, 17, 22 });
-	idle_anim.speed = 1.0f;
+	idle_anim.speed = 10.0f;
 	idle_anim.loop = true;
 
 	// Player walk animation
@@ -24,7 +24,7 @@ Player::Player(int x, int y) : Entity(type, x, y)
 	walk_anim.PushBack({ 40, 41, 17, 22 });
 	walk_anim.PushBack({ 72, 42, 17, 22 });
 	walk_anim.PushBack({ 104, 41, 17, 22 });
-	walk_anim.speed = 0.1f;
+	walk_anim.speed = 1.0f;
 	walk_anim.loop = true;
 
 	hit_points = 1;
@@ -49,6 +49,7 @@ Player::Player(int x, int y) : Entity(type, x, y)
    here, it has more sense to blit the player in the scene, because the player IS in the scene */
 void Player::Update(float dt)
 {
+	UpdateAnimation(dt);
 	rect = &(animation->GetCurrentFrame());
 
 	if (god_mode == false)
@@ -296,4 +297,12 @@ void Player::Reset() {
 	}
 	able_to_jump = true;
 	able_to_dash = true;
+}
+
+void Player::UpdateAnimation(float dt)
+{
+	float speed = 7.0f;
+
+	idle_anim.speed = speed * dt;
+	walk_anim.speed = speed * dt;
 }
