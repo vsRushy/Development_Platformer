@@ -31,6 +31,7 @@ bool j1Scene::Awake(pugi::xml_node& config)
 	bool ret = true;
 
 	map_selected = config.child("map_index").attribute("value").as_int();
+	
 	first_map = config.child("first_map").attribute("name").as_string();
 	second_map = config.child("second_map").attribute("name").as_string();
 
@@ -61,6 +62,9 @@ bool j1Scene::Start()
 		player = (Player*)App->entities->CreateEntity(ENTITY_TYPES::PLAYER, first_map_pos.x, first_map_pos.y);
 		enemy01air = (Enemy_level01_air*)App->entities->CreateEntity(ENTITY_TYPES::ENEMY_LEVEL01_AIR, 470, 200);
 		enemy01ground = (Enemy_level01_ground*)App->entities->CreateEntity(ENTITY_TYPES::ENEMY_LEVEL01_GROUND, 960, 779);
+
+		player->position = first_map_pos;
+		player->previous_position = player->position;
 	}
 	else if (map_selected == 2)
 	{
@@ -68,34 +72,14 @@ bool j1Scene::Start()
 		App->audio->PlayMusic(second_song.GetString());
 
 		second_map_pos = App->map->data.ObjectPos("Player", "PlayerStartPos");
-	}
 
-	if (!isLoading)
-	{
-		if (map_selected == 1)
-		{
-			int w, h;
-			uchar* data = NULL;
-			if (App->map->CreateWalkabilityMap(w, h, &data))
-				App->pathfinding->SetMap(w, h, data);
-
-			RELEASE_ARRAY(data);
-
-			first_map_pos = App->map->data.ObjectPos("Player", "PlayerStartPos");
-			player->position = first_map_pos;
-			player->previous_position = player->position;
-		}
-		else if (map_selected == 2)
-		{
-			second_map_pos = App->map->data.ObjectPos("Player", "PlayerStartPos");
-			player->position = second_map_pos;
-			player->previous_position = player->position;
-		}
+		player = (Player*)App->entities->CreateEntity(ENTITY_TYPES::PLAYER, second_map_pos.x, second_map_pos.y);
+	
+		player->position = second_map_pos;
+		player->previous_position = player->position;
 	}
 
 	debug_tex = App->tex->Load("textures/path_tile.png");
-
-	isLoading = false;
 
 	return true;
 }
@@ -140,16 +124,12 @@ bool j1Scene::Update(float dt)
 	{
 		if (map_selected == 1)
 		{
-			App->entities->DeleteEntity(player);
-			App->entities->DeleteEntity(enemy01air);
-			App->entities->DeleteEntity(enemy01ground);
+			App->entities->DeleteAllEntities();
 		}
 		else if(map_selected == 2)
 		{
 			map_selected = 1;
-			App->entities->DeleteEntity(player);
-			App->entities->DeleteEntity(enemy01air);
-			App->entities->DeleteEntity(enemy01ground);
+			App->entities->DeleteAllEntities();
 		}
 		
 		App->fade->FadeToBlack(this, this, 0.1f);
@@ -160,12 +140,11 @@ bool j1Scene::Update(float dt)
 	{
 		if (map_selected == 1)
 		{
-			App->entities->DeleteEntity(player);
+			App->entities->DeleteAllEntities();
 		}
 		else if (map_selected == 2)
 		{
-			player->position = second_map_pos;
-			player->previous_position = player->position;
+			App->entities->DeleteAllEntities();
 		}
 
 		App->fade->FadeToBlack(this, this, 0.1f);
@@ -194,7 +173,8 @@ bool j1Scene::Update(float dt)
 		else if(map_selected == 2)
 			map_selected = 1;
 
-		App->SaveGame();
+		App->entities->DeleteAllEntities();
+
 		App->fade->FadeToBlack(this, this);
 	}
 
@@ -268,7 +248,7 @@ bool j1Scene::CleanUp()
 
 bool j1Scene::Load(pugi::xml_node& save)
 {
-	if (save.child("map_selected") != NULL)
+	/*if (save.child("map_selected") != NULL)
 	{
 		// We want to load the map when we are not in the same map_selected index
 		if(save.child("map_selected").attribute("value").as_int() != map_selected)
@@ -277,21 +257,21 @@ bool j1Scene::Load(pugi::xml_node& save)
 			//App->fade->FadeToBlack(this, this, 2.0f);
 		}
 	}
-	isLoading = true;
+	isLoading = true;*/
 
 	return true;
 }
 
 bool j1Scene::Save(pugi::xml_node& save) const
 {
-	if (save.child("map_selected") == NULL)
+	/*if (save.child("map_selected") == NULL)
 	{
 		save.append_child("map_selected").append_attribute("value") = map_selected;
 	}
 	else
 	{
 		save.append_child("map_selected").attribute("value") = map_selected;
-	}
+	}*/
 
 	return true;
 }

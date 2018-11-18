@@ -169,3 +169,15 @@ void j1EntityManager::DeleteEntity(Entity* e)
 		}
 	}
 }
+
+void j1EntityManager::DeleteAllEntities()
+{
+	for (uint i = 0; i < entities.Count(); ++i)
+	{
+		if (entities[i] != nullptr)
+		{
+			delete entities[i];
+			entities[i] = nullptr;
+		}
+	}
+}

@@ -53,8 +53,7 @@ private:
 public:
 	// Level 1: 1, Level 2: 2.
 	int map_selected;
-	int last_map_selected;
-	bool isLoading = false;
+	int last_map_selected = 1;
 
 	fPoint first_map_pos;
 	fPoint second_map_pos;
