@@ -123,7 +123,26 @@ Entity* j1EntityManager::CreateEntity(ENTITY_TYPES type, int x, int y)
 
 bool j1EntityManager::Load(pugi::xml_node& save)
 {
-	return true;
+	bool ret = true;
+
+	pugi::xml_node node;
+	for (int i = 0; i < entities.Count(); ++i)
+	{
+		if (entities[i]->type == ENTITY_TYPES::PLAYER)
+		{
+			if (save.child("player") != NULL)
+			{
+				node = save.child("player");
+			}
+			if (node.child("position") != NULL)
+			{
+				entities[i]->position.x = node.child("position").attribute("x").as_float();
+				entities[i]->position.y = node.child("position").attribute("y").as_float();
+			}
+		}
+	}
+
+	return ret;
 }
 
 bool j1EntityManager::Save(pugi::xml_node& save) const

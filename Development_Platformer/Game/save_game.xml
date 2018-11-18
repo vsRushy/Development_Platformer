@@ -8,7 +8,7 @@
 	<scene />
 	<entities>
 		<player>
-			<position x="258" y="330.100006" />
+			<position x="348" y="330.100006" />
 		</player>
 	</entities>
 	<:anonymous />
@@ -16,6 +16,6 @@
 	<fade />
 	<pathfinding />
 	<renderer>
-		<camera x="-32" y="-260" />
+		<camera x="-212" y="-260" />
 	</renderer>
 </game_state>
