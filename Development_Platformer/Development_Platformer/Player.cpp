@@ -30,7 +30,7 @@ Player::Player(int x, int y) : Entity(type, x, y)
 	hit_points = 1;
 
 	god_mode = false;
-	gravity = 5.8f;
+	gravity = 5.0f;
 	velocity_x = 6.0f;
 	velocity_y = 2.0f;
 
@@ -183,11 +183,11 @@ void Player::Update(float dt)
 			// (x, y) point where the player is in the world
 			iPoint worldPos = App->map->WorldToMap(position.x, position.y + 1);
 			// (x, y) point where the player is in the world in the next frame
-			iPoint worldNextPos = App->map->WorldToMap(position.x, previous_position.y + initial_speed * (time + 0.1f) + (gravity*(time + 0.1f)*(time + 0.1f)) * 0.5f + 1);
+			iPoint worldNextPos = App->map->WorldToMap(position.x, previous_position.y + initial_speed * (time + 0.2f) + (gravity*(time + 0.2f)*(time + 0.2f)) * 0.5f + 1);
 			// (x + w, y + h) point where the player's ending coordinates are located in the world
 			iPoint worldFinalPos = App->map->WorldToMap(position.x + PLAYER_SIZE_X - velocity_x - 1, position.y + PLAYER_SIZE_Y);
 			// (x + w, y + h) point where the player's ending coordinates are located in the world in the next frame
-			iPoint worldNextFinalPos = App->map->WorldToMap(position.x + PLAYER_SIZE_X - velocity_x - 1, previous_position.y + initial_speed * (time + 0.1f) + (gravity*(time + 0.1f)*(time + 0.1f)) * 0.5f + PLAYER_SIZE_Y);
+			iPoint worldNextFinalPos = App->map->WorldToMap(position.x + PLAYER_SIZE_X - velocity_x - 1, previous_position.y + initial_speed * (time + 0.2f) + (gravity*(time + 0.2f)*(time + 0.2f)) * 0.5f + PLAYER_SIZE_Y);
 
 			//when colliding going up
 			if (!App->map->CheckCollisionY(worldPos.y, worldPos.x, worldFinalPos.x) && App->map->CheckCollisionY(worldNextPos.y, worldNextPos.x, worldNextFinalPos.x))
@@ -207,7 +207,7 @@ void Player::Update(float dt)
 			//when colliding going down
 			if (!App->map->CheckCollisionY(worldFinalPos.y, worldPos.x, worldFinalPos.x) && !App->map->CheckCollisionY(worldNextFinalPos.y, worldNextPos.x, worldNextFinalPos.x))
 			{
-				if (!jump)time += 0.1f;
+				if (!jump)time += 0.2f;
 				able_to_jump = false;
 			}
 			else if (!App->map->CheckCollisionY(worldFinalPos.y, worldPos.x, worldFinalPos.x) && App->map->CheckCollisionY(worldNextFinalPos.y, worldNextPos.x, worldNextFinalPos.x))
@@ -224,7 +224,7 @@ void Player::Update(float dt)
 		if (jump && !dash)
 		{
 			initial_speed = -35.0f;
-			time += 0.1f;
+			time += 0.2f;
 			if (jump_start) jump_start = false;
 		}
 
@@ -245,7 +245,7 @@ void Player::Update(float dt)
 			{
 				dashTime = 0.0f;
 				dash = false;
-				velocity_x = 3.0f;
+				velocity_x = 6.0f;
 			}
 		}
 	}
