@@ -240,7 +240,7 @@ void j1EntityManager::OnCollision(Collider* a, Collider* b)
 				entities[i] = nullptr;
 				break;
 			}
-			if (b->type == COLLIDER_TYPE::COLLIDER_PLAYER && a->type == COLLIDER_TYPE::COLLIDER_ENEMY) {
+			if (b->type == COLLIDER_TYPE::COLLIDER_PLAYER && a->type == COLLIDER_TYPE::COLLIDER_ENEMY && App->scene->actual_god_mode == false) {
 				
 				if (App->scene->map_selected == 1) {
 					App->scene->player->position = App->scene->first_map_pos;

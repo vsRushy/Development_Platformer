@@ -184,6 +184,7 @@ bool j1Scene::Update(float dt)
 	/* ENVABLE/DISABLE GOD MODE */
 	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 	{
+		actual_god_mode = !actual_god_mode;
 		player->god_mode = !player->god_mode;
 	}
 

@@ -8,7 +8,7 @@
 	<scene />
 	<entities>
 		<player>
-			<position x="267.749969" y="330.622803" />
+			<position x="288" y="330.701996" />
 		</player>
 		<enemy_level01_air>
 			<position x="470" y="200" />
@@ -22,6 +22,6 @@
 	<fade />
 	<pathfinding />
 	<renderer>
-		<camera x="-50" y="-260" />
+		<camera x="-92" y="-260" />
 	</renderer>
 </game_state>

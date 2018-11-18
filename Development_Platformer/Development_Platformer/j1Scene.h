@@ -58,6 +58,8 @@ public:
 	fPoint first_map_pos;
 	fPoint second_map_pos;
 
+	bool actual_god_mode = false;
+
 public:
 	Player* player;
 	Enemy_level01_air* enemy01air = nullptr;
