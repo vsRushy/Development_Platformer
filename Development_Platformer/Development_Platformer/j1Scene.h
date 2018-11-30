@@ -8,6 +8,7 @@ class Enemy_level01_air;
 class Enemy_level01_ground;
 
 class GUIImage;
+class GUIButton;
 
 struct SDL_Texture;
 
@@ -72,6 +73,7 @@ public:
 // GUI
 public:
 	GUIImage* image_gui = nullptr;
+	GUIButton* button_gui = nullptr;
 };
 
 #endif // __j1SCENE_H__

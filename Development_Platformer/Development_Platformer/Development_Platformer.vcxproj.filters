@@ -72,6 +72,9 @@
     <ClCompile Include="GUIImage.cpp">
       <Filter>GUI Elements</Filter>
     </ClCompile>
+    <ClCompile Include="GUIButton.cpp">
+      <Filter>GUI Elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h" />
@@ -164,6 +167,9 @@
       <Filter>GUI Elements</Filter>
     </ClInclude>
     <ClInclude Include="GUIImage.h">
+      <Filter>GUI Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIButton.h">
       <Filter>GUI Elements</Filter>
     </ClInclude>
   </ItemGroup>

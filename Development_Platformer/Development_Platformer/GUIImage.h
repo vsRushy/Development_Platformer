@@ -3,9 +3,6 @@
 
 #include "GUIElement.h"
 
-#include "p2Point.h"
-#include "p2DynArray.h"
-
 class GUIImage : public GUIElement
 {
 public:

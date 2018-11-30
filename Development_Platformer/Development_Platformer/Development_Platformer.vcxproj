@@ -121,6 +121,7 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Enemy_level01_air.cpp" />
     <ClCompile Include="Enemy_level01_ground.cpp" />
+    <ClCompile Include="GUIButton.cpp" />
     <ClCompile Include="GUIElement.cpp" />
     <ClCompile Include="GUIImage.cpp" />
     <ClCompile Include="j1App.cpp" />
@@ -149,6 +150,7 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Enemy_level01_air.h" />
     <ClInclude Include="Enemy_level01_ground.h" />
+    <ClInclude Include="GUIButton.h" />
     <ClInclude Include="GUIElement.h" />
     <ClInclude Include="GUIImage.h" />
     <ClInclude Include="j1App.h" />
