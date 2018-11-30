@@ -13,6 +13,7 @@
 #include "j1Collision.h"
 #include "j1FadeToBlack.h"
 #include "j1EntityManager.h"
+#include "j1GUIManager.h"
 #include "j1Particles.h"
 #include "j1Pathfinding.h"
 #include "j1App.h"
@@ -31,6 +32,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	tex = new j1Textures();
 	audio = new j1Audio();
 	entities = new j1EntityManager();
+	gui = new j1GUIManager();
 	scene = new j1Scene();
 	map = new j1Map();
 	collision = new j1Collision();
@@ -47,6 +49,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 	AddModule(scene);
 	AddModule(entities);
+	AddModule(gui);
 	AddModule(particles);
 	AddModule(collision);
 	AddModule(fade);

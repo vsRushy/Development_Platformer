@@ -18,6 +18,7 @@ class j1Map;
 class j1Collision;
 class j1FadeToBlack;
 class j1EntityManager;
+class j1GUIManager;
 class j1Particles;
 class j1PathFinding;
 
@@ -90,6 +91,7 @@ public:
 	j1Textures*			tex;
 	j1Audio*			audio;
 	j1EntityManager*    entities;
+	j1GUIManager*       gui;
 	j1Scene*			scene;
 	j1Map*				map;
 	j1Collision*        collision;

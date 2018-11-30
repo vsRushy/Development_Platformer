@@ -63,6 +63,15 @@
     <ClCompile Include="Player.cpp">
       <Filter>Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="j1GUIManager.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIElement.cpp">
+      <Filter>GUI Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIImage.cpp">
+      <Filter>GUI Elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h" />
@@ -148,6 +157,15 @@
     <ClInclude Include="Player.h">
       <Filter>Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="j1GUIManager.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIElement.h">
+      <Filter>GUI Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIImage.h">
+      <Filter>GUI Elements</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">
@@ -167,6 +185,9 @@
     </Filter>
     <Filter Include="Enemies">
       <UniqueIdentifier>{37cdb38c-095d-49aa-baa8-ed4c820580e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI Elements">
+      <UniqueIdentifier>{14ba0681-cd90-414c-a0ab-53b18fdf5d1a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

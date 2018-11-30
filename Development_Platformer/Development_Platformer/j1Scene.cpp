@@ -14,6 +14,7 @@
 #include "Enemy_level01_air.h"
 #include "Enemy_level01_ground.h"
 #include "j1Pathfinding.h"
+#include "j1GUIManager.h"
 #include "Brofiler\Brofiler.h"
 
 j1Scene::j1Scene() : j1Module()
@@ -66,6 +67,9 @@ bool j1Scene::Start()
 
 		player->position = first_map_pos;
 		player->previous_position = player->position;
+
+		/* Add GUI :) */
+		image_gui = (GUIImage*)App->gui->CreateGUIElement(GUI_ELEMENT_TYPE::GUI_IMAGE, 10.0f, 10.0f);
 	}
 	else if (map_selected == 2)
 	{

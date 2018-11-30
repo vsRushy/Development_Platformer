@@ -16,6 +16,7 @@
 #include "j1Map.h"
 #include "j1FadeToBlack.h"
 #include "Brofiler\Brofiler.h"
+
 j1EntityManager::j1EntityManager()
 {
 	name.create("entities");

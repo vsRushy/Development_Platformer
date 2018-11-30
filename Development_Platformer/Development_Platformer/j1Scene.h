@@ -7,6 +7,8 @@ class Player;
 class Enemy_level01_air;
 class Enemy_level01_ground;
 
+class GUIImage;
+
 struct SDL_Texture;
 
 class j1Scene : public j1Module
@@ -66,6 +68,10 @@ public:
 	Enemy_level01_ground* enemy01ground = nullptr;
 	Enemy_level01_air* enemy02air = nullptr;
 	Enemy_level01_ground* enemy02ground = nullptr;
+
+// GUI
+public:
+	GUIImage* image_gui = nullptr;
 };
 
 #endif // __j1SCENE_H__

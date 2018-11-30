@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{46252549-C566-488B-BFFE-E345E649F157}</ProjectGuid>
     <RootNamespace>DevelopmentPlatformer</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -121,10 +121,13 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Enemy_level01_air.cpp" />
     <ClCompile Include="Enemy_level01_ground.cpp" />
+    <ClCompile Include="GUIElement.cpp" />
+    <ClCompile Include="GUIImage.cpp" />
     <ClCompile Include="j1App.cpp" />
     <ClCompile Include="j1Audio.cpp" />
     <ClCompile Include="j1Collision.cpp" />
     <ClCompile Include="j1FadeToBlack.cpp" />
+    <ClCompile Include="j1GUIManager.cpp" />
     <ClCompile Include="j1Input.cpp" />
     <ClCompile Include="j1Main.cpp" />
     <ClCompile Include="j1Map.cpp" />
@@ -146,10 +149,13 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Enemy_level01_air.h" />
     <ClInclude Include="Enemy_level01_ground.h" />
+    <ClInclude Include="GUIElement.h" />
+    <ClInclude Include="GUIImage.h" />
     <ClInclude Include="j1App.h" />
     <ClInclude Include="j1Audio.h" />
     <ClInclude Include="j1Collision.h" />
     <ClInclude Include="j1FadeToBlack.h" />
+    <ClInclude Include="j1GUIManager.h" />
     <ClInclude Include="j1Input.h" />
     <ClInclude Include="j1Map.h" />
     <ClInclude Include="j1Module.h" />
