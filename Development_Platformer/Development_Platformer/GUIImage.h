@@ -9,7 +9,7 @@
 class GUIImage : public GUIElement
 {
 public:
-	GUIImage(int x, int y);
+	GUIImage(int x, int y, SDL_Rect image_area);
 	~GUIImage() {};
 
 	void Update(float dt);

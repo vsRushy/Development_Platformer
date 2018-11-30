@@ -33,7 +33,7 @@ public:
 	bool Save(pugi::xml_node&) const;
 
 public:
-	GUIElement* CreateGUIElement(GUI_ELEMENT_TYPE type, int x, int y);
+	GUIElement* CreateGUIElement(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect a);
 	void DeleteGUIElement(GUIElement* e);
 	void DeleteAllGUIElements();
 

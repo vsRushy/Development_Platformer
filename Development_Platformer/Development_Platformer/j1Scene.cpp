@@ -69,7 +69,7 @@ bool j1Scene::Start()
 		player->previous_position = player->position;
 
 		/* Add GUI :) */
-		image_gui = (GUIImage*)App->gui->CreateGUIElement(GUI_ELEMENT_TYPE::GUI_IMAGE, 10.0f, 10.0f);
+		image_gui = (GUIImage*)App->gui->CreateGUIElement(GUI_ELEMENT_TYPE::GUI_IMAGE, 10.0f, 10.0f, { 642, 169, 229, 69 });
 	}
 	else if (map_selected == 2)
 	{

@@ -27,7 +27,7 @@ bool j1GUIManager::Awake(pugi::xml_node& config)
 
 bool j1GUIManager::Start()
 {
-	atlas = App->tex->Load("textures/TEST___.png");
+	atlas = App->tex->Load("gui/atlas.png");
 
 	return true;
 }
@@ -68,7 +68,7 @@ bool j1GUIManager::CleanUp()
 	return true;
 }
 
-GUIElement* j1GUIManager::CreateGUIElement(GUI_ELEMENT_TYPE type, int x, int y)
+GUIElement* j1GUIManager::CreateGUIElement(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect a)
 {
 	//static_assert(? , "code needs update");
 	GUIElement* ret = nullptr;
@@ -76,7 +76,7 @@ GUIElement* j1GUIManager::CreateGUIElement(GUI_ELEMENT_TYPE type, int x, int y)
 	switch (type)
 	{
 	case GUI_ELEMENT_TYPE::GUI_IMAGE:
-		ret = new GUIImage(x, y);
+		ret = new GUIImage(x, y, a);
 		break;
 	/*case GUI_ELEMENT_TYPE::GUI_BUTTON:
 		ret = new GUIButton(x, y);

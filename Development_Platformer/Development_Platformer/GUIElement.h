@@ -4,16 +4,19 @@
 #include "p2Point.h"
 #include "j1GUIManager.h"
 
+#include "SDL/include/SDL_rect.h"
+
 struct SDL_Texture;
 
 class GUIElement
 {
 public:
 	fPoint position;
+	SDL_Rect area;
 	GUI_ELEMENT_TYPE type = GUI_ELEMENT_TYPE::UNKNOWN;
 
 public:
-	GUIElement(GUI_ELEMENT_TYPE type, int x, int y);
+	GUIElement(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect area);
 	virtual ~GUIElement();
 
 	virtual void Update(float dt) {};
