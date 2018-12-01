@@ -12,7 +12,8 @@ enum class GUI_ELEMENT_TYPE
 {
 	UNKNOWN,
 	GUI_IMAGE,
-	GUI_BUTTON
+	GUI_BUTTON,
+	GUI_LABEL
 };
 
 class j1GUIManager : public j1Module
@@ -33,7 +34,7 @@ public:
 	bool Save(pugi::xml_node&) const;
 
 public:
-	GUIElement * CreateGUIElement(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect a, SDL_Rect a_1 = { NULL }, SDL_Rect a_2 = { NULL });
+	GUIElement* CreateGUIElement(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect a, SDL_Rect a_1 = { NULL }, SDL_Rect a_2 = { NULL });
 	void DeleteGUIElement(GUIElement* e);
 	void DeleteAllGUIElements();
 

@@ -9,6 +9,7 @@
 #include "GUIElement.h"
 #include "GUIImage.h"
 #include "GUIButton.h"
+#include "GUILabel.h"
 
 j1GUIManager::j1GUIManager()
 {
@@ -47,6 +48,10 @@ bool j1GUIManager::Update(float dt)
 		if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_BUTTON)
 			gui_elements[i]->Draw(atlas);
 
+	for (uint i = 0; i < gui_elements.Count(); ++i)
+		if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_LABEL)
+			gui_elements[i]->Draw(atlas);
+
 	return true;
 }
 
@@ -82,6 +87,9 @@ GUIElement* j1GUIManager::CreateGUIElement(GUI_ELEMENT_TYPE type, int x, int y, 
 	case GUI_ELEMENT_TYPE::GUI_BUTTON:
 		ret = new GUIButton(x, y, a, a_1, a_2);
 		break;
+	/*case GUI_ELEMENT_TYPE::GUI_LABEL:
+		ret = new GUILabel(x, y, a, a_1, a_2);
+		break;*/
 	default:
 		break;
 	}
