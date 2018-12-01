@@ -34,7 +34,7 @@ public:
 	bool Save(pugi::xml_node&) const;
 
 public:
-	GUIElement* CreateGUIElement(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect a, SDL_Rect a_1 = { NULL }, SDL_Rect a_2 = { NULL });
+	GUIElement* CreateGUIElement(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect a, SDL_Rect a_1 = { NULL }, SDL_Rect a_2 = { NULL }, p2SString text = nullptr, int size = 0);
 	void DeleteGUIElement(GUIElement* e);
 	void DeleteAllGUIElements();
 
