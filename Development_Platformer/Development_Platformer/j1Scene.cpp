@@ -75,7 +75,7 @@ bool j1Scene::Start()
 		/* Add GUI :) */
 		image_gui = (GUIImage*)App->gui->CreateGUIElement(GUI_ELEMENT_TYPE::GUI_IMAGE, 10.0f, 10.0f, { 642, 169, 229, 69 });
 		button_gui = (GUIButton*)App->gui->CreateGUIElement(GUI_ELEMENT_TYPE::GUI_BUTTON, 72.0f, 72.0f, { 642, 169, 229, 69 }, { 0, 113, 229, 69 }, { 411, 169, 229, 69 });
-		label_gui = (GUILabel*)App->gui->CreateGUIElement(GUI_ELEMENT_TYPE::GUI_LABEL, 80.0f, 135.0f, { NULL }, { NULL }, { NULL }, "Testing", 7);
+		label_gui = (GUILabel*)App->gui->CreateLabel(GUI_ELEMENT_TYPE::GUI_LABEL, 80.0f, 135.0f, "Testing", { 255, 255, 255, 255 }, App->gui->default_font_used);
 		
 	}
 	else if (map_selected == 2)

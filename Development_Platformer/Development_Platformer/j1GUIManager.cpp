@@ -31,6 +31,8 @@ bool j1GUIManager::Start()
 {
 	atlas = App->tex->Load("gui/atlas.png");
 
+	default_font_used = App->fonts->Load("fonts/open_sans/OpenSans-Regular.ttf");
+
 	return true;
 }
 
@@ -50,7 +52,7 @@ bool j1GUIManager::Update(float dt)
 
 	for (uint i = 0; i < gui_elements.Count(); ++i)
 		if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_LABEL)
-			gui_elements[i]->Draw(atlas);
+			gui_elements[i]->DrawLabel();
 
 	return true;
 }
@@ -74,7 +76,7 @@ bool j1GUIManager::CleanUp()
 	return true;
 }
 
-GUIElement* j1GUIManager::CreateGUIElement(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect a, SDL_Rect a_1, SDL_Rect a_2, p2SString text, int size)
+GUIElement* j1GUIManager::CreateGUIElement(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect a, SDL_Rect a_1, SDL_Rect a_2)
 {
 	//static_assert(? , "code needs update");
 	GUIElement* ret = nullptr;
@@ -87,8 +89,25 @@ GUIElement* j1GUIManager::CreateGUIElement(GUI_ELEMENT_TYPE type, int x, int y, 
 	case GUI_ELEMENT_TYPE::GUI_BUTTON:
 		ret = new GUIButton(x, y, a, a_1, a_2);
 		break;
+	default:
+		break;
+	}
+
+	if (ret != nullptr)
+		gui_elements.PushBack(ret);
+
+	return ret;
+}
+
+GUIElement* j1GUIManager::CreateLabel(GUI_ELEMENT_TYPE type, int x, int y, p2SString text, SDL_Color color, _TTF_Font* font)
+{
+	//static_assert(? , "code needs update");
+	GUIElement* ret = nullptr;
+
+	switch (type)
+	{
 	case GUI_ELEMENT_TYPE::GUI_LABEL:
-		ret = new GUILabel(x, y, text, size);
+		ret = new GUILabel(x, y, text, color, font);
 		break;
 	default:
 		break;

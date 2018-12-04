@@ -4,23 +4,35 @@
 #include "GUIElement.h"
 #include "j1Fonts.h"
 #include "p2SString.h"
+#include "j1Textures.h"
+
+#include "SDL/include/SDL_pixels.h"
+
+struct _TTF_Font;
+struct SDL_Texture;
 
 class GUILabel : public GUIElement
 {
 public:
-	GUILabel(int x, int y, p2SString text, uint size);
-	~GUILabel() {};
+	GUILabel(int x, int y, p2SString text, SDL_Color color, _TTF_Font* font);
+	~GUILabel() 
+	{
+		App->tex->UnLoad(tex);
+	};
 
 	void Update(float dt);
+	void DrawLabel();
 
 	void SetText(p2SString text);
 
 public:
+	_TTF_Font* font = nullptr;
+	SDL_Texture* tex = nullptr;
 	p2SString text;
+	SDL_Color color;
 
 private:
-	j1Fonts font;
-	int size = 0;
+
 };
 
 #endif // __GUILabel_H__
