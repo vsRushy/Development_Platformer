@@ -35,7 +35,7 @@ void GUILabel::Update(float dt)
 
 void GUILabel::DrawLabel()
 {
-	App->render->Blit(tex, position.x, position.y, &area);
+	App->render->Blit(tex, position.x, position.y, &area, 0.0f);
 }
 
 void GUILabel::SetText(p2SString text)
