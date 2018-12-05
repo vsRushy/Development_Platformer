@@ -99,7 +99,7 @@ GUIElement* j1GUIManager::CreateGUIElement(GUI_ELEMENT_TYPE type, int x, int y, 
 	return ret;
 }
 
-GUIElement* j1GUIManager::CreateLabel(GUI_ELEMENT_TYPE type, int x, int y, p2SString text, SDL_Color color, _TTF_Font* font)
+GUIElement* j1GUIManager::CreateGUILabel(GUI_ELEMENT_TYPE type, int x, int y, p2SString text, SDL_Color color, _TTF_Font* font)
 {
 	//static_assert(? , "code needs update");
 	GUIElement* ret = nullptr;

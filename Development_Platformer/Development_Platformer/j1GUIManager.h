@@ -36,10 +36,11 @@ public:
 
 public:
 	GUIElement* CreateGUIElement(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect a, SDL_Rect a_1 = { NULL }, SDL_Rect a_2 = { NULL });
-	GUIElement* CreateLabel(GUI_ELEMENT_TYPE type, int x, int y, p2SString text, SDL_Color color, _TTF_Font* font);
+	GUIElement* CreateGUILabel(GUI_ELEMENT_TYPE type, int x, int y, p2SString text, SDL_Color color, _TTF_Font* font);
 	void DeleteGUIElement(GUIElement* e);
 	void DeleteAllGUIElements();
 
+public:
 	_TTF_Font* default_font_used = nullptr;
 
 private:

@@ -11,6 +11,9 @@ public:
 
 	void Update(float dt);
 
+	void Click();
+	void Move();
+
 	SDL_Rect initial_area;
 	
 	SDL_Rect img_area_hover;
