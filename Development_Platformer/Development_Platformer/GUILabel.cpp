@@ -42,9 +42,14 @@ void GUILabel::SetText(p2SString text)
 {
 	this->text = text;
 
+	tex = App->fonts->Print(this->text.GetString(), this->color, this->font);
+
 	// Create new rect
 	int width = 0, height = 0;
-	App->fonts->CalcSize(this->text.GetString(), width, height, App->fonts->default_font);
+	App->fonts->CalcSize(this->text.GetString(), width, height, App->gui->default_font_used);
 	area.w = width;
 	area.h = height;
+
+	area.x = 0;
+	area.y = 0;
 }

@@ -25,7 +25,6 @@ void GUIButton::Click()
 {
 	int x, y;
 	App->input->GetMousePosition(x, y);
-	//LOG("MOUSE_X: %d, MOUSE_Y: %d", x, y);
 
 	bool is_inside = x > position.x && x < position.x + initial_area.w && y > position.y && y < position.y + initial_area.h;
 
