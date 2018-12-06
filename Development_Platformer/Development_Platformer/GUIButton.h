@@ -12,7 +12,6 @@ public:
 	void Update(float dt);
 
 	void Click();
-	void Move();
 
 	SDL_Rect initial_area;
 	

@@ -10,8 +10,6 @@ public:
 	~GUIImage() {};
 
 	void Update(float dt);
-
-	void Move();
 };
 
 #endif // __GUIImage_H__

@@ -30,7 +30,7 @@ GUILabel::GUILabel(int x, int y, p2SString text, SDL_Color color, _TTF_Font* fon
 
 void GUILabel::Update(float dt)
 {
-
+	Move();
 }
 
 void GUILabel::DrawLabel()

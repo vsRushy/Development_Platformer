@@ -18,6 +18,7 @@ GUIButton::GUIButton(int x, int y, SDL_Rect image_area, SDL_Rect image_area_hove
 void GUIButton::Update(float dt)
 {
 	Click();
+	Move();
 }
 
 void GUIButton::Click()
@@ -42,22 +43,5 @@ void GUIButton::Click()
 	else
 	{
 		area = initial_area;
-	}
-}
-
-void GUIButton::Move()
-{
-	int x, y;
-	App->input->GetMousePosition(x, y);
-
-	bool is_inside = x > position.x && x < position.x + initial_area.w && y > position.y && y < position.y + initial_area.h;
-
-	if (is_inside)
-	{
-		if (App->input->GetMouseButtonDown(3))
-		{
-			position.x += x;
-			position.y += y;
-		}
 	}
 }

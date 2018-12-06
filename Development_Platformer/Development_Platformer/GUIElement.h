@@ -19,9 +19,11 @@ public:
 	GUIElement(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect area);
 	virtual ~GUIElement();
 
-	virtual void Update(float dt) {};
+	virtual void Update(float dt);
 	virtual void Draw(SDL_Texture* sprites, float speed = 0.0f);
 	virtual void DrawLabel() {}
+
+	virtual void Move();
 };
 
 #endif // __GUIElement_H__
