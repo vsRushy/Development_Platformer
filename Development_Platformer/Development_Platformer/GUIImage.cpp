@@ -25,20 +25,10 @@ void GUIImage::Move()
 
 	if (is_inside)
 	{
-		float dist_x_posx = x + position.x;
-		float dist_y_posy = y + position.y;
-		LOG("%f", dist_x_posx);
-
 		if (App->input->GetMouseButtonDown(3))
 		{
-			/*position.x = x - 3;
-			position.y = y - 3;*/
-			
-			/*float dist_x_posx = x + position.x;
-			float dist_y_posy = x + position.y;*/
-			
-			position.x = x - dist_x_posx;
-			position.y = y - dist_y_posy;
+			position.x = x - area.w / 2;
+			position.y = y - area.h / 2;
 		}
 	}
 }
