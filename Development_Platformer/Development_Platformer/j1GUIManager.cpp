@@ -76,22 +76,23 @@ bool j1GUIManager::CleanUp()
 	return true;
 }
 
-GUIElement* j1GUIManager::CreateGUIElement(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect a, SDL_Rect a_1, SDL_Rect a_2)
+GUIElement* j1GUIManager::CreateGUIImage(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect a)
 {
-	//static_assert(? , "code needs update");
 	GUIElement* ret = nullptr;
 
-	switch (type)
-	{
-	case GUI_ELEMENT_TYPE::GUI_IMAGE:
-		ret = new GUIImage(x, y, a);
-		break;
-	case GUI_ELEMENT_TYPE::GUI_BUTTON:
-		ret = new GUIButton(x, y, a, a_1, a_2);
-		break;
-	default:
-		break;
-	}
+	ret = new GUIImage(x, y, a);
+
+	if (ret != nullptr)
+		gui_elements.PushBack(ret);
+
+	return ret;
+}
+
+GUIElement* j1GUIManager::CreateGUIButton(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect a, SDL_Rect a_1, SDL_Rect a_2)
+{
+	GUIElement* ret = nullptr;
+
+	ret = new GUIButton(x, y, a, a_1, a_2);
 
 	if (ret != nullptr)
 		gui_elements.PushBack(ret);
@@ -101,17 +102,10 @@ GUIElement* j1GUIManager::CreateGUIElement(GUI_ELEMENT_TYPE type, int x, int y, 
 
 GUIElement* j1GUIManager::CreateGUILabel(GUI_ELEMENT_TYPE type, int x, int y, p2SString text, SDL_Color color, _TTF_Font* font)
 {
-	//static_assert(? , "code needs update");
 	GUIElement* ret = nullptr;
 
-	switch (type)
-	{
-	case GUI_ELEMENT_TYPE::GUI_LABEL:
-		ret = new GUILabel(x, y, text, color, font);
-		break;
-	default:
-		break;
-	}
+	ret = new GUILabel(x, y, text, color, font);
+
 
 	if (ret != nullptr)
 		gui_elements.PushBack(ret);
