@@ -5,7 +5,7 @@
 #include "GUIButton.h"
 #include "p2Log.h"
 
-GUIButton::GUIButton(int x, int y, SDL_Rect image_area, SDL_Rect image_area_hover, SDL_Rect image_area_pressed) : GUIElement(type, x, y, area)
+GUIButton::GUIButton(int x, int y, SDL_Rect image_area, SDL_Rect image_area_hover, SDL_Rect image_area_pressed, GUIElement* parent) : GUIElement(type, x, y, area, parent)
 {
 	type = GUI_ELEMENT_TYPE::GUI_BUTTON;
 	initial_area = image_area;

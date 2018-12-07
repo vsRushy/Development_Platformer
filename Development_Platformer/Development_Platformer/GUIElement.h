@@ -7,6 +7,7 @@
 #include "SDL/include/SDL_rect.h"
 
 struct SDL_Texture;
+class GUIElement;
 
 class GUIElement
 {
@@ -16,7 +17,7 @@ public:
 	GUI_ELEMENT_TYPE type = GUI_ELEMENT_TYPE::UNKNOWN;
 
 public:
-	GUIElement(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect area);
+	GUIElement(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect area, GUIElement* parent);
 	virtual ~GUIElement();
 
 	virtual void Update(float dt);
@@ -24,6 +25,9 @@ public:
 	virtual void DrawLabel() {}
 
 	virtual void Move();
+
+private:
+	GUIElement* parent = nullptr;
 };
 
 #endif // __GUIElement_H__

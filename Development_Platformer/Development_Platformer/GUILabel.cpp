@@ -6,7 +6,7 @@
 
 #include "SDL_ttf/include/SDL_ttf.h"
 
-GUILabel::GUILabel(int x, int y, p2SString text, SDL_Color color, _TTF_Font* font) : GUIElement(type, x, y, area)
+GUILabel::GUILabel(int x, int y, p2SString text, SDL_Color color, _TTF_Font* font, GUIElement* parent) : GUIElement(type, x, y, area, parent)
 {
 	type = GUI_ELEMENT_TYPE::GUI_LABEL;
 

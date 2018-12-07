@@ -6,7 +6,7 @@
 class GUIImage : public GUIElement
 {
 public:
-	GUIImage(int x, int y, SDL_Rect image_area);
+	GUIImage(int x, int y, SDL_Rect image_area, GUIElement* parent);
 	~GUIImage() {};
 
 	void Update(float dt);
