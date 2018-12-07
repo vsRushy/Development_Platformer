@@ -73,8 +73,9 @@ public:
 
 // GUI
 public:
-	GUIImage* image_gui = nullptr;
-	GUIButton* button_gui = nullptr;
+	GUIImage* logo_gui = nullptr;
+	GUIButton* start_button_gui = nullptr;
+	GUIButton* quit_button_gui = nullptr;
 	GUILabel* label_gui = nullptr;
 };
 

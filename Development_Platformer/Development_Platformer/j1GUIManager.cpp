@@ -30,7 +30,8 @@ bool j1GUIManager::Awake(pugi::xml_node& config)
 bool j1GUIManager::Start()
 {
 	atlas = App->tex->Load("gui/atlas.png");
-	button_textures = App->tex->Load("gui/Start_Button_01.png");
+	image_textures = App->tex->Load("gui/Gerard_Marti_01.png");
+	button_textures = App->tex->Load("gui/Start_Quit_Buttons_01.png");
 
 	default_font_used = App->fonts->Load("fonts/open_sans/OpenSans-Regular.ttf");
 
@@ -45,7 +46,7 @@ bool j1GUIManager::Update(float dt)
 
 	for (uint i = 0; i < gui_elements.Count(); ++i)
 		if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_IMAGE)
-			gui_elements[i]->Draw(atlas);
+			gui_elements[i]->Draw(image_textures);
 
 	for (uint i = 0; i < gui_elements.Count(); ++i)
 		if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_BUTTON)
@@ -64,6 +65,7 @@ bool j1GUIManager::CleanUp()
 	LOG("Freeing all gui elements");
 
 	App->tex->UnLoad(atlas);
+	App->tex->UnLoad(image_textures);
 	App->tex->UnLoad(button_textures);
 
 	for (uint i = 0; i < gui_elements.Count(); ++i)
