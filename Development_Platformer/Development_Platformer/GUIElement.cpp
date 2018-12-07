@@ -35,16 +35,16 @@ void GUIElement::Move()
 	if (son != nullptr)
 		is_inside_son = x > son->position.x && x < son->position.x + son->area.w && y > son->position.y && y < son->position.y + son->area.h;
 
-	bool isAlt = false;
+	bool is_ctrl = false;
 	if (App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT)
 	{
-		isAlt = true;
+		is_ctrl = true;
 	}
-	else isAlt = false;
+	else is_ctrl = false;
 
 	if (is_inside_parent)
 	{
-		if (son == nullptr && !isAlt)
+		if (son == nullptr && !is_ctrl)
 		{
 			if (App->input->GetMouseButtonDown(3))
 			{
@@ -54,7 +54,7 @@ void GUIElement::Move()
 		}
 		else if (son != nullptr)
 		{
-			if (App->input->GetMouseButtonDown(3) && !isAlt)
+			if (App->input->GetMouseButtonDown(3) && !is_ctrl)
 			{
 				position.x = x - area.w / 2;
 				position.y = y - area.h / 2;
@@ -66,7 +66,7 @@ void GUIElement::Move()
 
 	if (is_inside_son)
 	{
-		if (App->input->GetMouseButtonDown(3) && isAlt)
+		if (App->input->GetMouseButtonDown(3) && is_ctrl)
 		{
 			son->position.x = x - son->area.w / 2;
 			son->position.y = y - son->area.h / 2;
