@@ -29,11 +29,22 @@ void GUIElement::Move()
 	int x, y;
 	App->input->GetMousePosition(x, y);
 
-	bool is_inside = x > position.x && x < position.x + area.w && y > position.y && y < position.y + area.h;
+	bool is_inside_parent = x > position.x && x < position.x + area.w && y > position.y && y < position.y + area.h;
 
-	if (is_inside)
+	bool is_inside_son = false;
+	if (son != nullptr)
+		is_inside_son = x > son->position.x && x < son->position.x + son->area.w && y > son->position.y && y < son->position.y + son->area.h;
+
+	bool isAlt = false;
+	if (App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT)
 	{
-		if (son == nullptr)
+		isAlt = true;
+	}
+	else isAlt = false;
+
+	if (is_inside_parent)
+	{
+		if (son == nullptr && !isAlt)
 		{
 			if (App->input->GetMouseButtonDown(3))
 			{
@@ -43,13 +54,22 @@ void GUIElement::Move()
 		}
 		else if (son != nullptr)
 		{
-			if (App->input->GetMouseButtonDown(3))
+			if (App->input->GetMouseButtonDown(3) && !isAlt)
 			{
 				position.x = x - area.w / 2;
 				position.y = y - area.h / 2;
 				son->position.x = x - son->area.w / 2;
 				son->position.y = y - son->area.h / 2;
 			}
+		}
+	}
+
+	if (is_inside_son)
+	{
+		if (App->input->GetMouseButtonDown(3) && isAlt)
+		{
+			son->position.x = x - son->area.w / 2;
+			son->position.y = y - son->area.h / 2;
 		}
 	}
 }
