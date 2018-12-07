@@ -76,11 +76,11 @@ bool j1GUIManager::CleanUp()
 	return true;
 }
 
-GUIElement* j1GUIManager::CreateGUIImage(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect a, GUIElement* parent)
+GUIElement* j1GUIManager::CreateGUIImage(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect a, GUIElement* son)
 {
 	GUIElement* ret = nullptr;
 
-	ret = new GUIImage(x, y, a, parent);
+	ret = new GUIImage(x, y, a, son);
 
 	if (ret != nullptr)
 		gui_elements.PushBack(ret);
@@ -88,11 +88,11 @@ GUIElement* j1GUIManager::CreateGUIImage(GUI_ELEMENT_TYPE type, int x, int y, SD
 	return ret;
 }
 
-GUIElement* j1GUIManager::CreateGUIButton(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect a, SDL_Rect a_1, SDL_Rect a_2, GUIElement* parent)
+GUIElement* j1GUIManager::CreateGUIButton(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect a, SDL_Rect a_1, SDL_Rect a_2, GUIElement* son)
 {
 	GUIElement* ret = nullptr;
 
-	ret = new GUIButton(x, y, a, a_1, a_2, parent);
+	ret = new GUIButton(x, y, a, a_1, a_2, son);
 
 	if (ret != nullptr)
 		gui_elements.PushBack(ret);
@@ -100,11 +100,11 @@ GUIElement* j1GUIManager::CreateGUIButton(GUI_ELEMENT_TYPE type, int x, int y, S
 	return ret;
 }
 
-GUIElement* j1GUIManager::CreateGUILabel(GUI_ELEMENT_TYPE type, int x, int y, p2SString text, SDL_Color color, _TTF_Font* font, GUIElement* parent)
+GUIElement* j1GUIManager::CreateGUILabel(GUI_ELEMENT_TYPE type, int x, int y, p2SString text, SDL_Color color, _TTF_Font* font, GUIElement* son)
 {
 	GUIElement* ret = nullptr;
 
-	ret = new GUILabel(x, y, text, color, font, parent);
+	ret = new GUILabel(x, y, text, color, font, son);
 
 
 	if (ret != nullptr)

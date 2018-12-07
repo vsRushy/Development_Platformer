@@ -17,7 +17,7 @@ public:
 	GUI_ELEMENT_TYPE type = GUI_ELEMENT_TYPE::UNKNOWN;
 
 public:
-	GUIElement(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect area, GUIElement* parent);
+	GUIElement(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect area, GUIElement* son);
 	virtual ~GUIElement();
 
 	virtual void Update(float dt);
@@ -27,7 +27,7 @@ public:
 	virtual void Move();
 
 private:
-	GUIElement* parent = nullptr;
+	GUIElement* son = nullptr;
 };
 
 #endif // __GUIElement_H__

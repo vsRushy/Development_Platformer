@@ -4,7 +4,7 @@
 #include "j1Textures.h"
 #include "j1Input.h"
 
-GUIElement::GUIElement(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect area, GUIElement* parent) : type(type), position(x, y), area(area), parent(parent)
+GUIElement::GUIElement(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect area, GUIElement* son) : type(type), position(x, y), area(area), son(son)
 {
 
 }
@@ -33,7 +33,7 @@ void GUIElement::Move()
 
 	if (is_inside)
 	{
-		if (parent == nullptr)
+		if (son == nullptr)
 		{
 			if (App->input->GetMouseButtonDown(3))
 			{
@@ -41,14 +41,14 @@ void GUIElement::Move()
 				position.y = y - area.h / 2;
 			}
 		}
-		else if (parent != nullptr)
+		else if (son != nullptr)
 		{
 			if (App->input->GetMouseButtonDown(3))
 			{
 				position.x = x - area.w / 2;
 				position.y = y - area.h / 2;
-				parent->position.x = x - parent->area.w / 2;
-				parent->position.y = y - parent->area.h / 2;
+				son->position.x = x - son->area.w / 2;
+				son->position.y = y - son->area.h / 2;
 			}
 		}
 	}
