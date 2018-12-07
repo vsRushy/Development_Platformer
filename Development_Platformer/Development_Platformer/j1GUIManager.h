@@ -47,7 +47,8 @@ public:
 private:
 	p2DynArray<GUIElement*> gui_elements = NULL;
 
-	SDL_Texture* atlas;
+	SDL_Texture* atlas = nullptr;
+	SDL_Texture* button_textures = nullptr;
 };
 
 #endif // __j1GUIManager_H__
