@@ -64,6 +64,8 @@ public:
 
 	bool actual_god_mode = false;
 
+	bool start_game = false;
+
 public:
 	Player* player;
 	Enemy_level01_air* enemy01air = nullptr;

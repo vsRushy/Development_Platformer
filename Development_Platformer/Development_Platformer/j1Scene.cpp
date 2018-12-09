@@ -75,8 +75,8 @@ bool j1Scene::Start()
 		/* Add GUI :) */
 		label_gui = (GUILabel*)App->gui->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 163.0f, 97.0f, "Testing", { 255, 255, 255, 255 }, App->gui->default_font_used);
 		logo_gui = (GUIImage*)App->gui->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 424.0f, 358.0f, { 0, 0, 84, 22 });
-		start_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 72.0f, 72.0f, { 0, 0, 47, 24 }, { 0, 24, 47, 24 }, { 0, 48, 47, 24 });
-		quit_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 72.0f, 150.0f, { 47, 0, 47, 24 }, { 47, 24, 47, 24 }, { 47, 48, 47, 24 });
+		start_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 4.0f, 4.0f, { 0, 0, 47, 24 }, { 0, 24, 47, 24 }, { 0, 48, 47, 24 });
+		quit_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 4.0f, 32.0f, { 47, 0, 47, 24 }, { 47, 24, 47, 24 }, { 47, 48, 47, 24 });
 	}
 	else if (map_selected == 2)
 	{
@@ -108,146 +108,158 @@ bool j1Scene::PreUpdate()
 bool j1Scene::Update(float dt)
 {
 	BROFILER_CATEGORY("Scene Update", Profiler::Color::CadetBlue);
-	/*INPUT--------------------------------------------*/
-	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+
+	// UI Check
+	if (start_button_gui->is_pressed)
 	{
-		App->LoadGame();
-	}
-	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
-	{
-		App->SaveGame();
+		start_game = true;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-		App->render->camera.y -= 450 * dt;
-	else
-	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-		App->render->camera.y += 450 * dt;
-	else
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-		App->render->camera.x -= 450 * dt;
-	else
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-		App->render->camera.x += 450 * dt;
-	else
+	if (start_game)
 	{
-		App->render->camera.x = (int)(player->position.x - 242) * (-1) * App->win->GetScale();
-		App->render->camera.y = (int)(player->position.y - 200) * (-1) * App->win->GetScale();
-	}
-
-	// Start from the first level
-	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
-	{
-		if (map_selected == 1)
+		/*INPUT--------------------------------------------*/
+		if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		{
+			App->LoadGame();
+		}
+		if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+		{
+			App->SaveGame();
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+			App->render->camera.y -= 450 * dt;
+		else
+			if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+				App->render->camera.y += 450 * dt;
+			else
+				if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+					App->render->camera.x -= 450 * dt;
+				else
+					if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+						App->render->camera.x += 450 * dt;
+					else
+					{
+						App->render->camera.x = (int)(player->position.x - 242) * (-1) * App->win->GetScale();
+						App->render->camera.y = (int)(player->position.y - 200) * (-1) * App->win->GetScale();
+					}
+
+
+
+		// Start from the first level
+		if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+		{
+			if (map_selected == 1)
+			{
+				App->entities->DeleteAllEntities();
+				player->position = first_map_pos;
+				player->previous_position = player->position;
+			}
+			else if (map_selected == 2)
+			{
+				map_selected = 1;
+				App->entities->DeleteAllEntities();
+				player->position = first_map_pos;
+				player->previous_position = player->position;
+			}
+			player->player_start = true;
+			App->fade->FadeToBlack(this, this, 0.1f);
+		}
+
+		// Start from the current level
+		if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+		{
+			if (map_selected == 1)
+			{
+				App->entities->DeleteAllEntities();
+				player->position = first_map_pos;
+				player->previous_position = player->position;
+			}
+			else if (map_selected == 2)
+			{
+				App->entities->DeleteAllEntities();
+				player->position = second_map_pos;
+				player->previous_position = player->position;
+			}
+			player->player_start = true;
+			App->fade->FadeToBlack(this, this, 0.1f);
+		}
+
+		// Set volume
+		if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_DOWN)
+			App->audio->ControlVolume(true);
+		if (App->input->GetKey(SDL_SCANCODE_KP_MINUS) == KEY_DOWN)
+			App->audio->ControlVolume(false);
+
+		// Set the window title like
+		// "Map:%dx%d Tiles:%dx%d Tilesets:%d"                            // Uncomment the following if you want to see tileset info as window title
+		/*p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
+			App->map->data.width, App->map->data.height,
+			App->map->data.tile_width, App->map->data.tile_height,
+			App->map->data.tilesets.count());
+
+		App->win->SetTitle(title.GetString());*/
+
+		/* Will the player reach the end position to go to level 2? */
+		if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN || App->map->data.IsObjectTrigger("Player", "PlayerEndPos", player->position) && !App->fade->IsFading())
+		{
+			if (map_selected == 1)
+				map_selected = 2;
+			else if (map_selected == 2)
+				map_selected = 1;
+
 			App->entities->DeleteAllEntities();
-			player->position = first_map_pos;
-			player->previous_position = player->position;
+			player->player_start = true;
+			App->fade->FadeToBlack(this, this);
 		}
-		else if(map_selected == 2)
+
+		/* ENVABLE/DISABLE GOD MODE */
+		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 		{
-			map_selected = 1;
-			App->entities->DeleteAllEntities();
-			player->position = first_map_pos;
-			player->previous_position = player->position;
+			actual_god_mode = !actual_god_mode;
+			player->god_mode = !player->god_mode;
 		}
-		player->player_start = true;
-		App->fade->FadeToBlack(this, this, 0.1f);
-	}
 
-	// Start from the current level
-	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-	{
-		if (map_selected == 1)
+		/* Check if player falls into the death zone */
+		if (App->map->data.IsObjectTrigger("DeathZone", "DeathZone_1", player->position) ||
+			App->map->data.IsObjectTrigger("DeathZone", "DeathZone_2", player->position) ||
+			App->map->data.IsObjectTrigger("DeathZone", "DeathZone_3", player->position) ||
+			App->map->data.IsObjectTrigger("DeathZone", "DeathZone_4", player->position) ||
+			App->map->data.IsObjectTrigger("DeathZone", "DeathZone_5", player->position) ||
+			App->map->data.IsObjectTrigger("DeathZone", "DeathZone_6", player->position) ||
+			App->map->data.IsObjectTrigger("DeathZone", "DeathZone_7", player->position))
 		{
-			App->entities->DeleteAllEntities();
-			player->position = first_map_pos;
-			player->previous_position = player->position;
+
+			if (map_selected == 1)
+			{
+				player->position = first_map_pos;
+				player->previous_position = player->position;
+			}
+
+			else if (map_selected == 2)
+			{
+				player->position = second_map_pos;
+				player->previous_position = player->position;
+			}
+
+			player->Reset();
 		}
-		else if (map_selected == 2)
-		{
-			App->entities->DeleteAllEntities();
-			player->position = second_map_pos;
-			player->previous_position = player->position;
-		}
-		player->player_start = true;
-		App->fade->FadeToBlack(this, this, 0.1f);
+
+		/* DRAW------------ */
+		// App->render->Blit(img, 0, 0);
+		App->map->Draw();
+
+
+		// Debug pathfinding ------------------------------
+		int x, y;
+		App->input->GetMousePosition(x, y);
+		iPoint p = App->render->ScreenToWorld(x, y);
+		p = App->map->WorldToMap(p.x, p.y);
+		p = App->map->MapToWorld(p.x, p.y);
+
+		if (player->god_mode)
+			App->render->Blit(debug_tex, p.x, p.y);
 	}
-
-	// Set volume
-	if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_DOWN)
-		App->audio->ControlVolume(true);
-	if (App->input->GetKey(SDL_SCANCODE_KP_MINUS) == KEY_DOWN)
-		App->audio->ControlVolume(false);
-
-	// Set the window title like
-	// "Map:%dx%d Tiles:%dx%d Tilesets:%d"                            // Uncomment the following if you want to see tileset info as window title
-	/*p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
-		App->map->data.width, App->map->data.height,
-		App->map->data.tile_width, App->map->data.tile_height,
-		App->map->data.tilesets.count());
-
-	App->win->SetTitle(title.GetString());*/
-
-	/* Will the player reach the end position to go to level 2? */
-	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN || App->map->data.IsObjectTrigger("Player", "PlayerEndPos", player->position) && !App->fade->IsFading())
-	{
-		if (map_selected == 1)
-			map_selected = 2;
-		else if(map_selected == 2)
-			map_selected = 1;
-
-		App->entities->DeleteAllEntities();
-		player->player_start = true;
-		App->fade->FadeToBlack(this, this);
-	}
-
-	/* ENVABLE/DISABLE GOD MODE */
-	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
-	{
-		actual_god_mode = !actual_god_mode;
-		player->god_mode = !player->god_mode;
-	}
-
-	/* Check if player falls into the death zone */
-	if (App->map->data.IsObjectTrigger("DeathZone", "DeathZone_1", player->position) ||
-		App->map->data.IsObjectTrigger("DeathZone", "DeathZone_2", player->position) ||
-		App->map->data.IsObjectTrigger("DeathZone", "DeathZone_3", player->position) ||
-		App->map->data.IsObjectTrigger("DeathZone", "DeathZone_4", player->position) ||
-		App->map->data.IsObjectTrigger("DeathZone", "DeathZone_5", player->position) ||
-		App->map->data.IsObjectTrigger("DeathZone", "DeathZone_6", player->position) ||
-		App->map->data.IsObjectTrigger("DeathZone", "DeathZone_7", player->position))
-	{
-
-		if (map_selected == 1)
-		{
-			player->position = first_map_pos;
-			player->previous_position = player->position;
-		}
-	
-		else if (map_selected == 2)
-		{
-			player->position = second_map_pos;
-			player->previous_position = player->position;
-		}
-		
-		player->Reset();
-	}
-
-	/* DRAW------------ */
-	// App->render->Blit(img, 0, 0);
-	App->map->Draw();
-
-
-	// Debug pathfinding ------------------------------
-	int x, y;
-	App->input->GetMousePosition(x, y);
-	iPoint p = App->render->ScreenToWorld(x, y);
-	p = App->map->WorldToMap(p.x, p.y);
-	p = App->map->MapToWorld(p.x, p.y);
-
-	if(player->god_mode)
-		App->render->Blit(debug_tex, p.x, p.y);
 
 	return true;
 }

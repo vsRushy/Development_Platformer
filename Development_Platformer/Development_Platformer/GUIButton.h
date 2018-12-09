@@ -17,6 +17,8 @@ public:
 	
 	SDL_Rect img_area_hover;
 	SDL_Rect img_area_pressed;
+
+	bool is_pressed = false;
 };
 
 #endif // __GUIButton_H__

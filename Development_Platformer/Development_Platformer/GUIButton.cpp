@@ -33,14 +33,17 @@ void GUIButton::Click()
 		if (App->input->GetMouseButtonDown(1))
 		{
 			area = img_area_pressed;
+			is_pressed = true;
 		}
 		else
 		{
 			area = img_area_hover;
+			is_pressed = false;
 		}
 	}
 	else
 	{
 		area = initial_area;
+		is_pressed = false;
 	}
 }
