@@ -78,6 +78,8 @@ You can shoot a sword! The fun thing is, you can teleport to it conserving the k
 
 ## Credits
 
+GUI created by Gerard Marcos.
+
 Author 1 nickname: Buch.
 
 • OpenGameArt account: [Buch](https://opengameart.org/users/buch)

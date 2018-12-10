@@ -50,50 +50,63 @@ bool j1Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool j1Scene::Start()
 {
-	if (map_selected == 1)
+	if (!start_game)
 	{
-		App->map->Load(first_map.GetString());
-		App->audio->PlayMusic(first_song.GetString());
-
-		int w, h;
-		uchar* data = NULL;
-		if (App->map->CreateWalkabilityMap(w, h, &data))
-			App->pathfinding->SetMap(w, h, data);
-
-		RELEASE_ARRAY(data);
-
-		first_map_pos = App->map->data.ObjectPos("Player", "PlayerStartPos");
-		
-		/* Add entities :) */
-		player = (Player*)App->entities->CreateEntity(ENTITY_TYPES::PLAYER, first_map_pos.x, first_map_pos.y);
-		enemy01air = (Enemy_level01_air*)App->entities->CreateEntity(ENTITY_TYPES::ENEMY_LEVEL01_AIR, 470, 200);
-		enemy01ground = (Enemy_level01_ground*)App->entities->CreateEntity(ENTITY_TYPES::ENEMY_LEVEL01_GROUND, 960, 779);
-
-		player->position = first_map_pos;
-		player->previous_position = player->position;
-
-		/* Add GUI :) */
-		label_gui = (GUILabel*)App->gui->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 163.0f, 97.0f, "Testing", { 255, 255, 255, 255 }, App->gui->default_font_used);
-		logo_gui = (GUIImage*)App->gui->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 424.0f, 358.0f, { 0, 0, 84, 22 });
 		start_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 4.0f, 4.0f, { 0, 0, 47, 24 }, { 0, 24, 47, 24 }, { 0, 48, 47, 24 });
 		quit_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 4.0f, 32.0f, { 47, 0, 47, 24 }, { 47, 24, 47, 24 }, { 47, 48, 47, 24 });
 	}
-	else if (map_selected == 2)
+
+	if (start_game)
 	{
-		App->map->Load(second_map.GetString());
-		App->audio->PlayMusic(second_song.GetString());
+		// Delete active GUI
+		if (start_button_gui != nullptr)
+		{
+			App->gui->DeleteGUIElement(start_button_gui);
+		}
 
-		second_map_pos = App->map->data.ObjectPos("Player", "PlayerStartPos");
+		if (map_selected == 1)
+		{
+			App->map->Load(first_map.GetString());
+			App->audio->PlayMusic(first_song.GetString());
 
-		player = (Player*)App->entities->CreateEntity(ENTITY_TYPES::PLAYER, second_map_pos.x, second_map_pos.y);
-		enemy02air = (Enemy_level01_air*)App->entities->CreateEntity(ENTITY_TYPES::ENEMY_LEVEL01_AIR, 2274, 992);
-		enemy02ground = (Enemy_level01_ground*)App->entities->CreateEntity(ENTITY_TYPES::ENEMY_LEVEL01_GROUND, 1280, 1131);
+			int w, h;
+			uchar* data = NULL;
+			if (App->map->CreateWalkabilityMap(w, h, &data))
+				App->pathfinding->SetMap(w, h, data);
 
-		player->position = second_map_pos;
-		player->previous_position = player->position;
+			RELEASE_ARRAY(data);
+
+			first_map_pos = App->map->data.ObjectPos("Player", "PlayerStartPos");
+
+			/* Add entities :) */
+			player = (Player*)App->entities->CreateEntity(ENTITY_TYPES::PLAYER, first_map_pos.x, first_map_pos.y);
+			enemy01air = (Enemy_level01_air*)App->entities->CreateEntity(ENTITY_TYPES::ENEMY_LEVEL01_AIR, 470, 200);
+			enemy01ground = (Enemy_level01_ground*)App->entities->CreateEntity(ENTITY_TYPES::ENEMY_LEVEL01_GROUND, 960, 779);
+
+			player->position = first_map_pos;
+			player->previous_position = player->position;
+
+			/* Add GUI :) */
+			label_gui = (GUILabel*)App->gui->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 163.0f, 97.0f, "Testing", { 255, 255, 255, 255 }, App->gui->default_font_used);
+			logo_gui = (GUIImage*)App->gui->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 424.0f, 358.0f, { 0, 0, 84, 22 });
+		}
+		else if (map_selected == 2)
+		{
+			App->map->Load(second_map.GetString());
+			App->audio->PlayMusic(second_song.GetString());
+
+			second_map_pos = App->map->data.ObjectPos("Player", "PlayerStartPos");
+
+			player = (Player*)App->entities->CreateEntity(ENTITY_TYPES::PLAYER, second_map_pos.x, second_map_pos.y);
+			enemy02air = (Enemy_level01_air*)App->entities->CreateEntity(ENTITY_TYPES::ENEMY_LEVEL01_AIR, 2274, 992);
+			enemy02ground = (Enemy_level01_ground*)App->entities->CreateEntity(ENTITY_TYPES::ENEMY_LEVEL01_GROUND, 1280, 1131);
+
+			player->position = second_map_pos;
+			player->previous_position = player->position;
+		}
+
+		debug_tex = App->tex->Load("textures/path_tile.png");
 	}
-
-	debug_tex = App->tex->Load("textures/path_tile.png");
 
 	return true;
 }
@@ -113,9 +126,12 @@ bool j1Scene::Update(float dt)
 	if (start_button_gui->is_pressed)
 	{
 		start_game = true;
+		//App->gui->DeleteGUIElement(start_button_gui);
+		App->fade->FadeToBlack(this, this, 1.0f);
 	}
 
-	if (start_game)
+
+	if (player != nullptr)
 	{
 		/*INPUT--------------------------------------------*/
 		if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
