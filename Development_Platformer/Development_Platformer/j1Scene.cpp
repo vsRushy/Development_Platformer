@@ -294,7 +294,7 @@ bool j1Scene::PostUpdate()
 {
 	bool ret = true;
 
-	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || (quit_button_gui != nullptr && quit_button_gui->is_pressed))
 		ret = false;
 
 	return ret;
