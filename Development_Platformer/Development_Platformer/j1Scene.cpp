@@ -62,6 +62,12 @@ bool j1Scene::Start()
 		if (start_button_gui != nullptr)
 		{
 			App->gui->DeleteGUIElement(start_button_gui);
+			start_button_gui = nullptr;
+		}
+		if (quit_button_gui != nullptr)
+		{
+			App->gui->DeleteGUIElement(quit_button_gui);
+			quit_button_gui = nullptr;
 		}
 
 		if (map_selected == 1)
@@ -126,7 +132,7 @@ bool j1Scene::Update(float dt)
 	BROFILER_CATEGORY("Scene Update", Profiler::Color::CadetBlue);
 
 	// UI Check
-	if (start_button_gui->is_pressed == !start_game)
+	if (start_button_gui != nullptr && start_button_gui->is_pressed == !start_game)
 	{
 		start_game = true;
 		//App->gui->DeleteGUIElement(start_button_gui);
@@ -288,7 +294,7 @@ bool j1Scene::PostUpdate()
 {
 	bool ret = true;
 
-	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || quit_button_gui->is_pressed)
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 
 	return ret;
