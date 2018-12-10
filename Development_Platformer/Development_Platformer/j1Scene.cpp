@@ -61,27 +61,7 @@ bool j1Scene::Start()
 
 	if (start_game)
 	{
-		// Delete starting active GUI
-		if (start_button_gui != nullptr)
-		{
-			App->gui->DeleteGUIElement(start_button_gui);
-			start_button_gui = nullptr;
-		}
-		if (quit_button_gui != nullptr)
-		{
-			App->gui->DeleteGUIElement(quit_button_gui);
-			quit_button_gui = nullptr;
-		}
-		if (label_gui != nullptr)
-		{
-			App->gui->DeleteGUIElement(label_gui);
-			label_gui = nullptr;
-		}
-		if (logo_gui != nullptr)
-		{
-			App->gui->DeleteGUIElement(logo_gui);
-			logo_gui = nullptr;
-		}
+		
 
 		if (map_selected == 1)
 		{
@@ -144,7 +124,28 @@ bool j1Scene::Update(float dt)
 	if (start_button_gui != nullptr && start_button_gui->is_pressed == !start_game)
 	{
 		start_game = true;
-		//App->gui->DeleteGUIElement(start_button_gui);
+		// Delete starting active GUI
+		if (start_button_gui != nullptr)
+		{
+			App->gui->DeleteGUIElement(start_button_gui);
+			start_button_gui = nullptr;
+		}
+		if (quit_button_gui != nullptr)
+		{
+			App->gui->DeleteGUIElement(quit_button_gui);
+			quit_button_gui = nullptr;
+		}
+		if (label_gui != nullptr)
+		{
+			App->gui->DeleteGUIElement(label_gui);
+			label_gui = nullptr;
+		}
+		if (logo_gui != nullptr)
+		{
+			App->gui->DeleteGUIElement(logo_gui);
+			logo_gui = nullptr;
+		}
+
 		App->fade->FadeToBlack(this, this, 1.0f);
 	}
 
