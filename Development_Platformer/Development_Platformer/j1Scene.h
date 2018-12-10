@@ -73,6 +73,9 @@ public:
 	Enemy_level01_air* enemy02air = nullptr;
 	Enemy_level01_ground* enemy02ground = nullptr;
 
+private:
+	SDL_Texture* bg = nullptr;
+
 // GUI
 public:
 	GUIImage* logo_gui = nullptr;

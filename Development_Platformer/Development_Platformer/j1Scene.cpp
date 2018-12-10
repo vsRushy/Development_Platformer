@@ -52,13 +52,16 @@ bool j1Scene::Start()
 {
 	if (!start_game)
 	{
+		bg = App->tex->Load("textures/background_start.png");
 		start_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 4.0f, 4.0f, { 0, 0, 47, 24 }, { 0, 24, 47, 24 }, { 0, 48, 47, 24 });
 		quit_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 4.0f, 32.0f, { 47, 0, 47, 24 }, { 47, 24, 47, 24 }, { 47, 48, 47, 24 });
+		label_gui = (GUILabel*)App->gui->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 163.0f, 97.0f, "Testing", { 255, 255, 255, 255 }, App->gui->default_font_used);
+		logo_gui = (GUIImage*)App->gui->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 424.0f, 358.0f, { 0, 0, 84, 22 });
 	}
 
 	if (start_game)
 	{
-		// Delete active GUI
+		// Delete starting active GUI
 		if (start_button_gui != nullptr)
 		{
 			App->gui->DeleteGUIElement(start_button_gui);
@@ -68,6 +71,16 @@ bool j1Scene::Start()
 		{
 			App->gui->DeleteGUIElement(quit_button_gui);
 			quit_button_gui = nullptr;
+		}
+		if (label_gui != nullptr)
+		{
+			App->gui->DeleteGUIElement(label_gui);
+			label_gui = nullptr;
+		}
+		if (logo_gui != nullptr)
+		{
+			App->gui->DeleteGUIElement(logo_gui);
+			logo_gui = nullptr;
 		}
 
 		if (map_selected == 1)
@@ -94,10 +107,6 @@ bool j1Scene::Start()
 
 			player->position = first_map_pos;
 			player->previous_position = player->position;
-
-			/* Add GUI :) */
-			label_gui = (GUILabel*)App->gui->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 163.0f, 97.0f, "Testing", { 255, 255, 255, 255 }, App->gui->default_font_used);
-			logo_gui = (GUIImage*)App->gui->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 424.0f, 358.0f, { 0, 0, 84, 22 });
 		}
 		else if (map_selected == 2)
 		{
@@ -286,6 +295,12 @@ bool j1Scene::Update(float dt)
 			App->render->Blit(debug_tex, p.x, p.y);
 	}
 
+	// Blit starting background
+	if (!start_game)
+	{
+		App->render->Blit(bg, 0, 0, NULL);
+	}
+
 	return true;
 }
 
@@ -306,6 +321,7 @@ bool j1Scene::CleanUp()
 	LOG("Freeing scene");
 	App->map->Unload();
 	App->tex->UnLoad(debug_tex);
+	App->tex->UnLoad(bg);
 
 	return true;
 }
