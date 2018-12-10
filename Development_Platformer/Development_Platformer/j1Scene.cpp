@@ -79,9 +79,12 @@ bool j1Scene::Start()
 			first_map_pos = App->map->data.ObjectPos("Player", "PlayerStartPos");
 
 			/* Add entities :) */
-			player = (Player*)App->entities->CreateEntity(ENTITY_TYPES::PLAYER, first_map_pos.x, first_map_pos.y);
-			enemy01air = (Enemy_level01_air*)App->entities->CreateEntity(ENTITY_TYPES::ENEMY_LEVEL01_AIR, 470, 200);
-			enemy01ground = (Enemy_level01_ground*)App->entities->CreateEntity(ENTITY_TYPES::ENEMY_LEVEL01_GROUND, 960, 779);
+			if(player == nullptr)
+				player = (Player*)App->entities->CreateEntity(ENTITY_TYPES::PLAYER, first_map_pos.x, first_map_pos.y);
+			if(enemy01air == nullptr)
+				enemy01air = (Enemy_level01_air*)App->entities->CreateEntity(ENTITY_TYPES::ENEMY_LEVEL01_AIR, 470, 200);
+			if(enemy01ground == nullptr)
+				enemy01ground = (Enemy_level01_ground*)App->entities->CreateEntity(ENTITY_TYPES::ENEMY_LEVEL01_GROUND, 960, 779);
 
 			player->position = first_map_pos;
 			player->previous_position = player->position;
@@ -123,7 +126,7 @@ bool j1Scene::Update(float dt)
 	BROFILER_CATEGORY("Scene Update", Profiler::Color::CadetBlue);
 
 	// UI Check
-	if (start_button_gui->is_pressed)
+	if (start_button_gui->is_pressed == !start_game)
 	{
 		start_game = true;
 		//App->gui->DeleteGUIElement(start_button_gui);
@@ -285,7 +288,7 @@ bool j1Scene::PostUpdate()
 {
 	bool ret = true;
 
-	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || quit_button_gui->is_pressed)
 		ret = false;
 
 	return ret;
