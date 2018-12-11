@@ -14,7 +14,7 @@ struct SDL_Texture;
 class GUILabel : public GUIElement
 {
 public:
-	GUILabel(int x, int y, p2SString text, SDL_Color color, _TTF_Font* font, GUIElement* parent);
+	GUILabel(int x, int y, p2SString text, SDL_Color color, _TTF_Font* font, GUIElement* son);
 	~GUILabel() 
 	{
 		App->tex->UnLoad(tex);
