@@ -30,7 +30,6 @@ public:
 public:
 	SDL_Rect background;
 	GUILabel* input_box_label = nullptr;
-	bool line;
 
 private:
 

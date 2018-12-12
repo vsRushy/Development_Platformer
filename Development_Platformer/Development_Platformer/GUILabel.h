@@ -25,6 +25,7 @@ public:
 
 	void SetText(p2SString text);
 	void AddChar(p2SString c);
+	void DeleteLastChar();
 
 public:
 	_TTF_Font* font = nullptr;

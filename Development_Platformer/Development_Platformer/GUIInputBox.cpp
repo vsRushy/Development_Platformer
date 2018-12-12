@@ -21,10 +21,6 @@ GUIInputBox::GUIInputBox(int x, int y, SDL_Color color, _TTF_Font* font, SDL_Rec
 
 	type = GUI_ELEMENT_TYPE::GUI_INPUTBOX;
 
-	line = App->render->DrawQuad({0, 0, 2, 10}, 0, 0, 0, 255, false);
-	
-	input_box_label->SetText("TEST");
-
 	input_box_label->color = color;
 	input_box_label->font = font;
 
@@ -36,11 +32,6 @@ GUIInputBox::GUIInputBox(int x, int y, SDL_Color color, _TTF_Font* font, SDL_Rec
 
 void GUIInputBox::Update(float dt)
 {
-	/*if (App->input->GetKey(SDL_SCANCODE_U) == KEY_UP)
-	{
-		input_box_label->SetText("Changed");
-	}*/
-
 	int x, y;
 	App->input->GetMousePosition(x, y);
 	bool is_inside = x > position.x && x < position.x + area.w && y > position.y && y < position.y + area.h;
@@ -53,6 +44,11 @@ void GUIInputBox::Update(float dt)
 		p2SString character = App->input->text_input;
 		input_box_label->AddChar(character);
 		App->input->text_input.Clear();
+
+		if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+		{
+			input_box_label->DeleteLastChar();
+		}
 	}
 	else
 	{
@@ -64,7 +60,7 @@ void GUIInputBox::Update(float dt)
 
 void GUIInputBox::DrawInputBox()
 {
-	line = App->render->DrawQuad({ 0, 0, 2, 10 }, 0, 0, 0, 255, false);
+
 }
 
 void GUIInputBox::GetInput()
