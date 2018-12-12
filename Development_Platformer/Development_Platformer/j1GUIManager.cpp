@@ -34,6 +34,7 @@ bool j1GUIManager::Start()
 	atlas = App->tex->Load("gui/atlas.png");
 	image_textures = App->tex->Load("gui/Gerard_Marti_01.png");
 	button_textures = App->tex->Load("gui/Start_Quit_Buttons_01.png");
+	inputbox_textures = App->tex->Load("gui/Start_Quit_Buttons_01.png");///**/
 
 	default_font_used = App->fonts->Load("fonts/open_sans/OpenSans-Regular.ttf");
 
@@ -64,7 +65,10 @@ bool j1GUIManager::Update(float dt)
 
 	for (uint i = 0; i < gui_elements.Count(); ++i)
 		if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_INPUTBOX)
+		{
+			gui_elements[i]->Draw(inputbox_textures);
 			gui_elements[i]->DrawInputBox();
+		}
 	
 
 	return true;
@@ -78,6 +82,7 @@ bool j1GUIManager::CleanUp()
 	App->tex->UnLoad(atlas);
 	App->tex->UnLoad(image_textures);
 	App->tex->UnLoad(button_textures);
+	App->tex->UnLoad(inputbox_textures);
 
 	for (uint i = 0; i < gui_elements.Count(); ++i)
 	{
@@ -140,11 +145,11 @@ GUIElement* j1GUIManager::CreateGUIPanel(GUI_ELEMENT_TYPE type, int x, int y, SD
 	return ret;
 }
 
-GUIElement* j1GUIManager::CreateGUIInputBox(GUI_ELEMENT_TYPE type, int x, int y, char* text, SDL_Color color, _TTF_Font* font, GUIElement* son)
+GUIElement* j1GUIManager::CreateGUIInputBox(GUI_ELEMENT_TYPE type, int x, int y, p2SString text, SDL_Color color, _TTF_Font* font, SDL_Rect a, GUIElement* son)
 {
 	GUIElement* ret = nullptr;
 
-	ret = new GUIInputBox(x, y, text, color, font, son);
+	ret = new GUIInputBox(x, y, text, color, font, a, son);
 
 	if (ret != nullptr)
 		gui_elements.PushBack(ret);

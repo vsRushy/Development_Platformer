@@ -16,7 +16,7 @@ struct SDL_Texture;
 class GUIInputBox : public GUIElement
 {
 public:
-	GUIInputBox(int x, int y, p2SString text, SDL_Color color, _TTF_Font* font, GUIElement* son);
+	GUIInputBox(int x, int y, p2SString text, SDL_Color color, _TTF_Font* font, SDL_Rect im_area, GUIElement* son);
 	~GUIInputBox() {}
 
 	void Update(float dt);
