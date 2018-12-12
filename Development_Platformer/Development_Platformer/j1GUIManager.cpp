@@ -34,7 +34,7 @@ bool j1GUIManager::Start()
 	atlas = App->tex->Load("gui/atlas.png");
 	image_textures = App->tex->Load("gui/Gerard_Marti_01.png");
 	button_textures = App->tex->Load("gui/Start_Quit_Buttons_01.png");
-	inputbox_textures = App->tex->Load("gui/Start_Quit_Buttons_01.png");///**/
+	inputbox_textures = App->tex->Load("gui/textbox.png");///**/
 
 	default_font_used = App->fonts->Load("fonts/open_sans/OpenSans-Regular.ttf");
 
@@ -60,16 +60,15 @@ bool j1GUIManager::Update(float dt)
 			gui_elements[i]->Draw(button_textures);
 
 	for (uint i = 0; i < gui_elements.Count(); ++i)
-		if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_LABEL)
-			gui_elements[i]->DrawLabel();
-
-	for (uint i = 0; i < gui_elements.Count(); ++i)
 		if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_INPUTBOX)
 		{
 			gui_elements[i]->Draw(inputbox_textures);
 			gui_elements[i]->DrawInputBox();
 		}
-	
+
+	for (uint i = 0; i < gui_elements.Count(); ++i)
+		if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_LABEL)
+			gui_elements[i]->DrawLabel();
 
 	return true;
 }
