@@ -126,6 +126,8 @@ bool j1Scene::Update(float dt)
 {
 	BROFILER_CATEGORY("Scene Update", Profiler::Color::CadetBlue);
 
+	bool ret = true;
+
 	// UI Check
 	if (start_button_gui != nullptr && start_button_gui->is_pressed == !start_game)
 	{
@@ -313,8 +315,14 @@ bool j1Scene::Update(float dt)
 	{
 		ShellExecuteA(NULL, "open", "https://vsrushy.github.io/Development_Platformer/", NULL, NULL, SW_SHOWNORMAL);
 	}
+	
+	// Check inputs pause menu
+	if (pause_quit_button_gui != nullptr && pause_quit_button_gui->is_pressed)
+	{
+		ret = false;
+	}
 
-	return true;
+	return ret;
 }
 
 // Called each loop iteration
@@ -328,6 +336,15 @@ bool j1Scene::PostUpdate()
 	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
 	{
 		App->game_pause = !App->game_pause;
+		if (pause_quit_button_gui == nullptr)
+		{
+			pause_quit_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 25.0f, 32.0f, { 47, 0, 47, 24 }, { 47, 24, 47, 24 }, { 47, 48, 47, 24 });
+		}
+		if (pause_quit_button_gui != nullptr && App->game_pause == false)
+		{
+			App->gui->DeleteGUIElement(pause_quit_button_gui);
+			pause_quit_button_gui = nullptr;
+		}
 	}
 	
 	return ret;

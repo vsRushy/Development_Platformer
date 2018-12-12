@@ -88,6 +88,9 @@ public:
 	GUIInputBox* inputbox_gui = nullptr;
 
 	GUILabel* player_nickname_label = nullptr;
+
+	// Pause GUI
+	GUIButton* pause_quit_button_gui = nullptr;
 };
 
 #endif // __j1SCENE_H__
