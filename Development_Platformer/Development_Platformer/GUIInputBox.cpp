@@ -49,9 +49,10 @@ void GUIInputBox::Update(float dt)
 	if (is_inside)
 	{
 		SDL_StartTextInput();
-		SDL_SetTextInputRect(&input_box_label->area);
+		SDL_SetTextInputRect(&(input_box_label->area));
 		p2SString character = App->input->text_input;
 		input_box_label->AddChar(character);
+		App->input->text_input.Clear();
 	}
 	else
 	{
