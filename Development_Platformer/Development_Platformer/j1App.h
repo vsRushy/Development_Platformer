@@ -102,6 +102,7 @@ public:
 	j1Fonts*            fonts;
 
 	float				dt = 0.0f;
+	bool				game_pause = false;
 
 private:
 
