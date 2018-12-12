@@ -10,6 +10,7 @@
 #include "GUIImage.h"
 #include "GUIButton.h"
 #include "GUILabel.h"
+#include "GUIPanel.h"
 
 j1GUIManager::j1GUIManager()
 {
@@ -49,12 +50,18 @@ bool j1GUIManager::Update(float dt)
 			gui_elements[i]->Draw(image_textures);
 
 	for (uint i = 0; i < gui_elements.Count(); ++i)
+		if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_PANEL)
+			gui_elements[i]->Draw(image_textures);
+
+	for (uint i = 0; i < gui_elements.Count(); ++i)
 		if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_BUTTON)
 			gui_elements[i]->Draw(button_textures);
 
 	for (uint i = 0; i < gui_elements.Count(); ++i)
 		if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_LABEL)
 			gui_elements[i]->DrawLabel();
+
+	
 
 	return true;
 }
@@ -110,6 +117,18 @@ GUIElement* j1GUIManager::CreateGUILabel(GUI_ELEMENT_TYPE type, int x, int y, p2
 
 	ret = new GUILabel(x, y, text, color, font, son);
 
+
+	if (ret != nullptr)
+		gui_elements.PushBack(ret);
+
+	return ret;
+}
+
+GUIElement* j1GUIManager::CreateGUIPanel(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect a, GUIElement* son)
+{
+	GUIElement* ret = nullptr;
+
+	ret = new GUIPanel(x, y, a, son);
 
 	if (ret != nullptr)
 		gui_elements.PushBack(ret);

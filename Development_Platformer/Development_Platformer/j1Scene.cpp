@@ -18,6 +18,7 @@
 #include "GUIImage.h"
 #include "GUIButton.h"
 #include "GUILabel.h"
+#include "GUIPanel.h"
 
 #include "Brofiler\Brofiler.h"
 
@@ -57,6 +58,7 @@ bool j1Scene::Start()
 		quit_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 4.0f, 32.0f, { 47, 0, 47, 24 }, { 47, 24, 47, 24 }, { 47, 48, 47, 24 });
 		label_gui = (GUILabel*)App->gui->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 163.0f, 97.0f, "Testing", { 255, 255, 255, 255 }, App->gui->default_font_used);
 		logo_gui = (GUIImage*)App->gui->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 424.0f, 358.0f, { 0, 0, 84, 22 });
+		panel_gui = (GUIPanel*)App->gui->CreateGUIPanel(GUI_ELEMENT_TYPE::GUI_PANEL, 400.0f, 358.0f, { 0, 0, 84, 22 }, label_gui);
 	}
 
 	if (start_game)

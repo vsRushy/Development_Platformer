@@ -81,6 +81,9 @@
     <ClCompile Include="j1Fonts.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
+    <ClCompile Include="GUIPanel.cpp">
+      <Filter>GUI Elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h" />
@@ -183,6 +186,9 @@
     </ClInclude>
     <ClInclude Include="j1Fonts.h">
       <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIPanel.h">
+      <Filter>GUI Elements</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
