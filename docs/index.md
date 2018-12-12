@@ -8,11 +8,13 @@ Welcome to our first ever Platformer, Little Big King! This is a project for the
 
 **Webpage:** [Development Platformer Webpage](https://vsrushy.github.io/Development_Platformer)
 
+**Release:** [Release section](https://github.com/vsRushy/Development_Platformer/releases)
+
 ## Authors
 
 Marcos Freixas, Gerard.
 
-![](https://github.com/vsRushy/Development_Platformer/blob/master/docs/Gerard_Photo.jpg)
+![Gerard's photo](https://github.com/vsRushy/Development_Platformer/blob/master/docs/Gerard_Photo.jpg)
 
 • GitHub account: [vsRushy](https://github.com/vsRushy)
 
