@@ -144,11 +144,11 @@ GUIElement* j1GUIManager::CreateGUIPanel(GUI_ELEMENT_TYPE type, int x, int y, SD
 	return ret;
 }
 
-GUIElement* j1GUIManager::CreateGUIInputBox(GUI_ELEMENT_TYPE type, int x, int y, p2SString text, SDL_Color color, _TTF_Font* font, SDL_Rect a, GUIElement* son)
+GUIElement* j1GUIManager::CreateGUIInputBox(GUI_ELEMENT_TYPE type, int x, int y, SDL_Color color, _TTF_Font* font, SDL_Rect a, GUIElement* son)
 {
 	GUIElement* ret = nullptr;
 
-	ret = new GUIInputBox(x, y, text, color, font, a, son);
+	ret = new GUIInputBox(x, y, color, font, a, son);
 
 	if (ret != nullptr)
 		gui_elements.PushBack(ret);
