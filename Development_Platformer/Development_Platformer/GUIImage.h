@@ -10,6 +10,9 @@ public:
 	~GUIImage() {};
 
 	void Update(float dt);
+
+	bool is_pressed = false;
+	bool has_been_clicked = false;
 };
 
 #endif // __GUIImage_H__

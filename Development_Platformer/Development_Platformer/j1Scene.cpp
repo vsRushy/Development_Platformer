@@ -308,6 +308,12 @@ bool j1Scene::Update(float dt)
 		App->render->Blit(bg, 0, 0, NULL);
 	}
 
+	// Go to web
+	if (logo_gui != nullptr && logo_gui->is_pressed)
+	{
+		ShellExecuteA(NULL, "open", "https://vsrushy.github.io/Development_Platformer/", NULL, NULL, SW_SHOWNORMAL);
+	}
+
 	return true;
 }
 
@@ -323,7 +329,7 @@ bool j1Scene::PostUpdate()
 	{
 		App->game_pause = !App->game_pause;
 	}
-
+	
 	return ret;
 }
 
