@@ -84,6 +84,9 @@
     <ClCompile Include="GUIPanel.cpp">
       <Filter>GUI Elements</Filter>
     </ClCompile>
+    <ClCompile Include="GUIInputBox.cpp">
+      <Filter>GUI Elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h" />
@@ -188,6 +191,9 @@
       <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="GUIPanel.h">
+      <Filter>GUI Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIInputBox.h">
       <Filter>GUI Elements</Filter>
     </ClInclude>
   </ItemGroup>

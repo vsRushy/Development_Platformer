@@ -11,6 +11,7 @@ class GUIImage;
 class GUIButton;
 class GUILabel;
 class GUIPanel;
+class GUIInputBox;
 
 struct SDL_Texture;
 
@@ -84,6 +85,7 @@ public:
 	GUIButton* quit_button_gui = nullptr;
 	GUILabel* label_gui = nullptr;
 	GUIPanel* panel_gui = nullptr;
+	GUIInputBox* inputbox_gui = nullptr;
 };
 
 #endif // __j1SCENE_H__

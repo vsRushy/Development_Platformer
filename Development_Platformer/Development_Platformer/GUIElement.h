@@ -23,6 +23,7 @@ public:
 	virtual void Update(float dt);
 	virtual void Draw(SDL_Texture* sprites, float speed = 0.0f);
 	virtual void DrawLabel() {}
+	virtual void DrawInputBox() {}
 
 	virtual void Move();
 

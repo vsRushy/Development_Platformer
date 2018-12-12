@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{46252549-C566-488B-BFFE-E345E649F157}</ProjectGuid>
     <RootNamespace>DevelopmentPlatformer</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -125,6 +125,7 @@
     <ClCompile Include="GUIButton.cpp" />
     <ClCompile Include="GUIElement.cpp" />
     <ClCompile Include="GUIImage.cpp" />
+    <ClCompile Include="GUIInputBox.cpp" />
     <ClCompile Include="GUILabel.cpp" />
     <ClCompile Include="GUIPanel.cpp" />
     <ClCompile Include="j1App.cpp" />
@@ -157,6 +158,7 @@
     <ClInclude Include="GUIButton.h" />
     <ClInclude Include="GUIElement.h" />
     <ClInclude Include="GUIImage.h" />
+    <ClInclude Include="GUIInputBox.h" />
     <ClInclude Include="GUILabel.h" />
     <ClInclude Include="GUIPanel.h" />
     <ClInclude Include="j1App.h" />
