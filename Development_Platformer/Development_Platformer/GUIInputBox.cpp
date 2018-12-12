@@ -17,7 +17,7 @@
 
 GUIInputBox::GUIInputBox(int x, int y, SDL_Color color, _TTF_Font* font, SDL_Rect im_area, GUIElement* son) : GUIElement(type, x, y, area, son)
 {
-	input_box_label = (GUILabel*)App->gui->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, x + OFFSET_X, y + OFFSET_Y, "", color, font);
+	son = input_box_label = (GUILabel*)App->gui->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, x + OFFSET_X, y + OFFSET_Y, "", color, font);
 
 	type = GUI_ELEMENT_TYPE::GUI_INPUTBOX;
 

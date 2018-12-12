@@ -86,9 +86,13 @@ bool j1Scene::Start()
 				enemy01air = (Enemy_level01_air*)App->entities->CreateEntity(ENTITY_TYPES::ENEMY_LEVEL01_AIR, 470, 200);
 			if(enemy01ground == nullptr)
 				enemy01ground = (Enemy_level01_ground*)App->entities->CreateEntity(ENTITY_TYPES::ENEMY_LEVEL01_GROUND, 960, 779);
-
+			
 			player->position = first_map_pos;
 			player->previous_position = player->position;
+
+			if (player_nickname_label == nullptr)
+				player_nickname_label = (GUILabel*)App->gui->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, player->position.x - PLAYER_SIZE_X, player->position.y - PLAYER_SIZE_Y,
+					inputbox_gui->input_box_label->text.GetString(), { 0, 0, 0, 255 }, App->gui->default_font_used);
 		}
 		else if (map_selected == 2)
 		{
@@ -121,6 +125,11 @@ bool j1Scene::PreUpdate()
 bool j1Scene::Update(float dt)
 {
 	BROFILER_CATEGORY("Scene Update", Profiler::Color::CadetBlue);
+	if (player != nullptr && player_nickname_label != nullptr)
+	{
+		LOG("PLAYER [X] %.2f [Y] %.2f", player->position.x, player->position.y);
+		LOG("LABEL [X] %.2f [Y] %.2f", player_nickname_label->position.x, player_nickname_label->position.y);
+	}
 
 	// UI Check
 	if (start_button_gui != nullptr && start_button_gui->is_pressed == !start_game)

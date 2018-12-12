@@ -86,6 +86,8 @@ public:
 	GUILabel* label_gui = nullptr;
 	GUIPanel* panel_gui = nullptr;
 	GUIInputBox* inputbox_gui = nullptr;
+
+	GUILabel* player_nickname_label = nullptr;
 };
 
 #endif // __j1SCENE_H__
