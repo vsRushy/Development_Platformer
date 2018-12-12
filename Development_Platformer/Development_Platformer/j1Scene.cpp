@@ -125,11 +125,6 @@ bool j1Scene::PreUpdate()
 bool j1Scene::Update(float dt)
 {
 	BROFILER_CATEGORY("Scene Update", Profiler::Color::CadetBlue);
-	if (player != nullptr && player_nickname_label != nullptr)
-	{
-		LOG("PLAYER [X] %.2f [Y] %.2f", player->position.x, player->position.y);
-		LOG("LABEL [X] %.2f [Y] %.2f", player_nickname_label->position.x, player_nickname_label->position.y);
-	}
 
 	// UI Check
 	if (start_button_gui != nullptr && start_button_gui->is_pressed == !start_game)
