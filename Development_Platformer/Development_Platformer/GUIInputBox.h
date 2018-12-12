@@ -17,7 +17,10 @@ class GUIInputBox : public GUIElement
 {
 public:
 	GUIInputBox(int x, int y, SDL_Color color, _TTF_Font* font, SDL_Rect im_area, GUIElement* son);
-	~GUIInputBox() {}
+	~GUIInputBox() 
+	{
+		App->gui->DeleteGUIElement((GUIElement*)input_box_label); // Needed to cast (?)
+	}
 
 	void Update(float dt);
 	void DrawInputBox();

@@ -2,6 +2,7 @@
 #define __j1INPUT_H__
 
 #include "j1Module.h"
+#include "p2SString.h"
 
 //#define NUM_KEYS 352
 #define NUM_MOUSE_BUTTONS 5
@@ -67,6 +68,9 @@ public:
 	// Get mouse / axis position
 	void GetMousePosition(int &x, int &y);
 	void GetMouseMotion(int& x, int& y);
+
+public:
+	p2SString text_input;
 
 private:
 	bool		windowEvents[WE_COUNT];

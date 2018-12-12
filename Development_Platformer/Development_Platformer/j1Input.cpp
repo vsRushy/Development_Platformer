@@ -87,6 +87,11 @@ bool j1Input::PreUpdate()
 			windowEvents[WE_QUIT] = true;
 			break;
 
+		/* GOOD INFO ABOUT HOW TO HANDLE SDL TEXT INPUT! http://lazyfoo.net/tutorials/SDL/32_text_input_and_clipboard_handling/index.php */
+		case SDL_TEXTINPUT:
+			text_input = (p2SString)event.text.text;
+			break;
+
 		case SDL_WINDOWEVENT:
 			switch (event.window.event)
 			{

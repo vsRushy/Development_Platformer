@@ -41,9 +41,21 @@ void GUIInputBox::Update(float dt)
 		input_box_label->SetText("Changed");
 	}*/
 
-	if (App->input->GetKey(SDL_SCANCODE_U) == KEY_UP)
+	int x, y;
+	App->input->GetMousePosition(x, y);
+	bool is_inside = x > position.x && x < position.x + area.w && y > position.y && y < position.y + area.h;
+
+	// We want SDL Text Input only when we are inside the rect of the input box.
+	if (is_inside)
 	{
-		input_box_label->AddChar("u");
+		SDL_StartTextInput();
+		SDL_SetTextInputRect(&input_box_label->area);
+		p2SString character = App->input->text_input;
+		input_box_label->AddChar(character);
+	}
+	else
+	{
+		SDL_StopTextInput();
 	}
 
 	Move();
