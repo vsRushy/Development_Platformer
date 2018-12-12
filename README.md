@@ -2,9 +2,11 @@
 
 ## About
 
-Welcome to our first ever Platformer, Little Big King!
+Welcome to our first ever Platformer, Little Big King! This is a project for the Video Game Development subject, in the first semester of our University degree.
 
-**GitHub repository:** [Development Platformer](https://github.com/vsRushy/Development_Platformer)
+**GitHub repository:** [Development Platformer Repository](https://github.com/vsRushy/Development_Platformer)
+
+**Webpage:** [Development Platformer Webpage](https://vsrushy.github.io/Development_Platformer)
 
 ## Controls
 
