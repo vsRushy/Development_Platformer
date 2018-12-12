@@ -45,7 +45,7 @@ void GUIInputBox::Update(float dt)
 		input_box_label->AddChar(character);
 		App->input->text_input.Clear();
 
-		if (App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+		if (App->input->GetKey(SDL_SCANCODE_BACKSPACE) == KEY_DOWN)
 		{
 			input_box_label->DeleteLastChar();
 		}

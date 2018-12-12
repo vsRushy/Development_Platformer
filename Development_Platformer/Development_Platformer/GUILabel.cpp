@@ -72,19 +72,11 @@ void GUILabel::AddChar(p2SString c)
 
 void GUILabel::DeleteLastChar()
 {
-	char* temp_text = (char*)(this->text.GetString());
-	temp_text[this->text.Length() - 2] = '\0';
+	if (this->text.Length() > 0)
+	{
+		char* temp_text = (char*)(this->text.GetString());
+		temp_text[this->text.Length() - 1] = '\0';
 
-	this->text = temp_text;
-
-	tex = App->fonts->Print(this->text.GetString(), this->color, this->font);
-
-	// Create new rect
-	int width = 0, height = 0;
-	App->fonts->CalcSize(this->text.GetString(), width, height, App->gui->default_font_used);
-	area.w = width;
-	area.h = height;
-
-	area.x = 0;
-	area.y = 0;
+		this->text = temp_text;
+	}
 }
