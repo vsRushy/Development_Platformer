@@ -24,6 +24,7 @@ public:
 	void DrawLabel();
 
 	void SetText(p2SString text);
+	void AddChar(p2SString c);
 
 public:
 	_TTF_Font* font = nullptr;

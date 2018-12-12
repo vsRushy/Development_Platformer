@@ -36,9 +36,14 @@ GUIInputBox::GUIInputBox(int x, int y, SDL_Color color, _TTF_Font* font, SDL_Rec
 
 void GUIInputBox::Update(float dt)
 {
-	if (App->input->GetKey(SDL_SCANCODE_U) == KEY_UP)
+	/*if (App->input->GetKey(SDL_SCANCODE_U) == KEY_UP)
 	{
 		input_box_label->SetText("Changed");
+	}*/
+
+	if (App->input->GetKey(SDL_SCANCODE_U) == KEY_UP)
+	{
+		input_box_label->AddChar("u");
 	}
 
 	Move();
