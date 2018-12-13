@@ -54,6 +54,7 @@ bool j1Scene::Start()
 {
 	if (!start_game)
 	{
+		App->audio->PlayMusic(first_song.GetString());
 		bg = App->tex->Load("textures/background_start.png");
 		start_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 4.0f, 4.0f, { 0, 0, 47, 24 }, { 0, 24, 47, 24 }, { 0, 48, 47, 24 });
 		options_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 4.0f, 32.0f, { 141, 0, 47, 24 }, { 141, 24, 47, 24 }, { 141, 48, 47, 24 });
@@ -255,12 +256,6 @@ bool j1Scene::Update(float dt)
 			App->fade->FadeToBlack(this, this, 0.1f);
 		}
 
-		// Set volume
-		if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_DOWN)
-			App->audio->ControlVolume(true);
-		if (App->input->GetKey(SDL_SCANCODE_KP_MINUS) == KEY_DOWN)
-			App->audio->ControlVolume(false);
-
 		// Set the window title like
 		// "Map:%dx%d Tiles:%dx%d Tilesets:%d"                            // Uncomment the following if you want to see tileset info as window title
 		/*p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
@@ -375,6 +370,21 @@ bool j1Scene::Update(float dt)
 		App->gui->DeleteGUIElement(volume_down_button_gui);
 		volume_up_button_gui = nullptr;
 		volume_down_button_gui = nullptr;
+	}
+
+	// Set volume
+	if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_DOWN)
+		App->audio->ControlVolume(true);
+	if (App->input->GetKey(SDL_SCANCODE_KP_MINUS) == KEY_DOWN)
+		App->audio->ControlVolume(false);
+	// Volume control 
+	if (volume_up_button_gui != nullptr && volume_up_button_gui->has_been_clicked)
+	{
+		App->audio->ControlVolume(true);
+	}
+	if (volume_down_button_gui != nullptr && volume_down_button_gui->has_been_clicked)
+	{
+		App->audio->ControlVolume(false);
 	}
 
 	return ret;
