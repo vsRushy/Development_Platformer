@@ -82,6 +82,7 @@ private:
 public:
 	GUIImage* logo_gui = nullptr;
 	GUIButton* start_button_gui = nullptr;
+	GUIButton* options_button_gui = nullptr;
 	GUIButton* quit_button_gui = nullptr;
 	GUILabel* label_gui = nullptr;
 	GUIPanel* panel_gui = nullptr;
@@ -90,8 +91,9 @@ public:
 	GUILabel* player_nickname_label = nullptr;
 
 	// Pause GUI
-	GUIButton* pause_quit_button_gui = nullptr;
 	GUIButton* continue_button_gui = nullptr;
+	GUIButton* pause_quit_button_gui = nullptr;
+	GUIButton* pause_options_button_gui = nullptr;
 };
 
 #endif // __j1SCENE_H__

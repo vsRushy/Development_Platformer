@@ -56,7 +56,8 @@ bool j1Scene::Start()
 	{
 		bg = App->tex->Load("textures/background_start.png");
 		start_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 4.0f, 4.0f, { 0, 0, 47, 24 }, { 0, 24, 47, 24 }, { 0, 48, 47, 24 });
-		quit_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 4.0f, 32.0f, { 47, 0, 47, 24 }, { 47, 24, 47, 24 }, { 47, 48, 47, 24 });
+		options_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 4.0f, 32.0f, { 141, 0, 47, 24 }, { 141, 24, 47, 24 }, { 141, 48, 47, 24 });
+		quit_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 4.0f, 60, { 47, 0, 47, 24 }, { 47, 24, 47, 24 }, { 47, 48, 47, 24 });
 		label_gui = (GUILabel*)App->gui->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 163.0f, 97.0f, "Testing", { 255, 255, 255, 255 }, App->gui->default_font_used);
 		logo_gui = (GUIImage*)App->gui->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 424.0f, 358.0f, { 0, 0, 84, 22 });
 		panel_gui = (GUIPanel*)App->gui->CreateGUIPanel(GUI_ELEMENT_TYPE::GUI_PANEL, 400.0f, 358.0f, { 0, 0, 84, 22 }, label_gui);
@@ -137,6 +138,11 @@ bool j1Scene::Update(float dt)
 		{
 			App->gui->DeleteGUIElement(start_button_gui);
 			start_button_gui = nullptr;
+		}
+		if (options_button_gui != nullptr)
+		{
+			App->gui->DeleteGUIElement(options_button_gui);
+			options_button_gui = nullptr;
 		}
 		if (quit_button_gui != nullptr)
 		{
@@ -328,8 +334,10 @@ bool j1Scene::Update(float dt)
 			App->game_pause = false;
 			App->gui->DeleteGUIElement(continue_button_gui);
 			App->gui->DeleteGUIElement(pause_quit_button_gui);
+			App->gui->DeleteGUIElement(pause_options_button_gui);
 			pause_quit_button_gui = nullptr;
 			continue_button_gui = nullptr;
+			pause_options_button_gui = nullptr;
 		}
 	}
 
@@ -349,7 +357,7 @@ bool j1Scene::PostUpdate()
 		App->game_pause = !App->game_pause;
 		if (pause_quit_button_gui == nullptr)
 		{
-			pause_quit_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 25.0f, 32.0f, { 47, 0, 47, 24 }, { 47, 24, 47, 24 }, { 47, 48, 47, 24 });
+			pause_quit_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 226.0f, 200.0f, { 47, 0, 47, 24 }, { 47, 24, 47, 24 }, { 47, 48, 47, 24 });
 		}
 		if (pause_quit_button_gui != nullptr && App->game_pause == false)
 		{
@@ -359,12 +367,22 @@ bool j1Scene::PostUpdate()
 
 		if (continue_button_gui == nullptr)
 		{
-			continue_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 55.0f, 60.0f, { 94, 0, 47, 24 }, { 94, 24, 47, 24 }, { 94, 48, 47, 24 });
+			continue_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 226.0f, 130.0f, { 94, 0, 47, 24 }, { 94, 24, 47, 24 }, { 94, 48, 47, 24 });
 		}
 		if (continue_button_gui != nullptr && App->game_pause == false)
 		{
 			App->gui->DeleteGUIElement(continue_button_gui);
 			continue_button_gui = nullptr;
+		}
+
+		if (pause_options_button_gui == nullptr)
+		{
+			pause_options_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 226.0f, 165.0f, { 141, 0, 47, 24 }, { 141, 24, 47, 24 }, { 141, 48, 47, 24 });
+		}
+		if (pause_options_button_gui != nullptr && App->game_pause == false)
+		{
+			App->gui->DeleteGUIElement(pause_options_button_gui);
+			pause_options_button_gui = nullptr;
 		}
 	}
 	
