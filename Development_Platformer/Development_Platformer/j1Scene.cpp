@@ -58,10 +58,10 @@ bool j1Scene::Start()
 		start_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 4.0f, 4.0f, { 0, 0, 47, 24 }, { 0, 24, 47, 24 }, { 0, 48, 47, 24 });
 		options_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 4.0f, 32.0f, { 141, 0, 47, 24 }, { 141, 24, 47, 24 }, { 141, 48, 47, 24 });
 		quit_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 4.0f, 60, { 47, 0, 47, 24 }, { 47, 24, 47, 24 }, { 47, 48, 47, 24 });
-		label_gui = (GUILabel*)App->gui->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 163.0f, 97.0f, "Testing", { 255, 255, 255, 255 }, App->gui->default_font_used);
+		introduce_name_label_gui = (GUILabel*)App->gui->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 150, 220.0f, "Name:", { 0, 0, 0, 255 }, App->gui->default_font_used);
 		logo_gui = (GUIImage*)App->gui->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 424.0f, 358.0f, { 0, 0, 84, 22 });
-		panel_gui = (GUIPanel*)App->gui->CreateGUIPanel(GUI_ELEMENT_TYPE::GUI_PANEL, 400.0f, 358.0f, { 0, 0, 84, 22 }, label_gui);
-		inputbox_gui = (GUIInputBox*)App->gui->CreateGUIInputBox(GUI_ELEMENT_TYPE::GUI_INPUTBOX, 100.0f, 50.0f, { 0, 0, 0, 255 }, App->gui->default_font_used, { 0, 0, 100, 24 });
+		game_name_logo_gui = (GUIImage*)App->gui->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 150, 120, { 0, 22, 264, 90 });
+		inputbox_gui = (GUIInputBox*)App->gui->CreateGUIInputBox(GUI_ELEMENT_TYPE::GUI_INPUTBOX, 150.0f, 235, { 0, 0, 0, 255 }, App->gui->default_font_used, { 0, 0, 100, 24 });
 	}
 
 	if (start_game)
@@ -93,7 +93,7 @@ bool j1Scene::Start()
 
 			if (player_nickname_label == nullptr)
 				player_nickname_label = (GUILabel*)App->gui->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, player->position.x - PLAYER_SIZE_X, player->position.y - PLAYER_SIZE_Y,
-					inputbox_gui->input_box_label->text.GetString(), { 0, 0, 0, 255 }, App->gui->default_font_used);
+					player_name.GetString(), { 0, 0, 0, 255 }, App->gui->default_font_used);
 		}
 		else if (map_selected == 2)
 		{
@@ -149,15 +149,26 @@ bool j1Scene::Update(float dt)
 			App->gui->DeleteGUIElement(quit_button_gui);
 			quit_button_gui = nullptr;
 		}
-		if (label_gui != nullptr)
+		if (introduce_name_label_gui != nullptr)
 		{
-			App->gui->DeleteGUIElement(label_gui);
-			label_gui = nullptr;
+			App->gui->DeleteGUIElement(introduce_name_label_gui);
+			introduce_name_label_gui = nullptr;
 		}
 		if (logo_gui != nullptr)
 		{
 			App->gui->DeleteGUIElement(logo_gui);
 			logo_gui = nullptr;
+		}
+		if (game_name_logo_gui != nullptr)
+		{
+			App->gui->DeleteGUIElement(game_name_logo_gui);
+			game_name_logo_gui = nullptr;
+		}
+		if (inputbox_gui != nullptr)
+		{
+			player_name = inputbox_gui->input_box_label->text.GetString();
+			App->gui->DeleteGUIElement(inputbox_gui);
+			inputbox_gui = nullptr;
 		}
 
 		App->fade->FadeToBlack(this, this, 1.0f);

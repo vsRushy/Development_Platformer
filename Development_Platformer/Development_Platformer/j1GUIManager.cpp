@@ -32,9 +32,9 @@ bool j1GUIManager::Awake(pugi::xml_node& config)
 bool j1GUIManager::Start()
 {
 	atlas = App->tex->Load("gui/atlas.png");
-	image_textures = App->tex->Load("gui/Gerard_Marti_01.png");
+	image_textures = App->tex->Load("gui/Image_Textures.png");
 	button_textures = App->tex->Load("gui/Start_Quit_Buttons_01.png");
-	inputbox_textures = App->tex->Load("gui/textbox.png");///**/
+	inputbox_textures = App->tex->Load("gui/textbox.png");
 
 	default_font_used = App->fonts->Load("fonts/open_sans/OpenSans-Regular.ttf");
 
