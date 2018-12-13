@@ -321,6 +321,17 @@ bool j1Scene::Update(float dt)
 	{
 		ret = false;
 	}
+	if (continue_button_gui != nullptr && continue_button_gui->is_pressed)
+	{
+		if (App->game_pause)
+		{
+			App->game_pause = false;
+			App->gui->DeleteGUIElement(continue_button_gui);
+			App->gui->DeleteGUIElement(pause_quit_button_gui);
+			pause_quit_button_gui = nullptr;
+			continue_button_gui = nullptr;
+		}
+	}
 
 	return ret;
 }
@@ -330,10 +341,10 @@ bool j1Scene::PostUpdate()
 {
 	bool ret = true;
 
-	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || (quit_button_gui != nullptr && quit_button_gui->is_pressed))
+	if (quit_button_gui != nullptr && quit_button_gui->is_pressed)
 		ret = false;
 
-	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && start_game)
 	{
 		App->game_pause = !App->game_pause;
 		if (pause_quit_button_gui == nullptr)
@@ -344,6 +355,16 @@ bool j1Scene::PostUpdate()
 		{
 			App->gui->DeleteGUIElement(pause_quit_button_gui);
 			pause_quit_button_gui = nullptr;
+		}
+
+		if (continue_button_gui == nullptr)
+		{
+			continue_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 55.0f, 60.0f, { 94, 0, 47, 24 }, { 94, 24, 47, 24 }, { 94, 48, 47, 24 });
+		}
+		if (continue_button_gui != nullptr && App->game_pause == false)
+		{
+			App->gui->DeleteGUIElement(continue_button_gui);
+			continue_button_gui = nullptr;
 		}
 	}
 	

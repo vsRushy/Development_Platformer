@@ -91,6 +91,7 @@ public:
 
 	// Pause GUI
 	GUIButton* pause_quit_button_gui = nullptr;
+	GUIButton* continue_button_gui = nullptr;
 };
 
 #endif // __j1SCENE_H__
