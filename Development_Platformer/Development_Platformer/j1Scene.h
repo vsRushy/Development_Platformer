@@ -85,6 +85,8 @@ public:
 	GUIButton* start_button_gui = nullptr;
 	GUIButton* options_button_gui = nullptr;
 	GUIButton* quit_button_gui = nullptr;
+	GUIButton* volume_up_button_gui = nullptr;
+	GUIButton* volume_down_button_gui = nullptr;
 	GUILabel* introduce_name_label_gui = nullptr;
 	GUIInputBox* inputbox_gui = nullptr;
 
