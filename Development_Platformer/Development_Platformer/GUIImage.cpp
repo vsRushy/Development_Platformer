@@ -19,19 +19,17 @@ void GUIImage::Update(float dt)
 	bool is_inside = x > position.x && x < position.x + area.w && y > position.y && y < position.y + area.h;
 	if (is_inside)
 	{
-		if (App->input->GetMouseButtonDown(1) && !has_been_clicked)
+		if (App->input->GetMouseButtonDown(1) == SDL_PRESSED && !has_been_clicked)
 		{
-			is_pressed = true;
 			has_been_clicked = true;
 		}
 		else
 		{
-			is_pressed = false;
+			has_been_clicked = false;
 		}
 	}
 	else
 	{
-		is_pressed = false;
 		has_been_clicked = false;
 	}
 }

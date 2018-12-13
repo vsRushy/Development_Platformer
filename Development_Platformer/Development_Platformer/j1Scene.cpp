@@ -58,8 +58,6 @@ bool j1Scene::Start()
 		start_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 4.0f, 4.0f, { 0, 0, 47, 24 }, { 0, 24, 47, 24 }, { 0, 48, 47, 24 });
 		options_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 4.0f, 32.0f, { 141, 0, 47, 24 }, { 141, 24, 47, 24 }, { 141, 48, 47, 24 });
 		quit_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 4.0f, 60.0f, { 47, 0, 47, 24 }, { 47, 24, 47, 24 }, { 47, 48, 47, 24 });
-		volume_up_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 52.0f, 32.0f, { 188, 0, 22, 24 }, { 188, 24, 22, 24 }, { 188, 48, 22, 24 });
-		volume_down_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 75.0f, 32.0f, { 210, 0, 22, 24 }, { 210, 24, 22, 24 }, { 210, 48, 22, 24 });
 		introduce_name_label_gui = (GUILabel*)App->gui->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 150.0f, 220.0f, "Name:", { 0, 0, 0, 255 }, App->gui->default_font_used);
 		logo_gui = (GUIImage*)App->gui->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 424.0f, 358.0f, { 0, 0, 84, 22 });
 		game_name_logo_gui = (GUIImage*)App->gui->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 150.0f, 120.0f, { 0, 22, 264, 90 });
@@ -132,7 +130,7 @@ bool j1Scene::Update(float dt)
 	bool ret = true;
 
 	// UI Check
-	if (start_button_gui != nullptr && start_button_gui->is_pressed == !start_game)
+	if (start_button_gui != nullptr && start_button_gui->has_been_clicked == !start_game)
 	{
 		start_game = true;
 		// Delete starting active GUI
@@ -165,6 +163,16 @@ bool j1Scene::Update(float dt)
 		{
 			App->gui->DeleteGUIElement(game_name_logo_gui);
 			game_name_logo_gui = nullptr;
+		}
+		if (volume_up_button_gui != nullptr)
+		{
+			App->gui->DeleteGUIElement(volume_up_button_gui);
+			volume_up_button_gui = nullptr;
+		}
+		if (volume_down_button_gui != nullptr)
+		{
+			App->gui->DeleteGUIElement(volume_down_button_gui);
+			volume_down_button_gui = nullptr;
 		}
 		if (inputbox_gui != nullptr)
 		{
@@ -330,17 +338,17 @@ bool j1Scene::Update(float dt)
 	}
 
 	// Go to web
-	if (logo_gui != nullptr && logo_gui->is_pressed)
+	if (logo_gui != nullptr && logo_gui->has_been_clicked)
 	{
 		ShellExecuteA(NULL, "open", "https://vsrushy.github.io/Development_Platformer/", NULL, NULL, SW_SHOWNORMAL);
 	}
 	
 	// Check inputs pause menu
-	if (pause_quit_button_gui != nullptr && pause_quit_button_gui->is_pressed)
+	if (pause_quit_button_gui != nullptr && pause_quit_button_gui->has_been_clicked)
 	{
 		ret = false;
 	}
-	if (continue_button_gui != nullptr && continue_button_gui->is_pressed)
+	if (continue_button_gui != nullptr && continue_button_gui->has_been_clicked)
 	{
 		if (App->game_pause)
 		{
@@ -353,6 +361,21 @@ bool j1Scene::Update(float dt)
 			pause_options_button_gui = nullptr;
 		}
 	}
+	if (options_button_gui != nullptr && options_button_gui->has_been_clicked)
+	{
+		if (volume_up_button_gui == nullptr && volume_down_button_gui == nullptr)
+		{
+			volume_up_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 52.0f, 32.0f, { 188, 0, 22, 24 }, { 188, 24, 22, 24 }, { 188, 48, 22, 24 });
+			volume_down_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 75.0f, 32.0f, { 210, 0, 22, 24 }, { 210, 24, 22, 24 }, { 210, 48, 22, 24 });
+		}
+	}
+	else if (options_button_gui != nullptr && !(options_button_gui->has_been_clicked))
+	{
+		App->gui->DeleteGUIElement(volume_up_button_gui);
+		App->gui->DeleteGUIElement(volume_down_button_gui);
+		volume_up_button_gui = nullptr;
+		volume_down_button_gui = nullptr;
+	}
 
 	return ret;
 }
@@ -362,7 +385,7 @@ bool j1Scene::PostUpdate()
 {
 	bool ret = true;
 
-	if (quit_button_gui != nullptr && quit_button_gui->is_pressed)
+	if (quit_button_gui != nullptr && quit_button_gui->has_been_clicked)
 		ret = false;
 
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && start_game)

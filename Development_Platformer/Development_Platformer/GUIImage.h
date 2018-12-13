@@ -11,8 +11,8 @@ public:
 
 	void Update(float dt);
 
-	bool is_pressed = false;
 	bool has_been_clicked = false;
+	bool can_change = true;
 };
 
 #endif // __GUIImage_H__

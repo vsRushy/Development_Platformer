@@ -18,7 +18,8 @@ public:
 	SDL_Rect img_area_hover;
 	SDL_Rect img_area_pressed;
 
-	bool is_pressed = false;
+	bool has_been_clicked = false;
+	bool can_change = true;
 };
 
 #endif // __GUIButton_H__
