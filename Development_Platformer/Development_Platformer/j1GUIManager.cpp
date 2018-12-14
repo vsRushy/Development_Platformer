@@ -44,6 +44,11 @@ bool j1GUIManager::Start()
 // Called before render is available
 bool j1GUIManager::Update(float dt)
 {
+	if (App->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
+	{
+		debug_gui = !debug_gui;
+	}
+
 	for (uint i = 0; i < gui_elements.Count(); ++i)
 		if (gui_elements[i] != nullptr) gui_elements[i]->Update(dt);
 

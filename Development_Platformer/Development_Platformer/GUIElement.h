@@ -6,6 +6,8 @@
 
 #include "SDL/include/SDL_rect.h"
 
+#define DEBUG_DRAW_OFFSET 2
+
 struct SDL_Texture;
 class GUIElement;
 
@@ -19,6 +21,8 @@ public:
 public:
 	GUIElement(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect area, GUIElement* son);
 	virtual ~GUIElement();
+
+	virtual void DrawDebug();
 
 	virtual void Update(float dt);
 	virtual void Draw(SDL_Texture* sprites, float speed = 0.0f);

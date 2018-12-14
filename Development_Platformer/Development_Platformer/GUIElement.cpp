@@ -17,6 +17,11 @@ GUIElement::~GUIElement()
 void GUIElement::Draw(SDL_Texture* sprites, float speed)
 {
 	App->render->Blit(sprites, position.x, position.y, &area, speed);
+
+	if (App->gui->debug_gui)
+	{
+		DrawDebug();
+	}
 }
 
 void GUIElement::Update(float dt)
@@ -72,4 +77,11 @@ void GUIElement::Move()
 			son->position.y = y - son->area.h / 2;
 		}
 	}
+}
+
+void GUIElement::DrawDebug()
+{
+	Uint8 alpha = 80;
+	SDL_Rect quad = { position.x - DEBUG_DRAW_OFFSET, position.y - DEBUG_DRAW_OFFSET, area.w + DEBUG_DRAW_OFFSET * 2, area.h + DEBUG_DRAW_OFFSET * 2 };
+	App->render->DrawQuad(quad, 0, 0, 0, alpha, false);
 }

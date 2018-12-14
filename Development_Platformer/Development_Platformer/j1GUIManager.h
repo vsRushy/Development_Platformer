@@ -47,6 +47,7 @@ public:
 
 public:
 	_TTF_Font* default_font_used = nullptr;
+	bool debug_gui = false;
 
 private:
 	p2DynArray<GUIElement*> gui_elements = NULL;
