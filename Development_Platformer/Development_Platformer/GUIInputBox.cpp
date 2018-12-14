@@ -57,13 +57,3 @@ void GUIInputBox::Update(float dt)
 
 	Move();
 }
-
-void GUIInputBox::DrawInputBox()
-{
-
-}
-
-void GUIInputBox::GetInput()
-{
-
-}

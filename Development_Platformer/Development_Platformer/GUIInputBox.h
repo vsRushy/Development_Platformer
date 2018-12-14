@@ -19,13 +19,14 @@ public:
 	GUIInputBox(int x, int y, SDL_Color color, _TTF_Font* font, SDL_Rect im_area, GUIElement* son);
 	~GUIInputBox() 
 	{
-		App->gui->DeleteGUIElement((GUIElement*)input_box_label); // Needed to cast (?)
+		if (input_box_label != nullptr)
+		{
+			App->gui->DeleteGUIElement((GUIElement*)input_box_label); // Needed to cast (?)
+			input_box_label = nullptr;
+		}
 	}
 
 	void Update(float dt);
-	void DrawInputBox();
-
-	void GetInput();
 	
 public:
 	SDL_Rect background;

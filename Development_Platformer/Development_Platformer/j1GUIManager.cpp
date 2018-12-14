@@ -187,11 +187,12 @@ GUIElement* j1GUIManager::CreateGUIThumb(GUI_ELEMENT_TYPE type, int x, int y, SD
 	return ret;
 }
 
-GUIElement* j1GUIManager::CreateGUISlider(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect a, GUIElement* son)
+GUIElement* j1GUIManager::CreateGUISlider(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect a,
+	SDL_Rect thumb_1, SDL_Rect thumb_2, SDL_Rect thumb_3, GUIElement* son)
 {
 	GUIElement* ret = nullptr;
 
-	ret = new GUISlider(x, y, a, son);
+	ret = new GUISlider(x, y, a, thumb_1, thumb_2, thumb_3, son);
 
 	if (ret != nullptr)
 		gui_elements.PushBack(ret);

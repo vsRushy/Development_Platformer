@@ -8,6 +8,9 @@ GUIImage::GUIImage(int x, int y, SDL_Rect image_area, GUIElement* son) : GUIElem
 {
 	type = GUI_ELEMENT_TYPE::GUI_IMAGE;
 	area = image_area;
+
+	position.x = x;
+	position.y = y;
 }
 
 void GUIImage::Update(float dt)

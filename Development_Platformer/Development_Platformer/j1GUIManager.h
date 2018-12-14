@@ -45,7 +45,8 @@ public:
 	GUIElement* CreateGUIPanel(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect a, GUIElement* son = nullptr);
 	GUIElement* CreateGUIInputBox(GUI_ELEMENT_TYPE type, int x, int y, SDL_Color color, _TTF_Font* font, SDL_Rect a, GUIElement* son = nullptr);
 	GUIElement* CreateGUIThumb(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect a, SDL_Rect a_1 = { NULL }, SDL_Rect a_2 = { NULL }, GUIElement* son = nullptr);
-	GUIElement* CreateGUISlider(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect a, GUIElement* son = nullptr);
+	GUIElement* CreateGUISlider(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect a, SDL_Rect thumb_1, SDL_Rect thumb_2, SDL_Rect thumb_3, GUIElement* son = nullptr);
+	
 	void DeleteGUIElement(GUIElement* e);
 	void DeleteAllGUIElements();
 
