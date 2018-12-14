@@ -263,7 +263,7 @@ void j1EntityManager::OnCollision(Collider* a, Collider* b)
 				}
 				App->scene->player->Reset();
 			}
-			else if (b->type == COLLIDER_TYPE::COLLIDER_COIN)
+			else if (a->type == COLLIDER_TYPE::COLLIDER_COIN)
 			{
 				if (entities[i]->type == ENTITY_TYPES::COINS) {
 					delete entities[i];
