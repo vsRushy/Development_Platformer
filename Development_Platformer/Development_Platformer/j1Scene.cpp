@@ -386,6 +386,32 @@ bool j1Scene::Update(float dt)
 	{
 		App->audio->ControlVolume(false);
 	}
+	// Volume when pressing options
+	if (pause_options_button_gui != nullptr)
+	{
+		if (pause_options_button_gui->has_been_clicked)
+		{
+			if (pause_volume_up_button_gui == nullptr)
+				pause_volume_up_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 274, 165.0f, { 188, 0, 22, 24 }, { 188, 24, 22, 24 }, { 188, 48, 22, 24 });
+			if (pause_volume_down_button_gui == nullptr)
+				pause_volume_down_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 297, 165.0f, { 210, 0, 22, 24 }, { 210, 24, 22, 24 }, { 210, 48, 22, 24 });
+		}
+		if (!(pause_options_button_gui->has_been_clicked))
+		{
+			if (pause_volume_up_button_gui != nullptr && pause_volume_down_button_gui != nullptr)
+			{
+				App->gui->DeleteGUIElement(pause_volume_up_button_gui);
+				App->gui->DeleteGUIElement(pause_volume_down_button_gui);
+				pause_volume_up_button_gui = nullptr;
+				pause_volume_down_button_gui = nullptr;
+			}
+		}
+
+		if(pause_volume_up_button_gui != nullptr && pause_volume_up_button_gui->has_been_clicked)
+			App->audio->ControlVolume(true);
+		if (pause_volume_down_button_gui != nullptr && pause_volume_down_button_gui->has_been_clicked)
+			App->audio->ControlVolume(false);
+	}
 
 	return ret;
 }

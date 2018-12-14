@@ -96,6 +96,8 @@ public:
 	GUIButton* continue_button_gui = nullptr;
 	GUIButton* pause_quit_button_gui = nullptr;
 	GUIButton* pause_options_button_gui = nullptr;
+	GUIButton* pause_volume_up_button_gui = nullptr;
+	GUIButton* pause_volume_down_button_gui = nullptr;
 
 	p2SString player_name;
 };
