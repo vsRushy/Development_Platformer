@@ -38,6 +38,7 @@ void GUILabel::DrawLabel()
 	App->render->Blit(tex, position.x, position.y, &area, 0.0f);
 }
 
+// Note: see SDL_RenderSetClip() for clipping
 void GUILabel::SetText(p2SString text)
 {
 	this->text = text;
@@ -79,4 +80,13 @@ void GUILabel::DeleteLastChar()
 
 		this->text = temp_text;
 	}
+
+	// Create new rect
+	int width = 0, height = 0;
+	App->fonts->CalcSize(this->text.GetString(), width, height, App->gui->default_font_used);
+	area.w = width;
+	area.h = height;
+
+	area.x = 0;
+	area.y = 0;
 }

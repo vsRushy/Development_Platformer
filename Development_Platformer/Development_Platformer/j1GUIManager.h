@@ -16,7 +16,8 @@ enum class GUI_ELEMENT_TYPE
 	GUI_BUTTON,
 	GUI_LABEL,
 	GUI_PANEL,
-	GUI_INPUTBOX
+	GUI_INPUTBOX,
+	GUI_THUMB
 };
 
 class j1GUIManager : public j1Module
@@ -42,6 +43,7 @@ public:
 	GUIElement* CreateGUILabel(GUI_ELEMENT_TYPE type, int x, int y, p2SString text, SDL_Color color, _TTF_Font* font, GUIElement* son = nullptr);
 	GUIElement* CreateGUIPanel(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect a, GUIElement* son = nullptr);
 	GUIElement* CreateGUIInputBox(GUI_ELEMENT_TYPE type, int x, int y, SDL_Color color, _TTF_Font* font, SDL_Rect a, GUIElement* son = nullptr);
+	GUIElement* CreateGUIThumb(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect a, SDL_Rect a_1 = { NULL }, SDL_Rect a_2 = { NULL }, GUIElement* son = nullptr);
 	void DeleteGUIElement(GUIElement* e);
 	void DeleteAllGUIElements();
 
@@ -56,6 +58,7 @@ private:
 	SDL_Texture* image_textures = nullptr;
 	SDL_Texture* button_textures = nullptr;
 	SDL_Texture* inputbox_textures = nullptr;
+	SDL_Texture* thumb_textures = nullptr;
 };
 
 #endif // __j1GUIManager_H__

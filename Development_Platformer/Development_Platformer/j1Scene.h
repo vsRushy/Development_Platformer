@@ -12,6 +12,7 @@ class GUIButton;
 class GUILabel;
 class GUIPanel;
 class GUIInputBox;
+class GUIThumb;
 
 struct SDL_Texture;
 
@@ -89,6 +90,8 @@ public:
 	GUIButton* volume_down_button_gui = nullptr;
 	GUILabel* introduce_name_label_gui = nullptr;
 	GUIInputBox* inputbox_gui = nullptr;
+
+	GUIThumb* thumb_dummy = nullptr;
 
 	GUILabel* player_nickname_label = nullptr;
 	GUIImage* player_line_gui = nullptr;

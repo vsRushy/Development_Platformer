@@ -12,6 +12,7 @@
 #include "GUILabel.h"
 #include "GUIPanel.h"
 #include "GUIInputBox.h"
+#include "GUIThumb.h"
 
 j1GUIManager::j1GUIManager()
 {
@@ -35,6 +36,7 @@ bool j1GUIManager::Start()
 	image_textures = App->tex->Load("gui/Image_Textures.png");
 	button_textures = App->tex->Load("gui/Start_Quit_Buttons_01.png");
 	inputbox_textures = App->tex->Load("gui/textbox.png");
+	thumb_textures = App->tex->Load("gui/Thumb_Textures.png");
 
 	default_font_used = App->fonts->Load("fonts/open_sans/OpenSans-Regular.ttf");
 
@@ -65,6 +67,10 @@ bool j1GUIManager::Update(float dt)
 			gui_elements[i]->Draw(button_textures);
 
 	for (uint i = 0; i < gui_elements.Count(); ++i)
+		if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_THUMB)
+			gui_elements[i]->Draw(thumb_textures);
+
+	for (uint i = 0; i < gui_elements.Count(); ++i)
 		if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_INPUTBOX)
 		{
 			gui_elements[i]->Draw(inputbox_textures);
@@ -87,6 +93,7 @@ bool j1GUIManager::CleanUp()
 	App->tex->UnLoad(image_textures);
 	App->tex->UnLoad(button_textures);
 	App->tex->UnLoad(inputbox_textures);
+	App->tex->UnLoad(thumb_textures);
 
 	for (uint i = 0; i < gui_elements.Count(); ++i)
 	{
@@ -154,6 +161,18 @@ GUIElement* j1GUIManager::CreateGUIInputBox(GUI_ELEMENT_TYPE type, int x, int y,
 	GUIElement* ret = nullptr;
 
 	ret = new GUIInputBox(x, y, color, font, a, son);
+
+	if (ret != nullptr)
+		gui_elements.PushBack(ret);
+
+	return ret;
+}
+
+GUIElement* j1GUIManager::CreateGUIThumb(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect a, SDL_Rect a_1, SDL_Rect a_2, GUIElement* son)
+{
+	GUIElement* ret = nullptr;
+
+	ret = new GUIThumb(x, y, a, a_1, a_2, son);
 
 	if (ret != nullptr)
 		gui_elements.PushBack(ret);

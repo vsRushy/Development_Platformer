@@ -20,6 +20,7 @@
 #include "GUILabel.h"
 #include "GUIPanel.h"
 #include "GUIInputBox.h"
+#include "GUIThumb.h"
 
 #include "Brofiler\Brofiler.h"
 
@@ -63,6 +64,7 @@ bool j1Scene::Start()
 		logo_gui = (GUIImage*)App->gui->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 424.0f, 358.0f, { 0, 0, 84, 22 });
 		game_name_logo_gui = (GUIImage*)App->gui->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 150.0f, 120.0f, { 0, 22, 264, 90 });
 		inputbox_gui = (GUIInputBox*)App->gui->CreateGUIInputBox(GUI_ELEMENT_TYPE::GUI_INPUTBOX, 150.0f, 235.0f, { 0, 0, 0, 255 }, App->gui->default_font_used, { 0, 0, 100, 24 });
+		thumb_dummy = (GUIThumb*)App->gui->CreateGUIThumb(GUI_ELEMENT_TYPE::GUI_THUMB, 80.0f, 20.0f, { 0, 0, 7, 7 }, { 0, 7, 7, 7 }, { 0, 14, 7, 7 });
 	}
 
 	if (start_game)
@@ -183,6 +185,11 @@ bool j1Scene::Update(float dt)
 		{
 			App->gui->DeleteGUIElement(volume_down_button_gui);
 			volume_down_button_gui = nullptr;
+		}
+		if (thumb_dummy != nullptr)
+		{
+			App->gui->DeleteGUIElement(thumb_dummy);
+			thumb_dummy = nullptr;
 		}
 		if (inputbox_gui != nullptr)
 		{
