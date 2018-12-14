@@ -170,7 +170,7 @@ bool Particle::Update(float dt)
 	{
 		life = 0;
 	}
-	if ((App->input->GetKey(SDL_SCANCODE_LSHIFT) == 1) && life > 0)
+	if ((App->input->GetKey(SDL_SCANCODE_LSHIFT) == 1) && life > 0 && App->scene->player->number_of_coins >= 5)
 	{
 		App->scene->player->position.x = position.x;
 		App->scene->player->position.y = position.y;

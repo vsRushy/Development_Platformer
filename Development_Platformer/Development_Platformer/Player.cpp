@@ -85,7 +85,7 @@ void Player::Update(float dt)
 			going_up = true;
 		}*/
 
-		if (App->input->GetKey(SDL_SCANCODE_X) == KEY_REPEAT && !dash && able_to_dash)
+		if (App->input->GetKey(SDL_SCANCODE_X) == KEY_REPEAT && !dash && able_to_dash && number_of_coins >= 3)
 		{
 			dash = true;
 			able_to_dash = false;

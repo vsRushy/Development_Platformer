@@ -269,6 +269,7 @@ void j1EntityManager::OnCollision(Collider* a, Collider* b)
 					delete entities[i];
 					entities[i] = nullptr;
 				}
+				++App->scene->player->number_of_coins;
 				App->audio->PlayFx(4);
 				break;
 			}

@@ -90,8 +90,20 @@ bool j1Scene::Start()
 				enemy01air = (Enemy_level01_air*)App->entities->CreateEntity(ENTITY_TYPES::ENEMY_LEVEL01_AIR, 470, 200);
 			if(enemy01ground == nullptr)
 				enemy01ground = (Enemy_level01_ground*)App->entities->CreateEntity(ENTITY_TYPES::ENEMY_LEVEL01_GROUND, 960, 779);
-			if(coin1 == nullptr)
-				coin1 = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 400, 300);
+			if(coins[0] == nullptr)
+				coins[0] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 450, 400);
+			if (coins[1] == nullptr)
+				coins[1] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 1119, 1053);
+			if (coins[2] == nullptr)
+				coins[2] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 2238, 1213);
+			if (coins[3] == nullptr)
+				coins[3] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 1718, 776);
+			if (coins[4] == nullptr)
+				coins[4] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 1439, 670);
+			if (coins[5] == nullptr)
+				coins[5] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 670, 766);
+			if (coins[6] == nullptr)
+				coins[6] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 640, 396);
 
 			player->position = first_map_pos;
 			player->previous_position = player->position;
@@ -215,7 +227,10 @@ bool j1Scene::Update(float dt)
 		{
 			App->SaveGame();
 		}
-
+		if (App->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+		{
+			LOG("HEYYY!!!!!!!! Player position is: x = %f, y = %f", player->position.x, player->position.y);
+		}
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 			App->render->camera.y -= 450 * dt;
 		else

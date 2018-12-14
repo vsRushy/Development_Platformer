@@ -39,6 +39,7 @@ public:
 	bool player_facing = true; //true = right; false = left;
 	void Reset();
 	bool player_start = true;
+	uint number_of_coins = 0;
 
 private:
 	Animation idle_anim;
@@ -70,6 +71,7 @@ private:
 	float dashTime = 0.0f;
 	bool able_to_dash = false;
 	float wait_time = 0.0f;
+
 };
 
 #endif // __PLAYER_H__
