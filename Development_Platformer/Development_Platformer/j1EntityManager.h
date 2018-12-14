@@ -17,6 +17,7 @@ enum class ENTITY_TYPES
 	PLAYER,
 	ENEMY_LEVEL02_GROUND,
 	ENEMY_LEVEL02_AIR,
+	COINS,
 };
 
 class j1EntityManager : public j1Module
@@ -49,6 +50,7 @@ private:
 	SDL_Texture* player_tex;
 	SDL_Texture* enemy_level01_ground_tex;
 	SDL_Texture* enemy_level01_air_tex;
+	SDL_Texture* Coins_tex;
 };
 
 #endif // __j1EntityManager_H__

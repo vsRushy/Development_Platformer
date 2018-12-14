@@ -6,6 +6,7 @@
 class Player;
 class Enemy_level01_air;
 class Enemy_level01_ground;
+class Coins;
 
 class GUIImage;
 class GUIButton;
@@ -75,6 +76,7 @@ public:
 	Enemy_level01_ground* enemy01ground = nullptr;
 	Enemy_level01_air* enemy02air = nullptr;
 	Enemy_level01_ground* enemy02ground = nullptr;
+	Coins* coin1 = nullptr;
 
 private:
 	SDL_Texture* bg = nullptr;

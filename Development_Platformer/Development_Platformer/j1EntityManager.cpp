@@ -12,6 +12,7 @@
 #include "Player.h"
 #include "Enemy_level01_ground.h"
 #include "Enemy_level01_air.h"
+#include "Coins.h"
 #include "j1Scene.h"
 #include "j1Map.h"
 #include "j1FadeToBlack.h"
@@ -38,11 +39,13 @@ bool j1EntityManager::Start()
 	player_tex = App->tex->Load("textures/characters.png");
 	enemy_level01_ground_tex = App->tex->Load("textures/Enemies/enemy_level01_ground.png");
 	enemy_level01_air_tex = App->tex->Load("textures/Enemies/enemy_level01_air.png");
+	Coins_tex = App->tex->Load("textures/coins.png");
 
 	LOG("Loading player sound effects");
 	App->audio->LoadFx("jump.wav"); // id: 1
 	App->audio->LoadFx("dash.wav"); // id: 2
 	App->audio->LoadFx("arrow.wav"); // id: 3
+	App->audio->LoadFx("mario_coin.wav"); // id: 4
 
 	return true;
 }
@@ -72,6 +75,10 @@ bool j1EntityManager::Update(float dt)
 		if (entities[i] != nullptr && entities[i]->type == ENTITY_TYPES::ENEMY_LEVEL01_AIR)
 			entities[i]->Draw(enemy_level01_air_tex);
 
+	for (uint i = 0; i < entities.Count(); ++i)
+		if (entities[i] != nullptr && entities[i]->type == ENTITY_TYPES::COINS)
+			entities[i]->Draw(Coins_tex);
+
 	return true;
 }
 
@@ -83,6 +90,7 @@ bool j1EntityManager::CleanUp()
 	App->tex->UnLoad(player_tex);
 	App->tex->UnLoad(enemy_level01_ground_tex);
 	App->tex->UnLoad(enemy_level01_air_tex);
+	App->tex->UnLoad(Coins_tex);
 
 	for (uint i = 0; i < entities.Count(); ++i)
 	{
@@ -111,6 +119,9 @@ Entity* j1EntityManager::CreateEntity(ENTITY_TYPES type, int x, int y)
 		break;
 	case ENTITY_TYPES::ENEMY_LEVEL01_AIR:
 		ret = new Enemy_level01_air(x, y);
+		break;
+	case ENTITY_TYPES::COINS:
+		ret = new Coins(x, y);
 		break;
 	default:
 		break;
@@ -242,7 +253,7 @@ void j1EntityManager::OnCollision(Collider* a, Collider* b)
 				entities[i] = nullptr;
 				break;
 			}
-			if (b->type == COLLIDER_TYPE::COLLIDER_PLAYER && a->type == COLLIDER_TYPE::COLLIDER_ENEMY && App->scene->actual_god_mode == false) {
+			else if (b->type == COLLIDER_TYPE::COLLIDER_PLAYER && a->type == COLLIDER_TYPE::COLLIDER_ENEMY && App->scene->actual_god_mode == false) {
 				
 				if (App->scene->map_selected == 1) {
 					App->scene->player->position = App->scene->first_map_pos;
@@ -251,6 +262,15 @@ void j1EntityManager::OnCollision(Collider* a, Collider* b)
 					App->scene->player->position = App->scene->second_map_pos;
 				}
 				App->scene->player->Reset();
+			}
+			else if (b->type == COLLIDER_TYPE::COLLIDER_COIN)
+			{
+				if (entities[i]->type == ENTITY_TYPES::COINS) {
+					delete entities[i];
+					entities[i] = nullptr;
+				}
+				App->audio->PlayFx(4);
+				break;
 			}
 		}
 	}

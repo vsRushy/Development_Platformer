@@ -93,6 +93,9 @@
     <ClCompile Include="GUISlider.cpp">
       <Filter>GUI Elements</Filter>
     </ClCompile>
+    <ClCompile Include="Coins.cpp">
+      <Filter>Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h" />
@@ -207,6 +210,9 @@
     </ClInclude>
     <ClInclude Include="GUISlider.h">
       <Filter>GUI Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="Coins.h">
+      <Filter>Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

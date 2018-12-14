@@ -90,7 +90,9 @@ bool j1Scene::Start()
 				enemy01air = (Enemy_level01_air*)App->entities->CreateEntity(ENTITY_TYPES::ENEMY_LEVEL01_AIR, 470, 200);
 			if(enemy01ground == nullptr)
 				enemy01ground = (Enemy_level01_ground*)App->entities->CreateEntity(ENTITY_TYPES::ENEMY_LEVEL01_GROUND, 960, 779);
-			
+			if(coin1 == nullptr)
+				coin1 = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 400, 300);
+
 			player->position = first_map_pos;
 			player->previous_position = player->position;
 		}
