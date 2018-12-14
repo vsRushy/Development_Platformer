@@ -90,6 +90,9 @@
     <ClCompile Include="GUIThumb.cpp">
       <Filter>GUI Elements</Filter>
     </ClCompile>
+    <ClCompile Include="GUISlider.cpp">
+      <Filter>GUI Elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1App.h" />
@@ -200,6 +203,9 @@
       <Filter>GUI Elements</Filter>
     </ClInclude>
     <ClInclude Include="GUIThumb.h">
+      <Filter>GUI Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="GUISlider.h">
       <Filter>GUI Elements</Filter>
     </ClInclude>
   </ItemGroup>

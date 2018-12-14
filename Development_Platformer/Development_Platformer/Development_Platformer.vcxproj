@@ -128,6 +128,7 @@
     <ClCompile Include="GUIInputBox.cpp" />
     <ClCompile Include="GUILabel.cpp" />
     <ClCompile Include="GUIPanel.cpp" />
+    <ClCompile Include="GUISlider.cpp" />
     <ClCompile Include="GUIThumb.cpp" />
     <ClCompile Include="j1App.cpp" />
     <ClCompile Include="j1Audio.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="GUIInputBox.h" />
     <ClInclude Include="GUILabel.h" />
     <ClInclude Include="GUIPanel.h" />
+    <ClInclude Include="GUISlider.h" />
     <ClInclude Include="GUIThumb.h" />
     <ClInclude Include="j1App.h" />
     <ClInclude Include="j1Audio.h" />

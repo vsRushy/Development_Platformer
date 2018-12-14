@@ -13,6 +13,7 @@
 #include "GUIPanel.h"
 #include "GUIInputBox.h"
 #include "GUIThumb.h"
+#include "GUISlider.h"
 
 j1GUIManager::j1GUIManager()
 {
@@ -37,6 +38,7 @@ bool j1GUIManager::Start()
 	button_textures = App->tex->Load("gui/Start_Quit_Buttons_01.png");
 	inputbox_textures = App->tex->Load("gui/textbox.png");
 	thumb_textures = App->tex->Load("gui/Thumb_Textures.png");
+	slider_textures = App->tex->Load("gui/Slider_Textures.png");
 
 	default_font_used = App->fonts->Load("fonts/open_sans/OpenSans-Regular.ttf");
 
@@ -67,6 +69,10 @@ bool j1GUIManager::Update(float dt)
 			gui_elements[i]->Draw(button_textures);
 
 	for (uint i = 0; i < gui_elements.Count(); ++i)
+		if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_SLIDER)
+			gui_elements[i]->Draw(slider_textures);
+
+	for (uint i = 0; i < gui_elements.Count(); ++i)
 		if (gui_elements[i] != nullptr && gui_elements[i]->type == GUI_ELEMENT_TYPE::GUI_THUMB)
 			gui_elements[i]->Draw(thumb_textures);
 
@@ -94,6 +100,7 @@ bool j1GUIManager::CleanUp()
 	App->tex->UnLoad(button_textures);
 	App->tex->UnLoad(inputbox_textures);
 	App->tex->UnLoad(thumb_textures);
+	App->tex->UnLoad(slider_textures);
 
 	for (uint i = 0; i < gui_elements.Count(); ++i)
 	{
@@ -173,6 +180,18 @@ GUIElement* j1GUIManager::CreateGUIThumb(GUI_ELEMENT_TYPE type, int x, int y, SD
 	GUIElement* ret = nullptr;
 
 	ret = new GUIThumb(x, y, a, a_1, a_2, son);
+
+	if (ret != nullptr)
+		gui_elements.PushBack(ret);
+
+	return ret;
+}
+
+GUIElement* j1GUIManager::CreateGUISlider(GUI_ELEMENT_TYPE type, int x, int y, SDL_Rect a, GUIElement* son)
+{
+	GUIElement* ret = nullptr;
+
+	ret = new GUISlider(x, y, a, son);
 
 	if (ret != nullptr)
 		gui_elements.PushBack(ret);
