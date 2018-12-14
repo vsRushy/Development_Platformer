@@ -91,10 +91,6 @@ bool j1Scene::Start()
 			
 			player->position = first_map_pos;
 			player->previous_position = player->position;
-
-			if (player_nickname_label == nullptr)
-				player_nickname_label = (GUILabel*)App->gui->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, player->position.x - PLAYER_SIZE_X, player->position.y - PLAYER_SIZE_Y,
-					player_name.GetString(), { 0, 0, 0, 255 }, App->gui->default_font_used);
 		}
 		else if (map_selected == 2)
 		{
@@ -110,6 +106,19 @@ bool j1Scene::Start()
 			player->position = second_map_pos;
 			player->previous_position = player->position;
 		}
+
+		if (player_nickname_label == nullptr)
+			player_nickname_label = (GUILabel*)App->gui->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, player->position.x - PLAYER_SIZE_X + 17, player->position.y - PLAYER_SIZE_Y * 2,
+				player_name.GetString(), { 0, 0, 0, 255 }, App->gui->default_font_used);
+		
+		if (player_name.Length() > 0)
+		{
+			if (player_line_gui == nullptr)
+			{
+				player_line_gui = (GUIImage*)App->gui->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 260.0f, 190.0f, { 85, 0, 26, 10 });
+			}
+		}
+		
 
 		debug_tex = App->tex->Load("textures/path_tile.png");
 	}

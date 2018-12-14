@@ -91,6 +91,7 @@ public:
 	GUIInputBox* inputbox_gui = nullptr;
 
 	GUILabel* player_nickname_label = nullptr;
+	GUIImage* player_line_gui = nullptr;
 
 	// Pause GUI
 	GUIButton* continue_button_gui = nullptr;
