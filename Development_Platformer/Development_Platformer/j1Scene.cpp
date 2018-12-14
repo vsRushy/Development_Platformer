@@ -21,6 +21,7 @@
 #include "GUIPanel.h"
 #include "GUIInputBox.h"
 #include "GUIThumb.h"
+#include "GUISlider.h"
 
 #include "Brofiler\Brofiler.h"
 
@@ -65,6 +66,7 @@ bool j1Scene::Start()
 		game_name_logo_gui = (GUIImage*)App->gui->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 150.0f, 120.0f, { 0, 22, 264, 90 });
 		inputbox_gui = (GUIInputBox*)App->gui->CreateGUIInputBox(GUI_ELEMENT_TYPE::GUI_INPUTBOX, 150.0f, 235.0f, { 0, 0, 0, 255 }, App->gui->default_font_used, { 0, 0, 100, 24 });
 		thumb_dummy = (GUIThumb*)App->gui->CreateGUIThumb(GUI_ELEMENT_TYPE::GUI_THUMB, 80.0f, 20.0f, { 0, 0, 7, 7 }, { 0, 7, 7, 7 }, { 0, 14, 7, 7 });
+		start_volume_slider = (GUISlider*)App->gui->CreateGUISlider(GUI_ELEMENT_TYPE::GUI_SLIDER, 100, 100, { 0, 0, 9, 51 });
 	}
 
 	if (start_game)

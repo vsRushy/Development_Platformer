@@ -6,7 +6,7 @@
 
 GUISlider::GUISlider(int x, int y, SDL_Rect image_area, GUIElement* son) : GUIElement(type, x, y, area, son)
 {
-	type = GUI_ELEMENT_TYPE::GUI_IMAGE;
+	type = GUI_ELEMENT_TYPE::GUI_SLIDER;
 	area = image_area;
 }
 
