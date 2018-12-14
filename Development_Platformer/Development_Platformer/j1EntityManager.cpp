@@ -46,6 +46,8 @@ bool j1EntityManager::Start()
 	App->audio->LoadFx("dash.wav"); // id: 2
 	App->audio->LoadFx("arrow.wav"); // id: 3
 	App->audio->LoadFx("mario_coin.wav"); // id: 4
+	App->audio->LoadFx("dash_available.wav"); // id: 5
+	App->audio->LoadFx("sword_teleport.wav"); // id: 6
 
 	return true;
 }
@@ -271,6 +273,10 @@ void j1EntityManager::OnCollision(Collider* a, Collider* b)
 				}
 				++App->scene->player->number_of_coins;
 				App->audio->PlayFx(4);
+				if (App->scene->player->number_of_coins == 3)
+					App->audio->PlayFx(5);
+				else if (App->scene->player->number_of_coins == 5)
+					App->audio->PlayFx(6);
 				break;
 			}
 		}
