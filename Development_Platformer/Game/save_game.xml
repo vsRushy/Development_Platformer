@@ -8,20 +8,22 @@
 	<scene />
 	<entities>
 		<player>
-			<position x="298.350006" y="330.996002" />
+			<position x="288" y="330.495453" />
 		</player>
 		<enemy_level01_air>
-			<position x="449.500031" y="200" />
+			<position x="470" y="200" />
 		</enemy_level01_air>
 		<enemy_level01_ground>
 			<position x="960" y="779" />
 		</enemy_level01_ground>
 	</entities>
+	<gui />
 	<:anonymous />
 	<collision />
 	<fade />
 	<pathfinding />
+	<fonts />
 	<renderer>
-		<camera x="-122" y="-260" />
+		<camera x="-92" y="-260" />
 	</renderer>
 </game_state>
