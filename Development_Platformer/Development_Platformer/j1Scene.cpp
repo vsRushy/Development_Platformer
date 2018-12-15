@@ -453,12 +453,7 @@ bool j1Scene::Update(float dt)
 	{
 		if (start_volume_slider != nullptr)
 		{
-			LOG("SLIDER [X]: %.2f [Y]: %.2f", start_volume_slider->position.x,start_volume_slider->position.y);
-			LOG("THUMB [X]: %.2f [Y]: %.2f", start_volume_slider->slider_thumb->position.x,
-				start_volume_slider->slider_thumb->position.y);
-			float value = 0;
-			value = start_volume_slider->GetSliderValue();
-			LOG("SLIDER VALUEEEEEEEEEEEEE: [%.2f]", value);
+			
 		}
 	}
 
