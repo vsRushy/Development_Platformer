@@ -22,6 +22,9 @@ Marcos Freixas, Gerard.
 
 Torras Isanta, Martí.
 
+<img src="Marti_Howarang.png" width="500" />
+XD
+
 • GitHub account: [martitorras](https://github.com/martitorras)
 
 • What has he done: particles, player logic, delta time, Brofiler.
