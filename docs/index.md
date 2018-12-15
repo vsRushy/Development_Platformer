@@ -14,7 +14,7 @@ Welcome to our first ever Platformer, Little Big King! This is a project for the
 
 Marcos Freixas, Gerard.
 
-<img src="marti_photo.JPG" width="500" />
+<img src="Gerard_Photo.jpg" width="500" />
 
 • GitHub account: [vsRushy](https://github.com/vsRushy)
 
