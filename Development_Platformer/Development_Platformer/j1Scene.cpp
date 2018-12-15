@@ -138,6 +138,9 @@ bool j1Scene::Start()
 			}
 		}
 
+		if(player_coins == nullptr)
+			player_coins = (GUILabel*)App->gui->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 74.0f, 9.0f, "0", { 0, 0, 0, 255 }, App->gui->default_font_used);
+
 		debug_tex = App->tex->Load("textures/path_tile.png");
 	}
 
@@ -156,6 +159,12 @@ bool j1Scene::Update(float dt)
 	BROFILER_CATEGORY("Scene Update", Profiler::Color::CadetBlue);
 
 	bool ret = true;
+
+	// In game gui
+	if (player_coins != nullptr && player != nullptr)
+	{
+		player_coins->SetText((p2SString)player->num_coins.GetString());
+	}
 
 	// UI Check
 	if (start_button_gui != nullptr && start_button_gui->has_been_clicked == !start_game)
@@ -232,7 +241,6 @@ bool j1Scene::Update(float dt)
 		App->fade->FadeToBlack(this, this, 1.0f);
 	}
 
-
 	if (player != nullptr)
 	{
 		/*INPUT--------------------------------------------*/
@@ -279,6 +287,8 @@ bool j1Scene::Update(float dt)
 				App->entities->DeleteAllEntities();
 			}
 			player->player_start = true;
+			App->gui->DeleteGUIElement(player_coins);
+			player_coins = nullptr;
 			App->fade->FadeToBlack(this, this, 0.5f);
 		}
 
@@ -492,16 +502,6 @@ bool j1Scene::Update(float dt)
 	{
 		float volume_value = pause_volume_slider_gui->GetSliderValue() * 100;
 		App->audio->SetVolume(volume_value);
-	}
-
-	// In game gui
-	if (player_coins == nullptr && player != nullptr)
-	{
-		player_coins = (GUILabel*)App->gui->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 74.0f, 9.0f, (p2SString)player->num_coins.GetString(), { 0, 0, 0, 255 }, App->gui->default_font_used);
-	}
-	if (player_coins != nullptr && player != nullptr)
-	{
-		player_coins->SetText((p2SString)player->num_coins.GetString());
 	}
 
 	return ret;
