@@ -65,8 +65,7 @@ bool j1Scene::Start()
 		logo_gui = (GUIImage*)App->gui->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 424.0f, 358.0f, { 0, 0, 84, 22 });
 		game_name_logo_gui = (GUIImage*)App->gui->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 150.0f, 120.0f, { 0, 22, 264, 90 });
 		inputbox_gui = (GUIInputBox*)App->gui->CreateGUIInputBox(GUI_ELEMENT_TYPE::GUI_INPUTBOX, 150.0f, 235.0f, { 0, 0, 0, 255 }, App->gui->default_font_used, { 0, 0, 100, 24 });
-		credits_label_license = (GUILabel*)App->gui->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 10.0f, 310.0f, "MIT LICENSE.", { 0, 0, 0, 255 }, App->gui->default_font_used);
-		credits_label_names = (GUILabel*)App->gui->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 10.0f, 350.0f, "Copyright Gerard M. & Martí T.", { 0, 0, 0, 255 }, App->gui->default_font_used);
+		credits_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 4.0f, 88.0f, { 232, 0, 47, 24 }, { 232, 24, 47, 24 }, { 232, 48, 47, 24 });
 	}
 
 	if (start_game)
@@ -198,10 +197,25 @@ bool j1Scene::Update(float dt)
 			App->gui->DeleteGUIElement(inputbox_gui);
 			inputbox_gui = nullptr;
 		}
+		if (credits_button_gui != nullptr)
+		{
+			App->gui->DeleteGUIElement(credits_button_gui);
+			credits_button_gui = nullptr;
+		}
 		if (start_volume_slider_gui != nullptr)
 		{
 			App->gui->DeleteGUIElement(start_volume_slider_gui);
 			start_volume_slider_gui = nullptr;
+		}
+		if (credits_label_license != nullptr)
+		{
+			App->gui->DeleteGUIElement(credits_label_license);
+			credits_label_license = nullptr;
+		}
+		if (credits_label_names != nullptr)
+		{
+			App->gui->DeleteGUIElement(credits_label_names);
+			credits_label_names = nullptr;
 		}
 
 		App->fade->FadeToBlack(this, this, 1.0f);
@@ -393,6 +407,21 @@ bool j1Scene::Update(float dt)
 		volume_up_button_gui = nullptr;
 		volume_down_button_gui = nullptr;
 		start_volume_slider_gui = nullptr;
+	}
+	if (credits_button_gui != nullptr && credits_button_gui->has_been_clicked)
+	{
+		if (credits_label_license == nullptr && credits_label_names == nullptr)
+		{
+			credits_label_license = (GUILabel*)App->gui->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 10.0f, 310.0f, "MIT LICENSE.", { 0, 0, 0, 255 }, App->gui->default_font_used);
+			credits_label_names = (GUILabel*)App->gui->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 10.0f, 350.0f, "Copyright Gerard M. & Martí T.", { 0, 0, 0, 255 }, App->gui->default_font_used);
+		}
+	}
+	else if (credits_button_gui != nullptr && !(credits_button_gui->has_been_clicked))
+	{
+		App->gui->DeleteGUIElement(credits_label_license);
+		App->gui->DeleteGUIElement(credits_label_names);
+		credits_label_license = nullptr;
+		credits_label_names = nullptr;
 	}
 
 	// Set volume
