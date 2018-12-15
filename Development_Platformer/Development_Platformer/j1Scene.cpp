@@ -497,7 +497,7 @@ bool j1Scene::Update(float dt)
 	// In game gui
 	if (player_coins == nullptr && player != nullptr)
 	{
-		player_coins = (GUILabel*)App->gui->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 120.0f, 120.0f, (p2SString)player->num_coins.GetString(), { 0, 0, 0, 255 }, App->gui->default_font_used);
+		player_coins = (GUILabel*)App->gui->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 74.0f, 9.0f, (p2SString)player->num_coins.GetString(), { 0, 0, 0, 255 }, App->gui->default_font_used);
 	}
 	if (player_coins != nullptr && player != nullptr)
 	{
