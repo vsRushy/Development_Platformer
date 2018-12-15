@@ -81,6 +81,7 @@ public:
 
 private:
 	SDL_Texture* bg = nullptr;
+	SDL_Texture* coins_image = nullptr;
 
 // GUI
 public:

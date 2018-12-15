@@ -70,6 +70,7 @@ bool j1Scene::Start()
 
 	if (start_game)
 	{
+		coins_image = App->tex->Load("textures/coins_interface.png");
 		if (map_selected == 1)
 		{
 			App->map->Load(first_map.GetString());
@@ -373,6 +374,7 @@ bool j1Scene::Update(float dt)
 	{
 		App->render->Blit(bg, 0, 0, NULL);
 	}
+	else App->render->Blit(coins_image, 10, 5, NULL, 0.0F);
 
 	// Go to web
 	if (logo_gui != nullptr && logo_gui->has_been_clicked)
@@ -562,6 +564,7 @@ bool j1Scene::CleanUp()
 	App->map->Unload();
 	App->tex->UnLoad(debug_tex);
 	App->tex->UnLoad(bg);
+	App->tex->UnLoad(coins_image);
 
 	return true;
 }
