@@ -23,7 +23,6 @@ Marcos Freixas, Gerard.
 Torras Isanta, Martí.
 
 <img src="Marti_Howarang.jpg" width="500" />
-XD
 
 • GitHub account: [martitorras](https://github.com/martitorras)
 
