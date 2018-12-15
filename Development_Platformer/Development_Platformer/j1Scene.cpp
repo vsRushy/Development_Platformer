@@ -308,6 +308,8 @@ bool j1Scene::Update(float dt)
 				player->previous_position = player->position;
 			}
 			player->player_start = true;
+			App->gui->DeleteGUIElement(player_coins);
+			player_coins = nullptr;
 			App->fade->FadeToBlack(this, this, 0.5f);
 		}
 
