@@ -450,7 +450,7 @@ bool j1Scene::Update(float dt)
 	// Adjust slider volume
 	if (start_volume_slider != nullptr && start_volume_slider->slider_thumb->is_clicked)
 	{
-		float volume_value = start_volume_slider->GetSliderValue();
+		float volume_value = start_volume_slider->GetSliderValue() * 100;
 		App->audio->SetVolume(volume_value);
 	}
 
