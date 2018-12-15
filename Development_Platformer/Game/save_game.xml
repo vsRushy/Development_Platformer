@@ -8,14 +8,8 @@
 	<scene />
 	<entities>
 		<player>
-			<position x="288" y="330.495453" />
+			<position x="2049.19214" y="362.579651" />
 		</player>
-		<enemy_level01_air>
-			<position x="470" y="200" />
-		</enemy_level01_air>
-		<enemy_level01_ground>
-			<position x="960" y="779" />
-		</enemy_level01_ground>
 	</entities>
 	<gui />
 	<:anonymous />
@@ -24,6 +18,6 @@
 	<pathfinding />
 	<fonts />
 	<renderer>
-		<camera x="-92" y="-260" />
+		<camera x="-3614" y="-324" />
 	</renderer>
 </game_state>

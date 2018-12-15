@@ -77,7 +77,7 @@ public:
 	Enemy_level01_ground* enemy01ground = nullptr;
 	Enemy_level01_air* enemy02air = nullptr;
 	Enemy_level01_ground* enemy02ground = nullptr;
-	Coins* coins[10];
+	Coins* coins[7];
 
 private:
 	SDL_Texture* bg = nullptr;

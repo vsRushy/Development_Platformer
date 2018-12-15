@@ -114,6 +114,14 @@ bool j1Scene::Start()
 
 			player->position = second_map_pos;
 			player->previous_position = player->position;
+
+			coins[0] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 1088, 1280);
+			coins[1] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 1282, 1190);
+			coins[2] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 2901, 1077);
+			coins[3] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 1536, 768);
+			coins[4] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 1025, 350);
+			coins[5] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 673, 223);
+			coins[6] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 2240, 416);
 		}
 
 		if (player_nickname_label == nullptr)
