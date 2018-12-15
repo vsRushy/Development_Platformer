@@ -272,6 +272,7 @@ void j1EntityManager::OnCollision(Collider* a, Collider* b)
 					entities[i] = nullptr;
 				}
 				++App->scene->player->number_of_coins;
+				App->scene->player->num_coins.create("%i", App->scene->player->number_of_coins);
 				App->audio->PlayFx(4);
 				if (App->scene->player->number_of_coins == 3)
 					App->audio->PlayFx(5);

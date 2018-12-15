@@ -90,6 +90,8 @@ bool j1Scene::Start()
 			enemy01air = (Enemy_level01_air*)App->entities->CreateEntity(ENTITY_TYPES::ENEMY_LEVEL01_AIR, 470, 200);
 			enemy01ground = (Enemy_level01_ground*)App->entities->CreateEntity(ENTITY_TYPES::ENEMY_LEVEL01_GROUND, 960, 779);
 			
+			player->number_of_coins = 0;
+
 			coins[0] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 450, 400);
 			coins[1] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 1119, 1053);
 			coins[2] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 2238, 1213);
@@ -490,6 +492,16 @@ bool j1Scene::Update(float dt)
 	{
 		float volume_value = pause_volume_slider_gui->GetSliderValue() * 100;
 		App->audio->SetVolume(volume_value);
+	}
+
+	// In game gui
+	if (player_coins == nullptr && player != nullptr)
+	{
+		player_coins = (GUILabel*)App->gui->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 120.0f, 120.0f, (p2SString)player->num_coins.GetString(), { 0, 0, 0, 255 }, App->gui->default_font_used);
+	}
+	if (player_coins != nullptr && player != nullptr)
+	{
+		player_coins->SetText((p2SString)player->num_coins.GetString());
 	}
 
 	return ret;

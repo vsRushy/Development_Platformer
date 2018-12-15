@@ -40,6 +40,7 @@ public:
 	void Reset();
 	bool player_start = true;
 	uint number_of_coins = 0;
+	p2SString num_coins;
 
 private:
 	Animation idle_anim;

@@ -102,6 +102,8 @@ public:
 	GUILabel* player_nickname_label = nullptr;
 	GUIImage* player_line_gui = nullptr;
 
+	GUILabel* player_coins = nullptr;
+
 	// Pause GUI
 	GUIButton* continue_button_gui = nullptr;
 	GUIButton* pause_quit_button_gui = nullptr;

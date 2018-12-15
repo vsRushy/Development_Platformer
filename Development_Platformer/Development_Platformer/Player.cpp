@@ -44,6 +44,8 @@ Player::Player(int x, int y) : Entity(type, x, y)
 
 	original_pos.x = x;
 	original_pos.y = y;
+
+	num_coins.create("%i", number_of_coins);
 }
 
 /* Here we define the player's logic. It is blitted to the screen in j1Scene.cpp. Although we can do it
@@ -299,7 +301,7 @@ void Player::Update(float dt)
 
 void Player::OnCollision(Collider* a, Collider* b)
 {
-	
+
 }
 
 void Player::Reset() {
