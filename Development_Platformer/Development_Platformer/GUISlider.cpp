@@ -46,3 +46,9 @@ void GUISlider::Update(float dt)
 		}
 	}
 }
+
+float GUISlider::GetSliderValue() const
+{
+	//return (slider_thumb->position.y + slider_thumb->area.h / 2) / this->area.h;
+	return (slider_thumb->position.y - this->position.y) / (float)this->area.h;
+}

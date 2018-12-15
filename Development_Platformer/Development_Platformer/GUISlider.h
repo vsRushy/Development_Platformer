@@ -19,11 +19,12 @@ public:
 	}
 
 	void Update(float dt);
+	float GetSliderValue() const;
 
 	GUIThumb* slider_thumb = nullptr;
 	bool is_inside_thumb = false;
 
-	uint value = 0;
+	float value = 0;
 };
 
 #endif // __GUISlider_H__

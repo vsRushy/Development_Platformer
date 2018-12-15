@@ -31,9 +31,6 @@ public:
 public:
 	SDL_Rect background;
 	GUILabel* input_box_label = nullptr;
-
-private:
-
 };
 
 #endif // __GUIInputBox_H__
