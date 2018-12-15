@@ -91,11 +91,9 @@ public:
 	GUIButton* quit_button_gui = nullptr;
 	GUIButton* volume_up_button_gui = nullptr;
 	GUIButton* volume_down_button_gui = nullptr;
+	GUISlider* start_volume_slider_gui = nullptr;
 	GUILabel* introduce_name_label_gui = nullptr;
 	GUIInputBox* inputbox_gui = nullptr;
-	GUISlider* start_volume_slider = nullptr;
-
-	GUIThumb* thumb_dummy = nullptr;
 
 	GUILabel* player_nickname_label = nullptr;
 	GUIImage* player_line_gui = nullptr;
@@ -106,6 +104,7 @@ public:
 	GUIButton* pause_options_button_gui = nullptr;
 	GUIButton* pause_volume_up_button_gui = nullptr;
 	GUIButton* pause_volume_down_button_gui = nullptr;
+	GUISlider* pause_volume_slider_gui = nullptr;
 
 	p2SString player_name;
 };
