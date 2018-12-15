@@ -65,6 +65,8 @@ bool j1Scene::Start()
 		logo_gui = (GUIImage*)App->gui->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 424.0f, 358.0f, { 0, 0, 84, 22 });
 		game_name_logo_gui = (GUIImage*)App->gui->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 150.0f, 120.0f, { 0, 22, 264, 90 });
 		inputbox_gui = (GUIInputBox*)App->gui->CreateGUIInputBox(GUI_ELEMENT_TYPE::GUI_INPUTBOX, 150.0f, 235.0f, { 0, 0, 0, 255 }, App->gui->default_font_used, { 0, 0, 100, 24 });
+		credits_label_license = (GUILabel*)App->gui->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 10.0f, 310.0f, "MIT LICENSE.", { 0, 0, 0, 255 }, App->gui->default_font_used);
+		credits_label_names = (GUILabel*)App->gui->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 10.0f, 350.0f, "Copyright Gerard M. & Martí T.", { 0, 0, 0, 255 }, App->gui->default_font_used);
 	}
 
 	if (start_game)

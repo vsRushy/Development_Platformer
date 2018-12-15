@@ -86,6 +86,7 @@ private:
 public:
 	GUIImage* logo_gui = nullptr;
 	GUIImage* game_name_logo_gui = nullptr;
+	GUIButton* credits_button_gui = nullptr;
 	GUIButton* start_button_gui = nullptr;
 	GUIButton* options_button_gui = nullptr;
 	GUIButton* quit_button_gui = nullptr;
@@ -94,6 +95,8 @@ public:
 	GUISlider* start_volume_slider_gui = nullptr;
 	GUILabel* introduce_name_label_gui = nullptr;
 	GUIInputBox* inputbox_gui = nullptr;
+	GUILabel* credits_label_license = nullptr;
+	GUILabel* credits_label_names = nullptr;
 
 	GUILabel* player_nickname_label = nullptr;
 	GUIImage* player_line_gui = nullptr;
