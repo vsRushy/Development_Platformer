@@ -38,7 +38,8 @@ public:
 	bool Save(pugi::xml_node&) const;
 
 	// Control volume
-	void ControlVolume(bool);
+	void ControlVolume(bool is_true);
+	void SetVolume(float value);
 
 private:
 

@@ -447,14 +447,11 @@ bool j1Scene::Update(float dt)
 		if (pause_volume_down_button_gui != nullptr && pause_volume_down_button_gui->has_been_clicked)
 			App->audio->ControlVolume(false);
 	}
-
-	// TESTING SLIDER VALUE
-	if (App->input->GetKey(SDL_SCANCODE_N) == KEY_DOWN)
+	// Adjust slider volume
+	if (start_volume_slider != nullptr && start_volume_slider->slider_thumb->is_clicked)
 	{
-		if (start_volume_slider != nullptr)
-		{
-			
-		}
+		float volume_value = start_volume_slider->GetSliderValue();
+		App->audio->SetVolume(volume_value);
 	}
 
 	return ret;

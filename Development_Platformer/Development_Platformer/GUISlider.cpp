@@ -22,7 +22,6 @@ GUISlider::GUISlider(int x, int y, SDL_Rect image_area, SDL_Rect thumb_1, SDL_Re
 void GUISlider::Update(float dt)
 {
 	Move();
-	value = GetSliderValue() * 100;
 
 	int x, y;
 	App->input->GetMousePosition(x, y);

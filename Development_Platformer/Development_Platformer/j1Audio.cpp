@@ -203,3 +203,8 @@ void j1Audio::ControlVolume(bool is_true)
 	else if (!is_true && volume >= 8)
 		Mix_VolumeMusic(volume -= 8);
 }
+
+void j1Audio::SetVolume(float value)
+{
+	Mix_VolumeMusic(value);
+}
