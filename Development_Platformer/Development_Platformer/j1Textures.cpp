@@ -82,7 +82,7 @@ bool j1Textures::UnLoad(SDL_Texture* texture)
 {
 	p2List_item<SDL_Texture*>* item;
 
-	for (item = textures.start; item != NULL; item = item->next)
+	for (item = textures.start; item != nullptr; item = item->next)
 	{
 		if (texture == item->data)
 		{

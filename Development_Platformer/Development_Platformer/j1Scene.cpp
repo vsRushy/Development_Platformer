@@ -332,6 +332,8 @@ bool j1Scene::Update(float dt)
 
 			App->entities->DeleteAllEntities();
 			player->player_start = true;
+			App->gui->DeleteGUIElement(player_coins);
+			player_coins = nullptr;
 			App->fade->FadeToBlack(this, this);
 		}
 
