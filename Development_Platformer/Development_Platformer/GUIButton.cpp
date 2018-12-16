@@ -3,6 +3,7 @@
 #include "j1GUIManager.h"
 #include "GUIElement.h"
 #include "GUIButton.h"
+#include "j1Audio.h"
 #include "p2Log.h"
 
 GUIButton::GUIButton(int x, int y, SDL_Rect image_area, SDL_Rect image_area_hover, SDL_Rect image_area_pressed, GUIElement* son) : GUIElement(type, x, y, area, son)
@@ -32,6 +33,7 @@ void GUIButton::Click()
 	{
 		if (App->input->GetMouseButtonDown(1) == SDL_PRESSED && can_change)
 		{
+			App->audio->PlayFx(7);
 			can_change = false;
 			has_been_clicked = !has_been_clicked;
 		}

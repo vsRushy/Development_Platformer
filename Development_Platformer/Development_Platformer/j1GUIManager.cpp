@@ -14,6 +14,7 @@
 #include "GUIInputBox.h"
 #include "GUIThumb.h"
 #include "GUISlider.h"
+#include "j1Audio.h"
 
 j1GUIManager::j1GUIManager()
 {
@@ -41,6 +42,8 @@ bool j1GUIManager::Start()
 	slider_textures = App->tex->Load("gui/Slider_Textures.png");
 
 	default_font_used = App->fonts->Load("fonts/open_sans/OpenSans-Regular.ttf");
+
+	App->audio->LoadFx("button.wav"); // id:7
 
 	return true;
 }
