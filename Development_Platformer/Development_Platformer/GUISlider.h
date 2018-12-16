@@ -24,6 +24,7 @@ public:
 	GUIThumb* slider_thumb = nullptr;
 	bool is_inside_thumb = false;
 
+private:
 	float value = 0;
 };
 

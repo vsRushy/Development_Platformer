@@ -32,9 +32,6 @@ public:
 	SDL_Texture* tex = nullptr;
 	p2SString text;
 	SDL_Color color;
-
-private:
-
 };
 
 #endif // __GUILabel_H__

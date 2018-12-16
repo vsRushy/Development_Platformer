@@ -34,7 +34,6 @@ bool j1GUIManager::Awake(pugi::xml_node& config)
 
 bool j1GUIManager::Start()
 {
-	atlas = App->tex->Load("gui/atlas.png");
 	image_textures = App->tex->Load("gui/Image_Textures.png");
 	button_textures = App->tex->Load("gui/Start_Quit_Buttons_01.png");
 	inputbox_textures = App->tex->Load("gui/textbox.png");
@@ -98,7 +97,6 @@ bool j1GUIManager::CleanUp()
 {
 	LOG("Freeing all gui elements");
 
-	App->tex->UnLoad(atlas);
 	App->tex->UnLoad(image_textures);
 	App->tex->UnLoad(button_textures);
 	App->tex->UnLoad(inputbox_textures);

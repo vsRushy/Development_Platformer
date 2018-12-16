@@ -57,7 +57,6 @@ public:
 private:
 	p2DynArray<GUIElement*> gui_elements = NULL;
 
-	SDL_Texture* atlas = nullptr;
 	SDL_Texture* image_textures = nullptr;
 	SDL_Texture* button_textures = nullptr;
 	SDL_Texture* inputbox_textures = nullptr;
