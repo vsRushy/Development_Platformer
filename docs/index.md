@@ -24,7 +24,7 @@ Marcos Freixas, Gerard.
 
 Torras Isanta, Martí.
 
-<img src="marti_photo.JPG" width="480" height="640"/>
+<img src="marti_photo.png" width="480" height="640"/>
 
 • GitHub account: [martitorras](https://github.com/martitorras)
 
