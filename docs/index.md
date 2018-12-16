@@ -82,6 +82,10 @@ If god mode is activated:
 
 **Down arrow:** Move player down
 
+## Main core subsystems
+
+Our videogame is formed by the main module called "Application". This module "Application" has its sub-modules, which are: 1. Module Window, where the game window is created and setted up; 2. Module Textures, where we load , store and unload the textures of the videogame; 3. Module Render, where we render to the screen all the textures; 4. Module Audio, where we can play, load and unload music and special audio effects; 5. Module Input, where we read the input from the keyboard and mouse from the user. There are also other secondary modules in the same category as the previous ones, such as a Module Pathfinding, a Module Entity Manager and a GUI Manager. All of these secondary modules inherit from a sample Module template. We can also read and write .xml files. The user can load a .tmx file (Tile Map xml).
+
 ## Features
 
 Physics based in real life equations, producing a really dynamic player movement.
@@ -91,6 +95,10 @@ You can shoot a sword! The fun thing is, you can teleport to it conserving the k
 Improved playability by adding coins that the player needs to collect in order to get stronger and unlock the two main abilities.
 
 You can type your nickname on the start screen and you will see it in the game, while you are playing.
+
+## Notes
+
+You can access to the website by pressing our logo in the starting menu of the videogame.
 
 ## Credits
 
