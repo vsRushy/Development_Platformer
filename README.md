@@ -2,7 +2,7 @@
 
 ## About
 
-Welcome to our first ever Platformer, Little Big King! This is a project for the Video Game Development subject, in the first semester of our University degree.
+Welcome to our first ever Platformer, Little Big King! This is a project for the Video Game Development subject, in the first semester of our University degree. You will need to collect coins in order to unlock your two main abilities: the dash and the teleport!
 
 **GitHub repository:** [Development Platformer Repository](https://github.com/vsRushy/Development_Platformer)
 
@@ -31,6 +31,8 @@ Welcome to our first ever Platformer, Little Big King! This is a project for the
 **F5:** Save the current state
 
 **F6:** Load the previous state
+
+**F8:** Debug GUI
 
 **F9:** View colliders/logic
 
@@ -64,19 +66,21 @@ Marcos Freixas, Gerard.
 
 • GitHub account: [vsRushy](https://github.com/vsRushy)
 
-• What has he done: entity system, pathfinding, timing control, load/save.
+• What has he done: entity system, pathfinding, timing control, load/save, GUI.
 
 Torras Isanta, Martí.
 
 • GitHub account: [martitorras](https://github.com/martitorras)
 
-• What has he done: particles, player logic, delta time, Brofiler.
+• What has he done: particles, player logic, delta time, Brofiler, coins system.
 
 ## Features
 
 Physics based in real life equations, producing a really dynamic player movement.
 
 You can shoot a sword! The fun thing is, you can teleport to it conserving the kinematic energy of the jump.
+
+Improved playability by adding coins that the player needs to collect in order to get stronger and unlock the two main abilities.
 
 ## Credits
 
