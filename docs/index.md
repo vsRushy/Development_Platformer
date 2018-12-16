@@ -10,7 +10,7 @@ Welcome to our first ever Platformer, Little Big King! This is a project for the
 
 **Release:** [Release section](https://github.com/vsRushy/Development_Platformer/releases)
 
-<video src="Little_Big_King.mp4" width="320" height="200" controls preload></video>
+<video src="Little_Big_King.mp4" width="512" height="384" controls preload></video>
 
 ## Authors
 
@@ -24,7 +24,7 @@ Marcos Freixas, Gerard.
 
 Torras Isanta, Martí.
 
-<img src="marti_photo.JPG" width="500" />
+<img src="marti_photo.JPG" width="480" height="640"/>
 
 • GitHub account: [martitorras](https://github.com/martitorras)
 
