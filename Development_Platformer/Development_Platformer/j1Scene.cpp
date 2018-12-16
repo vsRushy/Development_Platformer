@@ -58,14 +58,7 @@ bool j1Scene::Start()
 	{
 		App->audio->PlayMusic(first_song.GetString());
 		bg = App->tex->Load("textures/background_start.png");
-		start_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 4.0f, 4.0f, { 0, 0, 47, 24 }, { 0, 24, 47, 24 }, { 0, 48, 47, 24 });
-		options_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 4.0f, 32.0f, { 141, 0, 47, 24 }, { 141, 24, 47, 24 }, { 141, 48, 47, 24 });
-		quit_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 4.0f, 60.0f, { 47, 0, 47, 24 }, { 47, 24, 47, 24 }, { 47, 48, 47, 24 });
-		introduce_name_label_gui = (GUILabel*)App->gui->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 150.0f, 220.0f, "Name:", { 0, 0, 0, 255 }, App->gui->default_font_used);
-		logo_gui = (GUIImage*)App->gui->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 424.0f, 358.0f, { 0, 0, 84, 22 });
-		game_name_logo_gui = (GUIImage*)App->gui->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 150.0f, 120.0f, { 0, 22, 264, 90 });
-		inputbox_gui = (GUIInputBox*)App->gui->CreateGUIInputBox(GUI_ELEMENT_TYPE::GUI_INPUTBOX, 150.0f, 235.0f, { 0, 0, 0, 255 }, App->gui->default_font_used, { 0, 0, 100, 24 });
-		credits_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 4.0f, 88.0f, { 232, 0, 47, 24 }, { 232, 24, 47, 24 }, { 232, 48, 47, 24 });
+		CreateStartingGUI();
 	}
 
 	if (start_game)
@@ -85,20 +78,11 @@ bool j1Scene::Start()
 
 			first_map_pos = App->map->data.ObjectPos("Player", "PlayerStartPos");
 
-			/* Add entities :) */
-			player = (Player*)App->entities->CreateEntity(ENTITY_TYPES::PLAYER, first_map_pos.x, first_map_pos.y);
-			enemy01air = (Enemy_level01_air*)App->entities->CreateEntity(ENTITY_TYPES::ENEMY_LEVEL01_AIR, 470, 200);
-			enemy01ground = (Enemy_level01_ground*)App->entities->CreateEntity(ENTITY_TYPES::ENEMY_LEVEL01_GROUND, 960, 779);
+			CreateLevel01Entities();
 			
 			player->number_of_coins = 0;
 
-			coins[0] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 450, 400);
-			coins[1] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 1119, 1053);
-			coins[2] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 2238, 1213);
-			coins[3] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 1718, 776);
-			coins[4] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 1439, 670);
-			coins[5] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 670, 766);
-			coins[6] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 640, 396);
+			CreateLevel01Coins();
 
 			player->position = first_map_pos;
 			player->previous_position = player->position;
@@ -110,33 +94,15 @@ bool j1Scene::Start()
 
 			second_map_pos = App->map->data.ObjectPos("Player", "PlayerStartPos");
 
-			player = (Player*)App->entities->CreateEntity(ENTITY_TYPES::PLAYER, second_map_pos.x, second_map_pos.y);
-			enemy02air = (Enemy_level01_air*)App->entities->CreateEntity(ENTITY_TYPES::ENEMY_LEVEL01_AIR, 2274, 992);
-			enemy02ground = (Enemy_level01_ground*)App->entities->CreateEntity(ENTITY_TYPES::ENEMY_LEVEL01_GROUND, 1280, 1131);
+			CreateLevel02Entities();
 
 			player->position = second_map_pos;
 			player->previous_position = player->position;
 
-			coins[0] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 1088, 1280);
-			coins[1] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 1282, 1190);
-			coins[2] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 2901, 1077);
-			coins[3] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 1536, 768);
-			coins[4] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 1025, 350);
-			coins[5] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 673, 223);
-			coins[6] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 2240, 416);
+			CreateLevel02Coins();
 		}
 
-		if (player_nickname_label == nullptr)
-			player_nickname_label = (GUILabel*)App->gui->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, player->position.x - PLAYER_SIZE_X + 17, player->position.y - PLAYER_SIZE_Y * 2,
-				player_name.GetString(), { 0, 0, 0, 255 }, App->gui->default_font_used);
-		
-		if (player_name.Length() > 0)
-		{
-			if (player_line_gui == nullptr)
-			{
-				player_line_gui = (GUIImage*)App->gui->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 260.0f, 190.0f, { 85, 0, 26, 10 });
-			}
-		}
+		CreatePlayerGUI();
 
 		if(player_coins == nullptr)
 			player_coins = (GUILabel*)App->gui->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 74.0f, 9.0f, "0", { 0, 0, 0, 255 }, App->gui->default_font_used);
@@ -171,72 +137,7 @@ bool j1Scene::Update(float dt)
 	{
 		start_game = true;
 		// Delete starting active GUI
-		if (start_button_gui != nullptr)
-		{
-			App->gui->DeleteGUIElement(start_button_gui);
-			start_button_gui = nullptr;
-		}
-		if (options_button_gui != nullptr)
-		{
-			App->gui->DeleteGUIElement(options_button_gui);
-			options_button_gui = nullptr;
-		}
-		if (quit_button_gui != nullptr)
-		{
-			App->gui->DeleteGUIElement(quit_button_gui);
-			quit_button_gui = nullptr;
-		}
-		if (introduce_name_label_gui != nullptr)
-		{
-			App->gui->DeleteGUIElement(introduce_name_label_gui);
-			introduce_name_label_gui = nullptr;
-		}
-		if (logo_gui != nullptr)
-		{
-			App->gui->DeleteGUIElement(logo_gui);
-			logo_gui = nullptr;
-		}
-		if (game_name_logo_gui != nullptr)
-		{
-			App->gui->DeleteGUIElement(game_name_logo_gui);
-			game_name_logo_gui = nullptr;
-		}
-		if (volume_up_button_gui != nullptr)
-		{
-			App->gui->DeleteGUIElement(volume_up_button_gui);
-			volume_up_button_gui = nullptr;
-		}
-		if (volume_down_button_gui != nullptr)
-		{
-			App->gui->DeleteGUIElement(volume_down_button_gui);
-			volume_down_button_gui = nullptr;
-		}
-		if (inputbox_gui != nullptr)
-		{
-			player_name = inputbox_gui->input_box_label->text.GetString();
-			App->gui->DeleteGUIElement(inputbox_gui);
-			inputbox_gui = nullptr;
-		}
-		if (credits_button_gui != nullptr)
-		{
-			App->gui->DeleteGUIElement(credits_button_gui);
-			credits_button_gui = nullptr;
-		}
-		if (start_volume_slider_gui != nullptr)
-		{
-			App->gui->DeleteGUIElement(start_volume_slider_gui);
-			start_volume_slider_gui = nullptr;
-		}
-		if (credits_label_license != nullptr)
-		{
-			App->gui->DeleteGUIElement(credits_label_license);
-			credits_label_license = nullptr;
-		}
-		if (credits_label_names != nullptr)
-		{
-			App->gui->DeleteGUIElement(credits_label_names);
-			credits_label_names = nullptr;
-		}
+		DeleteStartingGUI();
 
 		App->fade->FadeToBlack(this, this, 1.0f);
 	}
@@ -397,12 +298,211 @@ bool j1Scene::Update(float dt)
 	{
 		ShellExecuteA(NULL, "open", "https://vsrushy.github.io/Development_Platformer/", NULL, NULL, SW_SHOWNORMAL);
 	}
+
+	// Volume with keys +/-
+	CheckVolumeInput();
 	
 	// Check inputs pause menu
+	PauseMenuControl();
+
 	if (pause_quit_button_gui != nullptr && pause_quit_button_gui->has_been_clicked)
 	{
 		ret = false;
 	}
+
+	return ret;
+}
+
+// Called each loop iteration
+bool j1Scene::PostUpdate()
+{
+	bool ret = true;
+
+	if (quit_button_gui != nullptr && quit_button_gui->has_been_clicked)
+		ret = false;
+
+	PauseMenuWorkflow();
+	
+	return ret;
+}
+
+// Called before quitting
+bool j1Scene::CleanUp()
+{
+	LOG("Freeing scene");
+	App->map->Unload();
+	App->tex->UnLoad(debug_tex);
+	App->tex->UnLoad(bg);
+	App->tex->UnLoad(coins_image);
+
+	return true;
+}
+
+bool j1Scene::Load(pugi::xml_node& save)
+{
+	/*if (save.child("map_selected") != NULL)
+	{
+		// We want to load the map when we are not in the same map_selected index
+		if(save.child("map_selected").attribute("value").as_int() != map_selected)
+		{
+			map_selected = save.child("map_selected").attribute("value").as_int();
+			//App->fade->FadeToBlack(this, this, 2.0f);
+		}
+	}
+	isLoading = true;*/
+
+	return true;
+}
+
+bool j1Scene::Save(pugi::xml_node& save) const
+{
+	/*if (save.child("map_selected") == NULL)
+	{
+		save.append_child("map_selected").append_attribute("value") = map_selected;
+	}
+	else
+	{
+		save.append_child("map_selected").attribute("value") = map_selected;
+	}*/
+
+	return true;
+}
+
+void j1Scene::CreateStartingGUI()
+{
+	start_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 4.0f, 4.0f, { 0, 0, 47, 24 }, { 0, 24, 47, 24 }, { 0, 48, 47, 24 });
+	options_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 4.0f, 32.0f, { 141, 0, 47, 24 }, { 141, 24, 47, 24 }, { 141, 48, 47, 24 });
+	quit_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 4.0f, 60.0f, { 47, 0, 47, 24 }, { 47, 24, 47, 24 }, { 47, 48, 47, 24 });
+	introduce_name_label_gui = (GUILabel*)App->gui->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, 150.0f, 220.0f, "Name:", { 0, 0, 0, 255 }, App->gui->default_font_used);
+	logo_gui = (GUIImage*)App->gui->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 424.0f, 358.0f, { 0, 0, 84, 22 });
+	game_name_logo_gui = (GUIImage*)App->gui->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 150.0f, 120.0f, { 0, 22, 264, 90 });
+	inputbox_gui = (GUIInputBox*)App->gui->CreateGUIInputBox(GUI_ELEMENT_TYPE::GUI_INPUTBOX, 150.0f, 235.0f, { 0, 0, 0, 255 }, App->gui->default_font_used, { 0, 0, 100, 24 });
+	credits_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 4.0f, 88.0f, { 232, 0, 47, 24 }, { 232, 24, 47, 24 }, { 232, 48, 47, 24 });
+}
+
+void j1Scene::CreateLevel01Coins()
+{
+	coins[0] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 450, 400);
+	coins[1] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 1119, 1053);
+	coins[2] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 2238, 1213);
+	coins[3] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 1718, 776);
+	coins[4] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 1439, 670);
+	coins[5] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 670, 766);
+	coins[6] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 640, 396);
+}
+
+void j1Scene::CreateLevel02Coins()
+{
+	coins[0] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 1088, 1280);
+	coins[1] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 1282, 1190);
+	coins[2] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 2901, 1077);
+	coins[3] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 1536, 768);
+	coins[4] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 1025, 350);
+	coins[5] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 673, 223);
+	coins[6] = (Coins*)App->entities->CreateEntity(ENTITY_TYPES::COINS, 2240, 416);
+}
+
+void j1Scene::CreatePlayerGUI()
+{
+	if (player_nickname_label == nullptr)
+		player_nickname_label = (GUILabel*)App->gui->CreateGUILabel(GUI_ELEMENT_TYPE::GUI_LABEL, player->position.x - PLAYER_SIZE_X + 17, player->position.y - PLAYER_SIZE_Y * 2,
+			player_name.GetString(), { 0, 0, 0, 255 }, App->gui->default_font_used);
+
+	if (player_name.Length() > 0)
+	{
+		if (player_line_gui == nullptr)
+		{
+			player_line_gui = (GUIImage*)App->gui->CreateGUIImage(GUI_ELEMENT_TYPE::GUI_IMAGE, 260.0f, 190.0f, { 85, 0, 26, 10 });
+		}
+	}
+}
+
+void j1Scene::CreateLevel01Entities()
+{
+	player = (Player*)App->entities->CreateEntity(ENTITY_TYPES::PLAYER, first_map_pos.x, first_map_pos.y);
+	enemy01air = (Enemy_level01_air*)App->entities->CreateEntity(ENTITY_TYPES::ENEMY_LEVEL01_AIR, 470, 200);
+	enemy01ground = (Enemy_level01_ground*)App->entities->CreateEntity(ENTITY_TYPES::ENEMY_LEVEL01_GROUND, 960, 779);
+}
+
+void j1Scene::CreateLevel02Entities()
+{
+	player = (Player*)App->entities->CreateEntity(ENTITY_TYPES::PLAYER, second_map_pos.x, second_map_pos.y);
+	enemy02air = (Enemy_level01_air*)App->entities->CreateEntity(ENTITY_TYPES::ENEMY_LEVEL01_AIR, 2274, 992);
+	enemy02ground = (Enemy_level01_ground*)App->entities->CreateEntity(ENTITY_TYPES::ENEMY_LEVEL01_GROUND, 1280, 1131);
+}
+
+void j1Scene::DeleteStartingGUI()
+{
+	if (start_button_gui != nullptr)
+	{
+		App->gui->DeleteGUIElement(start_button_gui);
+		start_button_gui = nullptr;
+	}
+	if (options_button_gui != nullptr)
+	{
+		App->gui->DeleteGUIElement(options_button_gui);
+		options_button_gui = nullptr;
+	}
+	if (quit_button_gui != nullptr)
+	{
+		App->gui->DeleteGUIElement(quit_button_gui);
+		quit_button_gui = nullptr;
+	}
+	if (introduce_name_label_gui != nullptr)
+	{
+		App->gui->DeleteGUIElement(introduce_name_label_gui);
+		introduce_name_label_gui = nullptr;
+	}
+	if (logo_gui != nullptr)
+	{
+		App->gui->DeleteGUIElement(logo_gui);
+		logo_gui = nullptr;
+	}
+	if (game_name_logo_gui != nullptr)
+	{
+		App->gui->DeleteGUIElement(game_name_logo_gui);
+		game_name_logo_gui = nullptr;
+	}
+	if (volume_up_button_gui != nullptr)
+	{
+		App->gui->DeleteGUIElement(volume_up_button_gui);
+		volume_up_button_gui = nullptr;
+	}
+	if (volume_down_button_gui != nullptr)
+	{
+		App->gui->DeleteGUIElement(volume_down_button_gui);
+		volume_down_button_gui = nullptr;
+	}
+	if (inputbox_gui != nullptr)
+	{
+		player_name = inputbox_gui->input_box_label->text.GetString();
+		App->gui->DeleteGUIElement(inputbox_gui);
+		inputbox_gui = nullptr;
+	}
+	if (credits_button_gui != nullptr)
+	{
+		App->gui->DeleteGUIElement(credits_button_gui);
+		credits_button_gui = nullptr;
+	}
+	if (start_volume_slider_gui != nullptr)
+	{
+		App->gui->DeleteGUIElement(start_volume_slider_gui);
+		start_volume_slider_gui = nullptr;
+	}
+	if (credits_label_license != nullptr)
+	{
+		App->gui->DeleteGUIElement(credits_label_license);
+		credits_label_license = nullptr;
+	}
+	if (credits_label_names != nullptr)
+	{
+		App->gui->DeleteGUIElement(credits_label_names);
+		credits_label_names = nullptr;
+	}
+}
+
+void j1Scene::PauseMenuControl()
+{
 	if (continue_button_gui != nullptr && continue_button_gui->has_been_clicked)
 	{
 		if (App->game_pause)
@@ -450,12 +550,6 @@ bool j1Scene::Update(float dt)
 		credits_label_names = nullptr;
 	}
 
-	// Set volume
-	if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_DOWN)
-		App->audio->ControlVolume(true);
-	if (App->input->GetKey(SDL_SCANCODE_KP_MINUS) == KEY_DOWN)
-		App->audio->ControlVolume(false);
-
 	// Volume control 
 	if (volume_up_button_gui != nullptr && volume_up_button_gui->has_been_clicked)
 	{
@@ -474,9 +568,9 @@ bool j1Scene::Update(float dt)
 				pause_volume_up_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 274, 165.0f, { 188, 0, 22, 24 }, { 188, 24, 22, 24 }, { 188, 48, 22, 24 });
 			if (pause_volume_down_button_gui == nullptr)
 				pause_volume_down_button_gui = (GUIButton*)App->gui->CreateGUIButton(GUI_ELEMENT_TYPE::GUI_BUTTON, 297, 165.0f, { 210, 0, 22, 24 }, { 210, 24, 22, 24 }, { 210, 48, 22, 24 });
-			if(pause_volume_slider_gui == nullptr)
+			if (pause_volume_slider_gui == nullptr)
 				pause_volume_slider_gui = (GUISlider*)App->gui->CreateGUISlider(GUI_ELEMENT_TYPE::GUI_SLIDER, 320.0f, 150.0f, { 0, 0, 9, 51 }, { 0, 0, 7, 7 }, { 0, 7, 7, 7 }, { 0, 14, 7, 7 });
-		
+
 		}
 		if (!(pause_options_button_gui->has_been_clicked))
 		{
@@ -491,7 +585,7 @@ bool j1Scene::Update(float dt)
 			}
 		}
 
-		if(pause_volume_up_button_gui != nullptr && pause_volume_up_button_gui->has_been_clicked)
+		if (pause_volume_up_button_gui != nullptr && pause_volume_up_button_gui->has_been_clicked)
 			App->audio->ControlVolume(true);
 		if (pause_volume_down_button_gui != nullptr && pause_volume_down_button_gui->has_been_clicked)
 			App->audio->ControlVolume(false);
@@ -507,18 +601,19 @@ bool j1Scene::Update(float dt)
 		float volume_value = pause_volume_slider_gui->GetSliderValue() * 100;
 		App->audio->SetVolume(volume_value);
 	}
-
-	return ret;
 }
 
-// Called each loop iteration
-bool j1Scene::PostUpdate()
+void j1Scene::CheckVolumeInput()
 {
-	bool ret = true;
+	// Set volume
+	if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_DOWN)
+		App->audio->ControlVolume(true);
+	if (App->input->GetKey(SDL_SCANCODE_KP_MINUS) == KEY_DOWN)
+		App->audio->ControlVolume(false);
+}
 
-	if (quit_button_gui != nullptr && quit_button_gui->has_been_clicked)
-		ret = false;
-
+void j1Scene::PauseMenuWorkflow()
+{
 	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN && start_game)
 	{
 		App->game_pause = !App->game_pause;
@@ -569,48 +664,4 @@ bool j1Scene::PostUpdate()
 			pause_volume_slider_gui = nullptr;
 		}
 	}
-	
-	return ret;
-}
-
-// Called before quitting
-bool j1Scene::CleanUp()
-{
-	LOG("Freeing scene");
-	App->map->Unload();
-	App->tex->UnLoad(debug_tex);
-	App->tex->UnLoad(bg);
-	App->tex->UnLoad(coins_image);
-
-	return true;
-}
-
-bool j1Scene::Load(pugi::xml_node& save)
-{
-	/*if (save.child("map_selected") != NULL)
-	{
-		// We want to load the map when we are not in the same map_selected index
-		if(save.child("map_selected").attribute("value").as_int() != map_selected)
-		{
-			map_selected = save.child("map_selected").attribute("value").as_int();
-			//App->fade->FadeToBlack(this, this, 2.0f);
-		}
-	}
-	isLoading = true;*/
-
-	return true;
-}
-
-bool j1Scene::Save(pugi::xml_node& save) const
-{
-	/*if (save.child("map_selected") == NULL)
-	{
-		save.append_child("map_selected").append_attribute("value") = map_selected;
-	}
-	else
-	{
-		save.append_child("map_selected").attribute("value") = map_selected;
-	}*/
-
-	return true;
 }

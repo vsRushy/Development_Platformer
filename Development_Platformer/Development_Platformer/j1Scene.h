@@ -71,6 +71,18 @@ public:
 
 	bool start_game = false;
 
+private:
+	void CreateStartingGUI();
+	void CreateLevel01Entities();
+	void CreateLevel02Entities();
+	void CreateLevel01Coins();
+	void CreateLevel02Coins();
+	void CreatePlayerGUI();
+	void DeleteStartingGUI();
+	void PauseMenuControl();
+	void CheckVolumeInput();
+	void PauseMenuWorkflow();
+
 public:
 	Player* player;
 	Enemy_level01_air* enemy01air = nullptr;
